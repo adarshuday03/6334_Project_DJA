@@ -1,0 +1,35 @@
+﻿,1 week of sale,,,,,,,1 week of sale,,,,,
+,,Uniform dist,120,420,,,,,Uniform dist,120,420,,
+,,Expected sale=,270,,,,,,Expected sale=,270,,,
+,,,,,,,,,,,,,
+,,Cost=c=,$3 ,,,,,,Cost=c=,$3 ,,,
+,,Selling price=p=,$5 or $6,,,,,,Selling price=p=,$5 or $6,,,
+,,Refund fraction=,0.5,[0.25-0.75 scenarios],,,,,Refund fraction=,0.5,[0.25-0.75 scenarios],,
+,,Return shipping=,$0.50 ,per unit,,,,,Return shipping=,$0.50 ,per unit,,
+,,K=,$20 ,per order,,,,,K=,$20 ,per order,,
+,,Prize value=,"$40,000 ",,,,,,Prize value=,"$40,000 ",,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,at $6 selling price,,at 0.5 refund,,,,,at $5 selling price,,at 0.5 refund,,,
+,Co=,3-0.5*3+.5=,2,,,,,Co=,3-0.5*3+.5=,2,,,
+,Cu=,6-3=,3,,,,,Cu=,5-3=,2,,,
+,F(X*)=,Cu/(Cu+Co)=,0.6,,,,,F(X*)=,Cu/(Cu+Co)=,0.5,,,
+,,,,,,,,,,,,,
+,X*=,,300,,,,,X*=,,270,,,
+,Expected Sales=,,,,,246,,Expected Sales=,,,,,232.5
+,Expected left over=,54,a.,Expected revenue=,,1476,,Expected left over=,37.5,a.,Expected revenue=,,1162.5
+,,,b.,Salvage value of left over=,,$81.00 ,,,,b.,Salvage value of left over=,,$56.25 
+,,,c.,Shipping cost=,,($27.00),,,,c.,Shipping cost=,,($18.75)
+,,,d.,Ordering cost=,,($20),,,,d.,Ordering cost=,,($20)
+,,,e.,Variable buying cost=,,($900),,,,e.,Variable buying cost=,,($810)
+,,,,,Expected Profit=,a+b+c+d+e,,,,,,Expected Profit=,a+b+c+d+e
+,,,,,=,$610.00 ,,,,,,=,$370.00 
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+Would would happen if raising prices changes demand?,,,,,,,,,,,,,

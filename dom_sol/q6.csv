@@ -1,0 +1,26 @@
+﻿,,,,,,,,,,,,"Leisure Limited awards $40,000 to the stand with highest sales. SparkFire estimates a"
+a),"From 1,2,3 we have below X* at various Selling prices and fraction as refund",,,,,,,,,,,5% chance of winning if actual sales are ≥400 units. Other states use 3% if actual sales
+,,,X* at various fractions of refund,,,,,,,,,≥380 or 7% if actual sales ≥420 are mentioned as context.
+,,,0.25,0.5,0.75,,,,,,,(a) Modify your profit model to account for the possibility of awards.
+,Sellling Price,$5 ,246,270,305,,,,,,,(b) Find the new quantity Q∗∗ that maximizes total expected returns.
+,,$6 ,277,300,332,,,,,,,(c) Compare Q∗∗ to Q∗ (from Part 2) and discuss how this incentive scheme encourages
+,,,,,,,,,,,,risk-seeking or risk-averse behavior.
+,Now below are the changes of winning,,,,,,,,,,,
+,,,,,,,,,,,,
+,,Sales,Probability of winning,,Correspond X* ,,,,,,,
+,,>=400,5%,,Nil,,,,,,,
+,,>=380,3%,,Nil,,,,,,,
+,,>=420,7%,,Nil,,,,,,,
+,,,,,,,,,,,,
+,Lets find X* with below add ons,,,,,,,,,,,
+,"1. Assuming sales >=400, then Addional revenue=40000*.05=",,,,,2000,overall; So per unit on 400 (minimum qty)=,,,,5,$per unit
+,So Cu=5+5-3=,,7,,,,,,,,,
+,Co=3-0.5*3+.5=,,2,,,,,,,,,
+,So F(X*)=,,0.777777778,,,,,,,,,
+,X*=,,353.3333333,,at 0.5 refund fraction,,,,,,,
+,,,,,,,,,,,,
+,"1. Assuming X* >=380, then Addional revenue=40000*.03=",,,,,1200,overall; So per unit on 380 (minimum qty)=,,,,3.2,$per unit
+,So Cu=5+3.2-3=,,5.2,,,,,,,,,
+,Co=3-0.5*3+.5=,,2,,,,,,,,,
+,So F(X*)=,,0.722222222,,,,,,,,,
+,X*=,,336.6666667,,at 0.5 refund fraction,,,,,,,

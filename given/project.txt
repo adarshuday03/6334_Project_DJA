@@ -1,0 +1,199 @@
+ISyE 6334 – Group Project (Fall 2025)
+Due: December 9, 2025 Teams: Up to 3 students
+Submission: Upload a single PDF containing an executive summary (2–3 pages) and
+appendices (spreadsheets, screenshots, and code from Excel/Python/Matlab/R).
+
+The SparkFire Venture
+Background
+You are analysts at SparkFire LLC, a Georgia-based distributor of fireworks. The
+wholesaler Leisure Limited supplies temporary roadside stands for the July 4 season.
+Participants purchase inventory, sell it during the week before the holiday, and return
+unsold boxes for a partial refund.
+Returned boxes lose quality, so only part of the wholesale cost is refunded. To encourage competition, Leisure Limited offers a Corvette Prize to the stand with the highest
+statewide sales volume.
+Your supervisor, Talia Rogers, has asked you to determine how many firecracker sets
+to order and to analyze how pricing, refund policy, discounts, and contextual information
+affect profit and risk.
+
+Base Market and Cost Information
+Item Symbol Base Value Notes
+Wholesale cost c $3.00 before discount
+Selling price p $5 or $6 decision variable
+Refund fraction f 0.50 scenarios 0.25–0.75
+Return shipping s $0.50 per unit
+Administrative fee K $20 per order
+Prize value V $40,000 Corvette reward
+Discount tiers – see Part 7 wholesale reductions
+Demand: Uniform(120, 420) sets; independent of price in the base case.
+
+Interpreting Ambiguity
+Real projects contain imperfect information. Some details are intentionally slightly ambiguous (e.g., prize thresholds, signal accuracy). Identify the ambiguity, state a reasonable
+assumption, and justify it (1–3 sentences). There is no single “correct” interpretation—
+grading emphasizes the quality and consistency of your reasoning.
+
+The Assignment (100 Points Total)
+Part Topic Points
+1 Conceptual Analysis 5
+2 Optimal Order Quantity 7
+3 Refund Sensitivity 7
+4 Pricing Decision 8
+5 Risk & Simulation 12
+6 Behavioral Incentive (Prize) 13
+7 Quantity Discounts 13
+8 Context Signal & Deferred Purchasing 20
+9 Open-ended discussions 20
+Total 100
+
+1 – Conceptual Analysis (5 pts)
+Should the optimal order quantity exceed, equal, or fall below expected demand (midpoint
+= 270)? Explain using overage vs. underage trade-offs without first calculating the
+optimal Q.
+
+2 – Optimal Order Quantity (7 pts)
+Determine the optimal order quantity (Q∗
+) that maximizes expected profit, assuming
+p = $5 and f = 0.5. Show your newsvendor model, profit equation, and numeric result.
+Reflection (≤ 100 words): Identify one significant limitation of the uniform-demand
+assumption and how a different distribution (e.g., Normal or Lognormal) could bias Q∗
+or expected profit.
+
+3 – Refund Sensitivity (7 pts)
+Re-compute Q∗
+for refund rates f = 25% and f = 75%. Discuss how refund generosity
+affects the optimal order quantity, expected profit, and SparkFire’s financial risk.
+
+4 – Pricing Decision (8 pts)
+Assume demand is not affected by price. Find the new optimal quantity Q∗
+if the price
+is set to p = $6 (with f = 0.5). Compare the expected profits of the (p = $5, Q∗
+p=5) and
+(p = $6, Q∗
+p=6) policies and recommend a course of action.
+Reflection (≤ 50 words): Briefly comment on how your p = $6 policy might change if
+raising the price decreased demand (no calculation needed).
+
+5 – Risk & Simulation (12 pts)
+Using the optimal policy from Part 2 (p = $5, Q∗
+), simulate ≥ 500 trials of demand and
+profit. Report the mean profit, standard deviation of profit, and the probability of a loss
+(profit < 0). Propose one risk-mitigation strategy based on your findings.
+Local Reflection (≤ 75 words): How might Georgia’s weather (e.g., a very rainy June) or
+local regulations (e.g., a last-minute fireworks ban in a major county) affect your results?
+
+6 – Behavioral Incentive (13 pts)
+Leisure Limited awards $40,000 to the stand with highest sales. SparkFire estimates a
+5% chance of winning if actual sales are ≥ 400 units. Other states use 3% if actual sales
+≥ 380 or 7% if actual sales ≥ 420 are mentioned as context.
+(a) Modify your profit model to account for the possibility of awards.
+(b) Find the new quantity Q∗∗ that maximizes total expected returns.
+(c) Compare Q∗∗ to Q∗
+(from Part 2) and discuss how this incentive scheme encourages
+risk-seeking or risk-averse behavior.
+Assumption & Reflection (≤ 150 words): State which prize rule you used (e.g., the 5%
+@ 400) and why. Discuss the limitation of adding a small expected value to the model
+versus the behavioral desire to win a $40,000 prize.
+
+7 – Quantity Discounts (13 pts)
+The wholesaler offers all-units discounts. The unit cost c changes based on the total Q
+ordered:
+Order Qty Unit Cost (c)
+1–199 $3.00
+200–399 $2.85
+400+ $2.70
+(a) Modify your profit model to account for the piecewise cost function.
+(b) Find the new optimal quantity Q∗
+d
+(for p = $5, f = 0.5).
+(c) Compare Q∗
+d
+and its expected profit to the Q∗ and profit from Part 2.
+(d) Briefly explain how quantity discounts can help coordinate a supply chain.
+
+8 – Context Signal & Deferred Purchasing (20 pts)
+A market signal (S ∈ {High, Low}) becomes available after the initial order. P(High) =
+0.45.
+D|S = High ∼ U[240, 420], D|S = Low ∼ U[120, 260].
+Two-stage process:
+• Pre-season: Commit to an initial order (Q0) at the base cost c0 = $3.00.
+• In-season: After seeing signal S, place a second, expedited top-up order (Q1(S)) at
+a premium cost c1 = $3.60.
+Refund (f = 0.5) and shipping (s = 0.5) terms are unchanged.
+(a) Formulate the profit function π(Q0, Q1(·)).
+(b) First, determine the optimal total inventory Q∗
+S
+for each signal S (Q∗
+H and Q∗
+L
+) using
+the second-stage costs. This defines the optimal policy Q∗
+1
+(S) = max(0, Q∗
+S − Q0).
+(c) Second, optimize the initial Q0. Find the Q∗
+0
+that maximizes the total expected profit
+across both scenarios. Report the full policy (Q∗
+0
+, Q∗
+1
+(High), Q∗
+1
+(Low)) and the total
+expected profit.
+(d) Compute the Value of Signal and Reactive Capacity (VOSRC) using:
+VOSRC = [Full Model Profit] − [Baseline Profit],
+where Baseline Profit is your optimal expected profit from Part 2 and Full Model Profit
+is your optimal expected profit from Part 8(c).
+Justification (≤ 4 sentences): Based on your VOSRC, when is paying the expedited
+premium rational given the quality of this signal?
+
+9 – Open-Ended Discussion (Choose 2 out of 4, each worth 10
+points out of 100)
+Tie your answers to your analysis (Parts 2–8) and SparkFire’s context.
+OE1. Contract Design. Propose a simple two-parameter contract (e.g., buyback + quantityflex or buyback + penalty) that aligns SparkFire and Leisure Limited incentives. Explain how it changes overage/underage trade-offs (Co, Cu) and what data you’d need
+to set parameters.
+OE2. Prize Mechanism Redesign. The Corvette prize can induce over-ordering. Redesign the incentive (e.g., prize based on profit, sell-through rate, or tiered thresholds)
+to reduce waste while preserving motivation. Explain expected behavioral changes.
+4
+OE3. Two-Stand Allocation. Suppose SparkFire operates two nearby stands and can
+rebalance limited inventory on July 3. Outline an allocation/hedging heuristic and
+the conditions under which pooling materially improves profit.
+OE4. Negotiation Playbook. If you could change one term—refund fraction f, shipping
+s, or expedited cost c1—which gives the largest improvement per unit change? Support
+with a brief sensitivity argument referencing your results (e.g., effects on VOSRC or
+Q∗
+).
+
+
+Deliverables
+1. Executive Summary (2–3 pages)
+State all assumptions and how ambiguities were resolved. Summarize key results
+(Q∗
+, Q∗∗, Q∗
+d
+, Q∗
+0
+, Q∗
+1
+(·)). Include reflections from Parts 2, 4, 5, 6, and 8, and your
+responses to any two Open-Ended prompts ).
+2. Technical Appendix
+Intermediate tables (expected sales, refunds, profits by Q). Simulation settings (≥ 500
+runs, seed if used). At least one Excel formula-view screenshot showing actual cell
+formulas.
+3. Reproducibility Notes
+List software version, random-number method, and replication instructions
+
+Submission Checklist
+• Executive summary (2–3 pages)
+• Assumptions clearly stated and justified
+• Formula-view screenshot included
+• ≥ 500 simulation trials
+• Reflections completed (Parts 2, 4, 5, 6, 8)
+• Two Open-Ended responses
+• File named SparkFire TeamMemberLastNames## Final.pdf
+
+Academic Integrity
+Use of generative-AI tools for numerical or explanatory answers is not permitted. All
+modeling, logic, and spreadsheets must be your team’s own work. Clearly state your
+assumptions and include formula screenshots as proof of authorship.

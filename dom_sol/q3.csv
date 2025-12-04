@@ -1,0 +1,24 @@
+﻿1 week of sale,,,,
+,Uniform dist,120,420,
+,Expected sale=,270,,
+,,,,
+,Cost=c=,$3 ,,
+,Selling price=p=,$5 or $6,,
+,Refund fraction=,0.5,[0.25-0.75 scenarios],
+,Return shipping=,$0.50 ,per unit,
+,K=,$20 ,per order,
+,Prize value=,"$40,000 ",,
+,,,,
+,,,,
+at $5 selling price,,at 0.25 refund,,at 0.75 refund
+Co=,3-0.25*3+.5=,2.75,3-0.75*3+.5=,1.25
+Cu=,5-3=,2,,2
+F(X*)=,Cu/(Cu+Co)=,0.421052632,,0.615384615
+,,,,
+,,246.3157895,,304.6153846
+at $6 selling price,,,,
+Co=,3-0.25*3+.5=,2.75,3-0.75*3+.5=,1.25
+Cu=,6-3=,3,,3
+F(X*)=,Cu/(Cu+Co)=,0.52173913,,0.705882353
+,,,,
+"X*$6,0.25=",,276.5217391,,331.7647059
