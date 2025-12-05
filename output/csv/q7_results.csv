@@ -1,0 +1,25 @@
+Part 7 - Quantity Discounts
+
+Discount Tiers
+Min Qty,Max Qty,Unit Cost
+1,199,$3.00
+200,399,$2.85
+400,inf,$2.70
+
+Tier Analysis
+Tier,Unit Cost,Co,Cu,Crit Ratio,Unconstrained Q*,In Range
+1-199,$3.00,$2.00,$2.00,0.5000,270.00,No
+200-399,$2.85,$1.93,$2.15,0.5276,278.28,Yes
+400-inf,$2.70,$1.85,$2.30,0.5542,286.27,No
+
+Candidate Solutions
+Q,Unit Cost,Expected Sales,Expected Leftover,Expected Profit,Reason
+199.0,$3.00,188.60,10.40,$336.39,Tier maximum
+278.3,$2.85,236.53,41.76,$408.15,Q* within tier
+400.0,$2.70,269.33,130.67,$357.73,Tier minimum (breakpoint)
+
+Optimal Solution
+Q*_d,278
+Unit Cost,$2.85
+Expected Profit,$408.15
+Improvement over baseline,$38.15

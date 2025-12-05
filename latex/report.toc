@@ -1,0 +1,15 @@
+\contentsline {section}{\numberline {1}Executive Summary}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Assumptions and Ambiguity Resolution}{3}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}Model Assumptions}{3}{subsubsection.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.2}Ambiguity Resolutions}{3}{subsubsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.2}Summary of Key Results}{4}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Part-by-Part Analysis}{4}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Parts 1--2: Baseline Newsvendor}{4}{subsubsection.1.3.1}%
+\contentsline {subsubsection}{\numberline {1.3.2}Part 3: Refund Sensitivity}{4}{subsubsection.1.3.2}%
+\contentsline {subsubsection}{\numberline {1.3.3}Part 4: Pricing Decision}{5}{subsubsection.1.3.3}%
+\contentsline {subsubsection}{\numberline {1.3.4}Part 5: Monte Carlo Simulation}{5}{subsubsection.1.3.4}%
+\contentsline {subsubsection}{\numberline {1.3.5}Part 6: Corvette Prize Incentive}{5}{subsubsection.1.3.5}%
+\contentsline {subsubsection}{\numberline {1.3.6}Part 7: Quantity Discounts}{5}{subsubsection.1.3.6}%
+\contentsline {subsubsection}{\numberline {1.3.7}Part 8: Two-Stage Ordering with Demand Signal}{5}{subsubsection.1.3.7}%
+\contentsline {subsection}{\numberline {1.4}Managerial Insights}{6}{subsection.1.4}%
+\contentsline {section}{\numberline {2}Open-Ended Discussion}{6}{section.2}%

@@ -1,0 +1,6 @@
+Part 3 - Refund Sensitivity Analysis
+
+Refund Rate (f),Co,Cu,Critical Ratio,Q*,Expected Sales,Expected Leftover,Expected Profit
+0.25,$2.75,$2.00,0.4211,246.32,219.72,26.59,$346.32
+0.50,$2.00,$2.00,0.5000,270.00,232.50,37.50,$370.00
+0.75,$1.25,$2.00,0.6154,304.62,247.81,56.80,$404.62

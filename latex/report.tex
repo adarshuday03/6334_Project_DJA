@@ -1,0 +1,348 @@
+\documentclass[12pt,letterpaper]{article}
+
+% Package imports
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{float}
+
+% Color definitions
+\definecolor{primaryblue}{RGB}{0,51,102}
+\definecolor{accentred}{RGB}{153,0,0}
+\definecolor{lightgray}{RGB}{240,240,240}
+\definecolor{tableheader}{RGB}{0,51,102}
+
+% Section formatting with colored titles and rules (no numbers displayed)
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{primaryblue}}
+  {}{0em}{}
+  [\vspace{-0.3ex}\textcolor{primaryblue}{\titlerule[1.5pt]}]
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{accentred}}
+  {}{0em}{}
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\color{primaryblue}}
+  {}{0em}{}
+
+% Compact spacing for all heading levels
+\titlespacing*{\section}{0pt}{1.2ex plus 0.4ex minus 0.2ex}{0.25ex plus 0.1ex}
+\titlespacing*{\subsection}{0pt}{1ex plus 0.3ex minus 0.1ex}{0.25ex plus 0.1ex}
+\titlespacing*{\subsubsection}{0pt}{0.8ex plus 0.2ex minus 0.1ex}{0.2ex plus 0.1ex}
+
+% Hyperlink colors
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primaryblue,
+    citecolor=primaryblue,
+    urlcolor=primaryblue
+}
+
+% Custom list formatting - compact professional style
+\setlist[itemize]{leftmargin=*, itemsep=0.1em, parsep=0em, topsep=0.3em}
+\setlist[enumerate]{leftmargin=*, itemsep=0.1em, parsep=0em, topsep=0.3em}
+
+% Set compact paragraph spacing
+\setlength{\parskip}{0.15em}
+\setlength{\parindent}{0pt}
+
+% Enable section numbering internally but hide from display
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% Remove numbers from table of contents
+\makeatletter
+\renewcommand{\numberline}[1]{}
+\makeatother
+
+% Custom commands
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+
+% Title page information
+\title{
+  \vspace{-1.5em}
+  {\color{primaryblue}\Huge\textbf{SparkFire LLC}}\\
+  \vspace{0.5em}
+  {\color{accentred}\Large\textit{Newsvendor Analysis for Fireworks Distribution}}\\
+  \vspace{0.8em}
+  \textcolor{primaryblue}{\rule{0.85\textwidth}{2.5pt}}\\
+  \vspace{0.8em}
+  {\color{primaryblue}\LARGE\textbf{Optimal Order Quantity Decisions}}\\
+  {\color{primaryblue}\LARGE\textbf{Under Demand Uncertainty}}\\
+  \vspace{0.8em}
+  \textcolor{primaryblue}{\rule{0.85\textwidth}{2.5pt}}
+}
+
+\author{
+  \vspace{0.5em}
+  {\color{accentred}\Large\textbf{Team DJA}}\\
+  \vspace{0.8em}
+  \begin{tabular}{rl}
+    Dominic Jose & \href{mailto:djose35@gatech.edu}{djose35@gatech.edu}\\[0.2em]
+    Jatin Patel & \href{mailto:jpatel706@gatech.edu}{jpatel706@gatech.edu}\\[0.2em]
+    Adarsh Uday & \href{mailto:auday8@gatech.edu}{auday8@gatech.edu}
+  \end{tabular}\\
+  \vspace{1em}
+  \textcolor{primaryblue}{\rule{0.85\textwidth}{2.5pt}}\\
+  \vspace{0.8em}
+  {\large ISyE 6334 - Stochastic OR for Supply Chain Engineering}\\
+  \vspace{0.2em}
+  {\large Fall 2025}\\
+  \vspace{0.2em}
+  {\large under Prof.\ Xin Chen}\\
+  \textcolor{primaryblue}{\rule{0.85\textwidth}{2.5pt}}\\
+  \vspace{0.5em}\\
+  \includegraphics[height=1.5cm]{images/gt.png}\\
+  \vspace{0.3em}\\
+  {\small Georgia Institute of Technology}\\
+  {\small H. Milton Stewart School of Industrial \& Systems Engineering}
+}
+
+\date{December 4, 2025}
+
+\begin{document}
+
+% Title page
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+% Table of Contents
+\tableofcontents
+\newpage
+
+%==============================================================================
+\section{Executive Summary}
+%==============================================================================
+
+This report presents a comprehensive Newsvendor analysis for SparkFire LLC, a fireworks distributor facing demand uncertainty for its ``Seventh Heaven'' sparkler product. We analyze optimal order quantities under various business scenarios including pricing decisions, promotional incentives, quantity discounts, and advance demand signals.
+
+%------------------------------------------------------------------------------
+\subsection{Assumptions and Ambiguity Resolution}
+%------------------------------------------------------------------------------
+
+\subsubsection{Model Assumptions}
+
+\begin{itemize}
+    \item Demand $D$ follows a continuous Uniform distribution on $[120, 420]$ cases
+    \item Single-period horizon: no multi-period inventory carryover
+    \item Risk-neutral decision maker maximizing expected profit
+    \item All costs and revenues are deterministic (no price/cost uncertainty)
+    \item Fixed ordering cost $K = \$20$ is incurred regardless of order size
+    \item Unsold inventory is returned for partial refund at fraction $f$ of cost
+    \item Salvage value $s = \$0.50$ per case for leftover units (after refund)
+\end{itemize}
+
+\subsubsection{Ambiguity Resolutions}
+
+\begin{enumerate}
+    \item \textcolor{accentred}{Overage Cost Interpretation:} We define
+    \[
+    C_o = c(1-f) + s = 3(1-0.5) + 0.5 = \$2.00
+    \]
+    This represents the net loss per unsold unit: cost minus refund, plus salvage revenue (which reduces loss).
+
+    \item \textcolor{accentred}{Continuous vs.\ Discrete Demand:} The problem states demand is uniform on $[120,420]$. For Parts 1--4 and 6--8, we treat demand as continuous. For Part 5 (simulation), we use integer demand $D \in \{120, 121, \ldots, 420\}$ uniformly.
+
+    \item \textcolor{accentred}{Prize Eligibility (Part 6):} The Corvette prize requires sales $\geq 400$ cases. We interpret this as a threshold constraint: ordering $Q < 400$ guarantees zero prize probability. Ordering $Q \geq 400$ yields $P(\text{win}) = 0.05 \times P(D \geq 400)$.
+
+    \item \textcolor{accentred}{Quantity Discount Tiers (Part 7):} Discounts apply to total order quantity, not marginal units. The effective cost is:
+    \[
+    c(Q) = \begin{cases}
+    \$3.00 & \text{if } Q \in [1, 199]\\
+    \$2.85 & \text{if } Q \in [200, 399]\\
+    \$2.70 & \text{if } Q \geq 400
+    \end{cases}
+    \]
+
+    \item \textcolor{accentred}{Two-Stage Signal (Part 8):} The demand signal is received \textit{after} pre-season order $Q_0$ but \textit{before} expedited order $Q_1$. Conditional distributions:
+    \begin{itemize}
+        \item High signal ($P = 0.45$): $D \mid \text{High} \sim U[240, 420]$
+        \item Low signal ($P = 0.55$): $D \mid \text{Low} \sim U[120, 260]$
+    \end{itemize}
+
+    \item \textcolor{accentred}{VOSRC Definition:} Value of Signal Responsive Capability equals the profit gain from the two-stage model over a baseline single-stage model with \textit{the same} pre-season cost $c_0 = \$3.00$.
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+\subsection{Summary of Key Results}
+%------------------------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{l c c l}
+\toprule
+\textcolor{primaryblue}{\textbf{Scenario}} & \textcolor{primaryblue}{\textbf{Optimal $Q$}} & \textcolor{primaryblue}{\textbf{E[Profit]}} & \textcolor{primaryblue}{\textbf{Notes}}\\
+\midrule
+Baseline ($p=\$5$, $f=0.5$) & \textcolor{primaryblue}{$Q^* = 270$} & \textcolor{accentred}{\$370} & Critical ratio = 0.50\\
+Higher price ($p=\$6$) & \textcolor{primaryblue}{$Q^* = 300$} & \textcolor{accentred}{\$610} & Critical ratio = 0.60\\
+With Corvette prize & \textcolor{primaryblue}{$Q^{**} = 400$} & \textcolor{accentred}{\$391} & Threshold strategy\\
+Quantity discounts & \textcolor{primaryblue}{$Q^*_d = 278$} & \textcolor{accentred}{\$408} & Uses \$2.85 tier\\
+\midrule
+\multicolumn{4}{l}{\textit{\textcolor{accentred}{Two-Stage Model (Part 8)}}}\\
+\midrule
+Pre-season order & \textcolor{primaryblue}{$Q^*_0 = 207$} & --- & Before signal\\
+Expedited (High signal) & \textcolor{primaryblue}{$Q^*_1(\text{H}) = 101$} & --- & Total = 308\\
+Expedited (Low signal) & \textcolor{primaryblue}{$Q^*_1(\text{L}) = 0$} & --- & Total = 207\\
+Two-stage profit & --- & \textcolor{accentred}{\$366.56} & Combined\\
+VOSRC & --- & \textcolor{accentred}{$-\$3.40$} & Signal not valuable\\
+\bottomrule
+\end{tabular}
+\caption{Summary of optimal order quantities and expected profits across scenarios.}
+\label{tab:summary}
+\end{table}
+
+%------------------------------------------------------------------------------
+\subsection{Part-by-Part Analysis}
+%------------------------------------------------------------------------------
+
+\subsubsection{Parts 1--2: Baseline Newsvendor}
+
+With $p = \$5$, $c = \$3$, $f = 0.5$, $s = \$0.5$:
+\begin{align*}
+C_u &= p - c = 5 - 3 = \$2 \quad \text{(underage cost)}\\
+C_o &= c(1-f) + s = 3(0.5) + 0.5 = \$2 \quad \text{(overage cost)}\\
+\text{Critical ratio} &= \frac{C_u}{C_u + C_o} = \frac{2}{4} = 0.50
+\end{align*}
+
+For $D \sim U[120, 420]$: $Q^* = 120 + 0.50 \times 300 = \boxed{270}$ cases.
+
+Expected profit: $\E[\Pi(Q^*)] = \$370$.
+
+\subsubsection{Part 3: Refund Sensitivity}
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Refund $f$ & $Q^*$ & $\E[\Pi]$\\
+\midrule
+0.25 & 246 & \$342\\
+0.50 & 270 & \$370\\
+0.75 & 305 & \$407\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Higher refund rates reduce overage cost, encouraging larger orders. Each 25pp increase in $f$ raises $Q^*$ by approximately 24--35 units.
+
+\subsubsection{Part 4: Pricing Decision}
+
+At $p = \$6$: $C_u = 3$, critical ratio = $3/(3+2) = 0.60$, yielding $Q^* = 300$.
+
+Expected profit increases from \$370 to \$610 (+65\%). The higher price justifies stocking more inventory despite the same demand distribution.
+
+\subsubsection{Part 5: Monte Carlo Simulation}
+
+Using 500 replications with integer demand $D \in \{120, \ldots, 420\}$:
+
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Metric & Value\\
+\midrule
+Mean profit & \$373\\
+Std deviation & \$194\\
+P(Loss) & 6.8\%\\
+5th percentile & \$36\\
+95th percentile & \$670\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The simulation confirms theoretical expected profit (\$370) and reveals substantial variability ($\sigma = \$194$).
+
+\subsubsection{Part 6: Corvette Prize Incentive}
+
+The \$40,000 Corvette (5\% probability if sales $\geq 400$) creates a non-convex profit function. Two strategies:
+
+\begin{itemize}
+    \item \textit{Baseline}: $Q^* = 270$, $\E[\Pi] = \$370$ (no prize eligibility)
+    \item \textit{Prize-seeking}: $Q^{**} = 400$, $\E[\Pi] = \$391$ (includes prize EV)
+\end{itemize}
+
+Optimal decision: Order 400 cases. The expected prize contribution (\$66.67) outweighs the overage cost increase.
+
+\subsubsection{Part 7: Quantity Discounts}
+
+Evaluating each tier:
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+Tier & Cost & Optimal $Q$ & $\E[\Pi]$\\
+\midrule
+\$3.00 & 1--199 & 195 (capped) & \$357\\
+\$2.85 & 200--399 & 278 & \$408\\
+\$2.70 & 400+ & 400 (floor) & \$398\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The middle tier ($Q^*_d = 278$ at \$2.85) maximizes profit. The deepest discount tier forces too much inventory, increasing overage risk.
+
+\subsubsection{Part 8: Two-Stage Ordering with Demand Signal}
+
+Pre-season cost $c_0 = \$3.00$; expedited cost $c_1 = \$3.60$.
+
+\textit{Stage 1 (before signal):} Order $Q^*_0 = 207$ cases.
+
+\textit{Stage 2 (after signal):}
+\begin{itemize}
+    \item High demand signal: $Q^*_1(\text{H}) = 101$ additional cases (total 308)
+    \item Low demand signal: $Q^*_1(\text{L}) = 0$ additional cases (total 207)
+\end{itemize}
+
+Expected profit: \$366.56. Baseline (no signal): \$370.00.
+
+\textcolor{accentred}{VOSRC = $-\$3.40$}: The signal capability destroys value because the 20\% expedited premium ($\$3.60$ vs \$3.00) outweighs the benefit of demand information. SparkFire should not adopt this two-stage approach.
+
+%------------------------------------------------------------------------------
+\subsection{Managerial Insights}
+%------------------------------------------------------------------------------
+
+\begin{enumerate}
+    \item The baseline order of 270 cases balances underage and overage risks equally (critical ratio = 0.5).
+    
+    \item Price increases have substantial leverage: a \$1 price increase raises optimal profit by 65\%.
+    
+    \item The Corvette promotion effectively shifts optimal behavior from 270 to 400 cases---a 48\% increase in order quantity.
+    
+    \item Quantity discounts should be evaluated holistically; the deepest discount is not always optimal.
+    
+    \item Demand signal value depends critically on expedited cost premiums. Here, the 20\% premium makes the signal worthless.
+\end{enumerate}
+
+\vspace{2em}
+
+%==============================================================================
+\section{Open-Ended Discussion}
+%==============================================================================
+
+% Placeholder for OE responses (pick 2 from OE1--OE4)
+
+\textit{[This section will contain responses to two selected open-ended questions from OE1--OE4. Space reserved for detailed analysis.]}
+
+\vspace{3cm}
+
+%==============================================================================
+% Future sections placeholder
+%==============================================================================
+
+% \section{Technical Appendix}
+% \section{Python Code}
+% \section{Reproducibility Notes}
+
+\end{document}
