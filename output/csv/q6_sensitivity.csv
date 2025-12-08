@@ -1,0 +1,23 @@
+Part 6 - Sensitivity Analysis
+
+Scenario Analysis
+Scenario,Q**,Total E[Profit]
+A: 5% @ 400 only,400,$390.67
+B: Multi-threshold (5%@400 + 3%@380),400,$550.67
+C: 7% @ 420 only,270,$370.00
+
+Probability Sensitivity (threshold=400)
+P(win),Q**,Total E[Profit],% Increase vs Baseline
+0.01,270,$370.00,0.0%
+0.03,270,$370.00,0.0%
+0.05,400,$390.67,5.6%
+0.07,400,$444.00,20.0%
+0.10,400,$524.00,41.6%
+
+Prize Amount Sensitivity (P=5% @ 400)
+Prize Amount,Q**,Total E[Profit]
+$20000,270,$370.00
+$30000,270,$370.00
+$40000,400,$390.67
+$60000,400,$457.33
+$80000,400,$524.00

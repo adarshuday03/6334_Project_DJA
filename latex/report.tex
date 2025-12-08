@@ -146,36 +146,19 @@ This report presents a comprehensive Newsvendor analysis for SparkFire LLC, a fi
     \item Salvage value $s = \$0.50$ per case for leftover units (after refund)
 \end{itemize}
 
-\subsubsection{Ambiguity Resolutions}
+\subsubsection{Key Ambiguity Resolutions}
 
-\begin{enumerate}
-    \item \textcolor{accentred}{Overage Cost Interpretation:} We define
-    \[
-    C_o = c(1-f) + s = 3(1-0.5) + 0.5 = \$2.00
-    \]
-    This represents the net loss per unsold unit: cost minus refund, plus salvage revenue (which reduces loss).
+Where the problem statement contains ambiguity, we state our interpretation clearly in the relevant analysis section. Brief summary:
 
-    \item \textcolor{accentred}{Continuous vs.\ Discrete Demand:} The problem states demand is uniform on $[120,420]$. For Parts 1--4 and 6--8, we treat demand as continuous. For Part 5 (simulation), we use integer demand $D \in \{120, 121, \ldots, 420\}$ uniformly.
+\begin{itemize}
+    \item \textbf{Overage cost definition:} Net loss per unsold unit including refund and shipping (detailed in Part 2)
+    \item \textbf{Continuous vs discrete demand:} Continuous for analytical work, discrete for simulation (detailed in Part 5)
+    \item \textbf{Prize structure:} Multi-threshold non-exclusive categories (detailed in Part 6)
+    \item \textbf{Two-stage timeline:} Orders received before sales commence (detailed in Part 8)
+    \item \textbf{VOSRC baseline:} Compared against single-stage model at same pre-season cost (detailed in Part 8)
+\end{itemize}
 
-    \item \textcolor{accentred}{Prize Eligibility (Part 6):} The Corvette prize requires sales $\geq 400$ cases. We interpret this as a threshold constraint: ordering $Q < 400$ guarantees zero prize probability. Ordering $Q \geq 400$ yields $P(\text{win}) = 0.05 \times P(D \geq 400)$.
-
-    \item \textcolor{accentred}{Quantity Discount Tiers (Part 7):} Discounts apply to total order quantity, not marginal units. The effective cost is:
-    \[
-    c(Q) = \begin{cases}
-    \$3.00 & \text{if } Q \in [1, 199]\\
-    \$2.85 & \text{if } Q \in [200, 399]\\
-    \$2.70 & \text{if } Q \geq 400
-    \end{cases}
-    \]
-
-    \item \textcolor{accentred}{Two-Stage Signal (Part 8):} The demand signal is received \textit{after} pre-season order $Q_0$ but \textit{before} expedited order $Q_1$. Conditional distributions:
-    \begin{itemize}
-        \item High signal ($P = 0.45$): $D \mid \text{High} \sim U[240, 420]$
-        \item Low signal ($P = 0.55$): $D \mid \text{Low} \sim U[120, 260]$
-    \end{itemize}
-
-    \item \textcolor{accentred}{VOSRC Definition:} Value of Signal Responsive Capability equals the profit gain from the two-stage model over a baseline single-stage model with \textit{the same} pre-season cost $c_0 = \$3.00$.
-\end{enumerate}
+Detailed assumptions and justifications are provided within each Part's technical analysis below.
 
 %------------------------------------------------------------------------------
 \subsection{Summary of Key Results}
@@ -190,7 +173,7 @@ This report presents a comprehensive Newsvendor analysis for SparkFire LLC, a fi
 \midrule
 Baseline ($p=\$5$, $f=0.5$) & \textcolor{primaryblue}{$Q^* = 270$} & \textcolor{accentred}{\$370} & Critical ratio = 0.50\\
 Higher price ($p=\$6$) & \textcolor{primaryblue}{$Q^* = 300$} & \textcolor{accentred}{\$610} & Critical ratio = 0.60\\
-With Corvette prize & \textcolor{primaryblue}{$Q^{**} = 400$} & \textcolor{accentred}{\$391} & Threshold strategy\\
+With Corvette prize & \textcolor{primaryblue}{$Q^{**} = 400$} & \textcolor{accentred}{\$471} & Multi-threshold prize\\
 Quantity discounts & \textcolor{primaryblue}{$Q^*_d = 278$} & \textcolor{accentred}{\$408} & Uses \$2.85 tier\\
 \midrule
 \multicolumn{4}{l}{\textit{\textcolor{accentred}{Two-Stage Model (Part 8)}}}\\
@@ -226,18 +209,21 @@ Expected profit: $\E[\Pi(Q^*)] = \$370$.
 \subsubsection{Part 3: Refund Sensitivity}
 
 \begin{center}
-\begin{tabular}{ccc}
+\small
+\begin{tabular}{cccc}
 \toprule
-Refund $f$ & $Q^*$ & $\E[\Pi]$\\
+Refund $f$ & $C_o$ & $Q^*$ & $\E[\Pi]$\\
 \midrule
-0.25 & 246 & \$342\\
-0.50 & 270 & \$370\\
-0.75 & 305 & \$407\\
+0.00 & \$3.50 & 229 & \$329\\
+0.25 & \$2.75 & 246 & \$346\\
+0.50 & \$2.00 & 270 & \$370\\
+0.75 & \$1.25 & 305 & \$405\\
+1.00 & \$0.50 & 360 & \$460\\
 \bottomrule
 \end{tabular}
 \end{center}
 
-Higher refund rates reduce overage cost, encouraging larger orders. Each 25pp increase in $f$ raises $Q^*$ by approximately 24--35 units.
+Higher refund rates reduce overage cost, encouraging larger orders. Full refund ($f=1.0$) eliminates overage risk, increasing profit by \$131 (+40\%) vs no refund.
 
 \subsubsection{Part 4: Pricing Decision}
 
@@ -245,36 +231,30 @@ At $p = \$6$: $C_u = 3$, critical ratio = $3/(3+2) = 0.60$, yielding $Q^* = 300$
 
 Expected profit increases from \$370 to \$610 (+65\%). The higher price justifies stocking more inventory despite the same demand distribution.
 
-\subsubsection{Part 5: Monte Carlo Simulation}
+\subsubsection{Part 5: Monte Carlo Simulation \& Risk Analysis}
 
-Using 500 replications with integer demand $D \in \{120, \ldots, 420\}$:
+Using 500 replications with integer demand $D \in \{120, \ldots, 420\}$ (seed=6334 for reproducibility):
 
-\begin{center}
-\begin{tabular}{lr}
-\toprule
-Metric & Value\\
-\midrule
-Mean profit & \$373\\
-Std deviation & \$194\\
-P(Loss) & 6.8\%\\
-5th percentile & \$36\\
-95th percentile & \$670\\
-\bottomrule
-\end{tabular}
-\end{center}
+\textbf{Multi-seed robustness:} Mean profit consistent across 3 seeds (\$373--\$388), confirming \$370 theoretical expectation.
 
-The simulation confirms theoretical expected profit (\$370) and reveals substantial variability ($\sigma = \$194$).
+\textbf{Break-even analysis:} Profit becomes zero at $D = 140$ cases. With minimum demand at 120, only a \textbf{20-unit buffer} exists before losses—alarmingly small (6.7\% of demand range).
+
+\textbf{Conservative strategy:} Ordering $Q = 260$ instead of $Q^* = 270$ sacrifices just \$1.17 in expected profit but reduces loss probability from 6.8\% to 5.0\% and improves worst-case profit by \$20.
+
+\textbf{Demand shock scenarios:} If demand drops 20\% (weather), profit falls 30\%; 60\% drop (ban) yields expected \textbf{loss} of \$132 with 75.6\% loss probability.
+
+\textbf{Risk mitigation:} (1) Monitor weather/regulatory indicators pre-order; (2) Default to conservative $Q=260$; (3) Negotiate higher refund rate or explore spot market sales.
 
 \subsubsection{Part 6: Corvette Prize Incentive}
 
-The \$40,000 Corvette (5\% probability if sales $\geq 400$) creates a non-convex profit function. Two strategies:
+The \$40,000 Corvette prize creates a multi-threshold incentive structure. We interpret qualifying thresholds as non-mutually-exclusive categories:
 
 \begin{itemize}
     \item \textit{Baseline}: $Q^* = 270$, $\E[\Pi] = \$370$ (no prize eligibility)
-    \item \textit{Prize-seeking}: $Q^{**} = 400$, $\E[\Pi] = \$391$ (includes prize EV)
+    \item \textit{Prize-seeking}: $Q^{**} = 400$, $\E[\Pi] = \$471$ (includes prize EV)
 \end{itemize}
 
-Optimal decision: Order 400 cases. The expected prize contribution (\$66.67) outweighs the overage cost increase.
+Expected prize value: \$213.33 (combining 5\% at 400 units + 3\% at 380 units). Optimal decision: Order 400 cases. The prize contribution outweighs the overage cost increase of ordering 130 additional units.
 
 \subsubsection{Part 7: Quantity Discounts}
 
@@ -338,10 +318,15 @@ Expected profit: \$366.56. Baseline (no signal): \$370.00.
 \vspace{3cm}
 
 %==============================================================================
+% Technical Appendix
+%==============================================================================
+
+\input{tech}
+
+%==============================================================================
 % Future sections placeholder
 %==============================================================================
 
-% \section{Technical Appendix}
 % \section{Python Code}
 % \section{Reproducibility Notes}
 

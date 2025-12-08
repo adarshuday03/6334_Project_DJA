@@ -42,11 +42,6 @@ b = 420         # max demand
 
 prize = 40000   # Corvette prize value
 
-# Prize thresholds and probabilities (from project description)
-# We'll use the 5% @ 400 rule as our primary assumption
-prize_threshold = 400
-prize_prob = 0.05
-
 # =============================================================================
 # Helper Functions
 # =============================================================================
@@ -62,32 +57,20 @@ def expected_sales(Q, a, b):
         part2 = Q * (b - Q) / (b - a)
         return part1 + part2
 
-def prob_sales_ge_threshold(Q, threshold, a, b):
-    """
-    Calculate probability that sales >= threshold
-    Sales = min(D, Q), so Sales >= threshold requires:
-      - D >= threshold (demand high enough)
-      - Q >= threshold (ordered enough to sell that many)
-    
-    If Q < threshold: P(Sales >= threshold) = 0
-    If Q >= threshold: P(Sales >= threshold) = P(D >= threshold)
-    """
-    if Q < threshold:
-        return 0.0
-    
-    # P(D >= threshold) for Uniform(a, b)
-    if threshold <= a:
-        return 1.0
-    elif threshold >= b:
-        return 0.0
-    else:
-        return (b - threshold) / (b - a)
-
-def calculate_expected_profit_with_prize(Q, p, c, f, s, K, a, b, prize, threshold, prize_prob):
+def calculate_expected_profit_with_prize(Q, p, c, f, s, K, a, b, prize):
     """
     Calculate expected profit including prize component
     
-    Prize logic: If sales >= threshold, you have prize_prob chance of winning
+    Prize Structure (Multiple Qualifying Thresholds):
+    - 5% chance of winning if sales >= 400 units
+    - 3% chance of winning if sales >= 380 units  
+    - These are treated as separate qualifying categories (can win in multiple)
+    
+    Formula (based on consolidated approach):
+    E[Prize] = Prize × [0.05 × P(D≥400) + 0.03 × P(380≤D<400)]
+    
+    where P(D≥400) = probability demand meets or exceeds 400
+          P(380≤D<400) = probability demand falls between 380 and 400
     """
     exp_sales = expected_sales(Q, a, b)
     exp_leftover = Q - exp_sales
@@ -101,10 +84,20 @@ def calculate_expected_profit_with_prize(Q, p, c, f, s, K, a, b, prize, threshol
     
     base_profit = revenue + salvage - shipping_cost - ordering_cost - variable_cost
     
-    # Prize component
-    # P(win) = P(sales >= threshold) * prize_prob
-    p_sales_ge = prob_sales_ge_threshold(Q, threshold, a, b)
-    expected_prize = p_sales_ge * prize_prob * prize
+    # Prize component - Multiple thresholds
+    # Component 1: 5% chance at 400 threshold
+    # P(D >= 400) for Uniform(120, 420) = (420 - 400) / 300
+    p_d_ge_400 = max(0, min(1, (b - 400) / (b - a)))
+    prize_400 = prize * 0.05 * p_d_ge_400 if Q >= 400 else 0
+    
+    # Component 2: 3% chance at 380 threshold  
+    # P(380 <= D < 400) = P(D >= 380) - P(D >= 400)
+    p_d_ge_380 = max(0, min(1, (b - 380) / (b - a)))
+    p_380_to_400 = p_d_ge_380 - p_d_ge_400
+    prize_380 = prize * 0.03 * p_380_to_400 if Q >= 380 else 0
+    
+    # Total expected prize
+    expected_prize = prize_400 + prize_380
     
     total_expected_profit = base_profit + expected_prize
     
@@ -113,7 +106,8 @@ def calculate_expected_profit_with_prize(Q, p, c, f, s, K, a, b, prize, threshol
         'expected_sales': exp_sales,
         'expected_leftover': exp_leftover,
         'base_profit': base_profit,
-        'p_sales_ge_threshold': p_sales_ge,
+        'prize_400': prize_400,
+        'prize_380': prize_380,
         'expected_prize': expected_prize,
         'total_expected_profit': total_expected_profit
     }
@@ -127,17 +121,20 @@ print("PART 6: Behavioral Incentive (Prize)")
 print("=" * 70)
 print()
 print(f"Prize: ${prize:,}")
-print(f"Assumption: {prize_prob*100:.0f}% chance of winning if sales >= {prize_threshold}")
-print(f"Expected prize value if eligible: ${prize * prize_prob:,.0f}")
+print()
+print("Prize Structure (Multiple Qualifying Thresholds):")
+print("  - 5% chance of winning if sales >= 400 units")
+print("  - 3% chance of winning if sales >= 380 units")
+print("  - Treated as separate categories (can qualify for both)")
 print()
 
-# Search for optimal Q** by evaluating all integer values
+# Search for optimal Q**
 best_Q = None
 best_profit = float('-inf')
 results = []
 
-for Q in range(a, b + 50):  # search beyond max demand just in case
-    result = calculate_expected_profit_with_prize(Q, p, c, f, s, K, a, b, prize, prize_threshold, prize_prob)
+for Q in range(a, b + 50):
+    result = calculate_expected_profit_with_prize(Q, p, c, f, s, K, a, b, prize)
     results.append(result)
     
     if result['total_expected_profit'] > best_profit:
@@ -152,21 +149,22 @@ print(f"Original Q* (without prize) = {Q_star}")
 print()
 
 # Get detailed results for both
-result_without = calculate_expected_profit_with_prize(Q_star, p, c, f, s, K, a, b, prize, prize_threshold, prize_prob)
-result_with = calculate_expected_profit_with_prize(Q_star_star, p, c, f, s, K, a, b, prize, prize_threshold, prize_prob)
+result_without = calculate_expected_profit_with_prize(Q_star, p, c, f, s, K, a, b, prize)
+result_with = calculate_expected_profit_with_prize(Q_star_star, p, c, f, s, K, a, b, prize)
 
 print("=" * 70)
 print("COMPARISON: Q* vs Q**")
 print("=" * 70)
 print()
-print(f"{'Metric':<30} {'Q*='+str(Q_star):<20} {'Q**='+str(Q_star_star):<20}")
+print(f"{'Metric':<35} {'Q*='+str(Q_star):<20} {'Q**='+str(Q_star_star):<20}")
 print("-" * 70)
-print(f"{'Expected Sales':<30} {result_without['expected_sales']:<20.2f} {result_with['expected_sales']:<20.2f}")
-print(f"{'Expected Leftover':<30} {result_without['expected_leftover']:<20.2f} {result_with['expected_leftover']:<20.2f}")
-print(f"{'Base Profit':<30} ${result_without['base_profit']:<19.2f} ${result_with['base_profit']:<19.2f}")
-print(f"{'P(Sales >= {threshold})':<30} {result_without['p_sales_ge_threshold']:<20.4f} {result_with['p_sales_ge_threshold']:<20.4f}".format(threshold=prize_threshold))
-print(f"{'Expected Prize Value':<30} ${result_without['expected_prize']:<19.2f} ${result_with['expected_prize']:<19.2f}")
-print(f"{'Total Expected Profit':<30} ${result_without['total_expected_profit']:<19.2f} ${result_with['total_expected_profit']:<19.2f}")
+print(f"{'Expected Sales':<35} {result_without['expected_sales']:<20.2f} {result_with['expected_sales']:<20.2f}")
+print(f"{'Expected Leftover':<35} {result_without['expected_leftover']:<20.2f} {result_with['expected_leftover']:<20.2f}")
+print(f"{'Base Profit':<35} ${result_without['base_profit']:<19.2f} ${result_with['base_profit']:<19.2f}")
+print(f"{'E[Prize from 400 threshold]':<35} ${result_without['prize_400']:<19.2f} ${result_with['prize_400']:<19.2f}")
+print(f"{'E[Prize from 380 threshold]':<35} ${result_without['prize_380']:<19.2f} ${result_with['prize_380']:<19.2f}")
+print(f"{'Total Expected Prize':<35} ${result_without['expected_prize']:<19.2f} ${result_with['expected_prize']:<19.2f}")
+print(f"{'Total Expected Profit':<35} ${result_without['total_expected_profit']:<19.2f} ${result_with['total_expected_profit']:<19.2f}")
 print()
 
 print("=" * 70)
@@ -180,41 +178,30 @@ print(f"  - SparkFire orders {Q_star_star - Q_star} more units to chase the priz
 print(f"  - This increases base profit loss by ${result_without['base_profit'] - result_with['base_profit']:.2f}")
 print(f"  - But expected prize value of ${result_with['expected_prize']:.2f} more than compensates")
 print()
+print("Prize Breakdown at Q**:")
+print(f"  - Prize from 400 threshold (5%): ${result_with['prize_400']:.2f}")
+print(f"  - Prize from 380 threshold (3%): ${result_with['prize_380']:.2f}")
+print(f"  - Total expected prize: ${result_with['expected_prize']:.2f}")
+print()
 print("Behavioral Note:")
-print("  The expected prize value (${:.0f}) is relatively small compared to the".format(result_with['expected_prize']))
+print(f"  The expected prize value (${result_with['expected_prize']:.0f}) is relatively small compared to the")
 print("  emotional appeal of potentially winning a $40,000 Corvette.")
 print("  Real decision-makers might over-order beyond Q** due to this psychological effect.")
 
-# =============================================================================
-# Also analyze other prize thresholds mentioned in problem
-# =============================================================================
-
+# Show key quantities at different Q values
 print()
 print("=" * 70)
-print("SENSITIVITY TO PRIZE RULES")
+print("KEY QUANTITIES AT DIFFERENT ORDER LEVELS")
 print("=" * 70)
 print()
 
-prize_scenarios = [
-    (380, 0.03, "3% @ 380"),
-    (400, 0.05, "5% @ 400 (our assumption)"),
-    (420, 0.07, "7% @ 420")
-]
+key_quantities = [270, 380, 400, 420]
+print(f"{'Q':<10} {'E[Sales]':<15} {'Base Profit':<15} {'E[Prize]':<15} {'Total Profit':<15}")
+print("-" * 70)
 
-for threshold, prob, desc in prize_scenarios:
-    # Find optimal Q for this scenario
-    best_Q_scenario = None
-    best_profit_scenario = float('-inf')
-    
-    for Q in range(a, b + 50):
-        result = calculate_expected_profit_with_prize(Q, p, c, f, s, K, a, b, prize, threshold, prob)
-        if result['total_expected_profit'] > best_profit_scenario:
-            best_profit_scenario = result['total_expected_profit']
-            best_Q_scenario = Q
-    
-    result = calculate_expected_profit_with_prize(best_Q_scenario, p, c, f, s, K, a, b, prize, threshold, prob)
-    print(f"{desc}: Q** = {best_Q_scenario}, E[Prize] = ${result['expected_prize']:.2f}, "
-          f"Total E[Profit] = ${result['total_expected_profit']:.2f}")
+for Q_val in key_quantities:
+    result = calculate_expected_profit_with_prize(Q_val, p, c, f, s, K, a, b, prize)
+    print(f"{Q_val:<10} {result['expected_sales']:<15.2f} ${result['base_profit']:<14.2f} ${result['expected_prize']:<14.2f} ${result['total_expected_profit']:<14.2f}")
 
 # =============================================================================
 # Save to CSV
@@ -227,8 +214,9 @@ with open(csv_file, 'w') as file:
     file.write("\n")
     file.write("Assumptions\n")
     file.write(f"Prize Value,${prize}\n")
-    file.write(f"Prize Threshold,{prize_threshold}\n")
-    file.write(f"Prize Probability,{prize_prob}\n")
+    file.write("Prize Structure,Multiple qualifying thresholds\n")
+    file.write("Threshold 1,5% chance if sales >= 400\n")
+    file.write("Threshold 2,3% chance if sales >= 380\n")
     file.write("\n")
     
     file.write("Results\n")
@@ -236,21 +224,22 @@ with open(csv_file, 'w') as file:
     file.write(f"Q** (with prize),{Q_star_star}\n")
     file.write(f"Base Profit at Q*,${result_without['base_profit']:.2f}\n")
     file.write(f"Base Profit at Q**,${result_with['base_profit']:.2f}\n")
-    file.write(f"Expected Prize at Q*,${result_without['expected_prize']:.2f}\n")
-    file.write(f"Expected Prize at Q**,${result_with['expected_prize']:.2f}\n")
+    file.write(f"E[Prize from 400] at Q*,${result_without['prize_400']:.2f}\n")
+    file.write(f"E[Prize from 400] at Q**,${result_with['prize_400']:.2f}\n")
+    file.write(f"E[Prize from 380] at Q*,${result_without['prize_380']:.2f}\n")
+    file.write(f"E[Prize from 380] at Q**,${result_with['prize_380']:.2f}\n")
+    file.write(f"Total E[Prize] at Q*,${result_without['expected_prize']:.2f}\n")
+    file.write(f"Total E[Prize] at Q**,${result_with['expected_prize']:.2f}\n")
     file.write(f"Total E[Profit] at Q*,${result_without['total_expected_profit']:.2f}\n")
     file.write(f"Total E[Profit] at Q**,${result_with['total_expected_profit']:.2f}\n")
     file.write("\n")
     
     file.write("Profit by Order Quantity\n")
-    file.write("Q,Expected Sales,Base Profit,P(Sales>=Threshold),Expected Prize,Total E[Profit]\n")
+    file.write("Q,Expected Sales,Base Profit,Prize 400,Prize 380,Total Prize,Total E[Profit]\n")
     for r in results:
         file.write(f"{r['Q']},{r['expected_sales']:.2f},{r['base_profit']:.2f},"
-                   f"{r['p_sales_ge_threshold']:.4f},{r['expected_prize']:.2f},{r['total_expected_profit']:.2f}\n")
+                   f"{r['prize_400']:.2f},{r['prize_380']:.2f},{r['expected_prize']:.2f},{r['total_expected_profit']:.2f}\n")
 
-print(f"\nCSV saved to: {csv_file}")
-
-# =============================================================================
 # Generate Plots
 # =============================================================================
 
@@ -294,10 +283,11 @@ plt.close()
 print(f"Plot saved to: {plot1_path}")
 
 # Plot 2: Profit Breakdown at Q**
-fig, ax = plt.subplots(figsize=(7, 5))
-components = ['Base Profit', 'Expected Prize', 'Total']
-values = [result_with['base_profit'], result_with['expected_prize'], result_with['total_expected_profit']]
-colors = [PRIMARY_BLUE, 'gold', ACCENT_RED]
+fig, ax = plt.subplots(figsize=(8, 5))
+components = ['Base\nProfit', 'Prize\n(400)', 'Prize\n(380)', 'Total\nProfit']
+values = [result_with['base_profit'], result_with['prize_400'], 
+          result_with['prize_380'], result_with['total_expected_profit']]
+colors = [PRIMARY_BLUE, 'gold', 'orange', ACCENT_RED]
 
 bars = ax.bar(components, values, color=colors, edgecolor='black', linewidth=1.2)
 ax.set_ylabel('Amount ($)', fontsize=12)
@@ -316,23 +306,201 @@ plt.savefig(plot2_path, dpi=150)
 plt.close()
 print(f"Plot saved to: {plot2_path}")
 
-# Plot 3: Expected Prize vs Q (threshold effect)
-fig, ax = plt.subplots(figsize=(10, 5))
-ax.plot(Q_vals, prize_EVs, color='gold', linewidth=2, label='E[Prize]')
-ax.axvline(x=prize_threshold, color=ACCENT_RED, linestyle='--', linewidth=2, 
-           label=f'Threshold = {prize_threshold}')
+# =============================================================================
+# SENSITIVITY ANALYSIS
+# =============================================================================
 
-ax.set_xlabel('Order Quantity (Q)', fontsize=12)
-ax.set_ylabel('Expected Prize Value ($)', fontsize=12)
-ax.set_title('Part 6: Expected Prize Value by Order Quantity', fontsize=14, fontweight='bold')
-ax.legend(loc='lower right')
-ax.grid(True, alpha=0.3)
+print()
+print("=" * 70)
+print("SENSITIVITY ANALYSIS")
+print("=" * 70)
+print()
 
-ax.annotate('Q < 400:\nNo prize eligibility', xy=(300, 10), fontsize=10, color=ACCENT_RED)
-ax.annotate('Q >= 400:\nPrize possible', xy=(420, 50), fontsize=10, color='green')
+# Scenario Analysis: Different Prize Rules
+print("SCENARIO COMPARISON: Different Prize Rules")
+print("-" * 70)
+
+scenarios = [
+    {'name': 'A: 5% @ 400 only', 'prob_400': 0.05, 'prob_380': 0.00, 'prob_420': 0.00},
+    {'name': 'B: Multi-threshold (5%@400 + 3%@380)', 'prob_400': 0.05, 'prob_380': 0.03, 'prob_420': 0.00},
+    {'name': 'C: 7% @ 420 only', 'prob_400': 0.00, 'prob_380': 0.00, 'prob_420': 0.07},
+]
+
+scenario_results = []
+
+for scenario in scenarios:
+    best_Q_scenario = None
+    best_profit_scenario = float('-inf')
+    
+    for Q in range(a, b + 50):
+        exp_sales = expected_sales(Q, a, b)
+        exp_leftover = Q - exp_sales
+        
+        base_profit = (p * exp_sales + f * c * exp_leftover - 
+                      s * exp_leftover - K - c * Q)
+        
+        # Calculate prize for this scenario
+        prize_ev = 0
+        if scenario['prob_400'] > 0 and Q >= 400:
+            prob_D_ge_400 = max(0, (b - 400) / (b - a))
+            prize_ev += prize * scenario['prob_400'] * prob_D_ge_400
+        
+        if scenario['prob_380'] > 0 and Q >= 380:
+            prob_D_ge_380 = max(0, (b - 380) / (b - a))
+            prize_ev += prize * scenario['prob_380'] * prob_D_ge_380
+        
+        if scenario['prob_420'] > 0 and Q >= 420:
+            prob_D_ge_420 = max(0, (b - 420) / (b - a))
+            prize_ev += prize * scenario['prob_420'] * prob_D_ge_420
+        
+        total_profit = base_profit + prize_ev
+        
+        if total_profit > best_profit_scenario:
+            best_profit_scenario = total_profit
+            best_Q_scenario = Q
+    
+    scenario_results.append({
+        'name': scenario['name'],
+        'Q_optimal': best_Q_scenario,
+        'total_profit': best_profit_scenario
+    })
+    
+    print(f"{scenario['name']:<45} Q**={best_Q_scenario:<5} E[Profit]=${best_profit_scenario:.2f}")
+
+print()
+
+# Probability Sensitivity (fix threshold at 400, vary probability)
+print("PROBABILITY SENSITIVITY: P(win | sales ≥ 400)")
+print("-" * 70)
+
+prob_sensitivities = [0.01, 0.03, 0.05, 0.07, 0.10]
+prob_results = []
+
+for prob_val in prob_sensitivities:
+    best_Q_prob = None
+    best_profit_prob = float('-inf')
+    
+    for Q in range(a, b + 50):
+        exp_sales = expected_sales(Q, a, b)
+        exp_leftover = Q - exp_sales
+        
+        base_profit = (p * exp_sales + f * c * exp_leftover - 
+                      s * exp_leftover - K - c * Q)
+        
+        prize_ev = 0
+        if Q >= 400:
+            prob_D_ge_400 = max(0, (b - 400) / (b - a))
+            prize_ev = prize * prob_val * prob_D_ge_400
+        
+        total_profit = base_profit + prize_ev
+        
+        if total_profit > best_profit_prob:
+            best_profit_prob = total_profit
+            best_Q_prob = Q
+    
+    prob_results.append({
+        'prob': prob_val,
+        'Q_optimal': best_Q_prob,
+        'total_profit': best_profit_prob,
+        'increase_pct': (best_profit_prob - 370) / 370 * 100
+    })
+    
+    print(f"P(win)={prob_val:4.0%}   Q**={best_Q_prob:<5} E[Profit]=${best_profit_prob:6.2f}   (+{(best_profit_prob - 370) / 370 * 100:4.1f}% vs baseline)")
+
+print()
+
+# Prize Amount Sensitivity (fix 5% @ 400, vary prize)
+print("PRIZE AMOUNT SENSITIVITY: P(win)=5% at sales ≥ 400")
+print("-" * 70)
+
+prize_sensitivities = [20000, 30000, 40000, 60000, 80000]
+prize_amount_results = []
+
+for prize_val in prize_sensitivities:
+    best_Q_prize = None
+    best_profit_prize = float('-inf')
+    
+    for Q in range(a, b + 50):
+        exp_sales = expected_sales(Q, a, b)
+        exp_leftover = Q - exp_sales
+        
+        base_profit = (p * exp_sales + f * c * exp_leftover - 
+                      s * exp_leftover - K - c * Q)
+        
+        prize_ev = 0
+        if Q >= 400:
+            prob_D_ge_400 = max(0, (b - 400) / (b - a))
+            prize_ev = prize_val * 0.05 * prob_D_ge_400
+        
+        total_profit = base_profit + prize_ev
+        
+        if total_profit > best_profit_prize:
+            best_profit_prize = total_profit
+            best_Q_prize = Q
+    
+    prize_amount_results.append({
+        'prize': prize_val,
+        'Q_optimal': best_Q_prize,
+        'total_profit': best_profit_prize
+    })
+    
+    print(f"Prize=${prize_val/1000:3.0f}k   Q**={best_Q_prize:<5} E[Profit]=${best_profit_prize:6.2f}")
+
+# Save sensitivity results
+csv_sensitivity = os.path.join(CSV_DIR, 'q6_sensitivity.csv')
+
+with open(csv_sensitivity, 'w') as file:
+    file.write("Part 6 - Sensitivity Analysis\n\n")
+    
+    file.write("Scenario Analysis\n")
+    file.write("Scenario,Q**,Total E[Profit]\n")
+    for r in scenario_results:
+        file.write(f"{r['name']},{r['Q_optimal']},${r['total_profit']:.2f}\n")
+    file.write("\n")
+    
+    file.write("Probability Sensitivity (threshold=400)\n")
+    file.write("P(win),Q**,Total E[Profit],% Increase vs Baseline\n")
+    for r in prob_results:
+        file.write(f"{r['prob']:.2f},{r['Q_optimal']},${r['total_profit']:.2f},{r['increase_pct']:.1f}%\n")
+    file.write("\n")
+    
+    file.write("Prize Amount Sensitivity (P=5% @ 400)\n")
+    file.write("Prize Amount,Q**,Total E[Profit]\n")
+    for r in prize_amount_results:
+        file.write(f"${r['prize']},{r['Q_optimal']},${r['total_profit']:.2f}\n")
+
+print()
+print(f"Sensitivity analysis saved to: {csv_sensitivity}")
+
+# Plot sensitivity analyses
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+
+# Plot: Probability sensitivity
+probs = [r['prob'] for r in prob_results]
+Q_probs = [r['Q_optimal'] for r in prob_results]
+ax1.plot(probs, Q_probs, 'o-', color=PRIMARY_BLUE, linewidth=2, markersize=8)
+ax1.set_xlabel('P(win | sales ≥ 400)', fontsize=11)
+ax1.set_ylabel('Optimal Q**', fontsize=11)
+ax1.set_title('Probability Sensitivity', fontsize=12, fontweight='bold')
+ax1.grid(True, alpha=0.3)
+for prob, Q in zip(probs, Q_probs):
+    ax1.annotate(f'{Q}', (prob, Q), textcoords="offset points", 
+                xytext=(0,8), ha='center', fontsize=9, fontweight='bold')
+
+# Plot: Prize amount sensitivity
+prizes = [r['prize']/1000 for r in prize_amount_results]
+Q_prizes = [r['Q_optimal'] for r in prize_amount_results]
+ax2.plot(prizes, Q_prizes, 's-', color=ACCENT_RED, linewidth=2, markersize=8)
+ax2.set_xlabel('Prize Amount ($1000s)', fontsize=11)
+ax2.set_ylabel('Optimal Q**', fontsize=11)
+ax2.set_title('Prize Amount Sensitivity', fontsize=12, fontweight='bold')
+ax2.grid(True, alpha=0.3)
+for prize_k, Q in zip(prizes, Q_prizes):
+    ax2.annotate(f'{Q}', (prize_k, Q), textcoords="offset points", 
+                xytext=(0,8), ha='center', fontsize=9, fontweight='bold')
 
 plt.tight_layout()
-plot3_path = os.path.join(PLOTS_DIR, 'q6_prize_threshold.png')
-plt.savefig(plot3_path, dpi=150)
+plot_sensitivity = os.path.join(PLOTS_DIR, 'q6_sensitivity.png')
+plt.savefig(plot_sensitivity, dpi=150)
 plt.close()
-print(f"Plot saved to: {plot3_path}")
+print(f"Plot saved to: {plot_sensitivity}")

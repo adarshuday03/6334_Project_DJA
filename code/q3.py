@@ -39,7 +39,7 @@ a = 120         # min demand
 b = 420         # max demand
 
 # Refund scenarios to analyze
-refund_rates = [0.25, 0.50, 0.75]
+refund_rates = [0.00, 0.25, 0.50, 0.75, 1.00]
 
 # =============================================================================
 # Helper Functions (same as q1_q2)

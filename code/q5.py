@@ -44,10 +44,10 @@ b = 420         # max demand
 Q_star = 270    # optimal order quantity from Part 2
 
 num_trials = 500
-random_seed = 6334  # for reproducibility
+random_seeds = [6334, 1234, 5678]  # multiple seeds for robustness check
 
 # =============================================================================
-# Simulation
+# Helper Functions
 # =============================================================================
 
 def simulate_single_trial(Q, demand, p, c, f, s, K):

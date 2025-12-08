@@ -1,0 +1,8 @@
+Demand Shock Scenario Analysis (Q* = 270 fixed)
+
+Scenario,Demand Reduction,Mean Demand,Mean Profit,Profit Change %,Std Dev,Min Profit,Num Losses,P(Loss)
+Baseline (No shock),0%,270,$372.98,0.0%,$194.45,$-80.00,34,0.0680
+Mild shock,10%,243,$328.91,-11.8%,$215.32,$-128.00,60,0.1200
+Moderate shock (weather),20%,216,$259.95,-30.3%,$232.94,$-176.00,93,0.1860
+Severe shock,40%,162,$95.82,-74.3%,$208.55,$-272.00,184,0.3680
+Catastrophic (ban),60%,108,$-132.28,-135.5%,$140.70,$-368.00,378,0.7560

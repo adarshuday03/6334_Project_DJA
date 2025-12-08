@@ -1,0 +1,769 @@
+% tech.tex - Technical Appendix
+% This file contains only content (no preamble/document environment)
+% Include in main.tex using: \input{tech}
+
+%==============================================================================
+\section{Technical Appendix}
+%==============================================================================
+
+\subsection*{Computational Methodology}
+
+All analyses employ the newsvendor model framework with demand $D \sim \text{Uniform}(120, 420)$. Calculations are performed using:
+\begin{itemize}
+    \item \textbf{Python 3.11:} Analytical solutions, Monte Carlo simulations, and visualization (NumPy, Matplotlib)
+    \item \textbf{Microsoft Excel:} Formula-based verification and sensitivity analysis
+\end{itemize}
+
+Results presented below are primarily from Python analytical solutions. Complete Excel workbook with detailed formula documentation is included in submission materials. Full CSV datasets available in \texttt{output/csv/} directory.
+
+%==============================================================================
+\subsection{Part 1: Conceptual Analysis}
+%==============================================================================
+
+\textbf{Question:} Should the optimal order quantity exceed, equal, or fall below expected demand (midpoint = 270 units)? Analyze using overage vs underage trade-offs \textit{without} first calculating the optimal $Q$.
+
+\subsubsection{Overage vs Underage Trade-off Analysis}
+
+With selling price $p = \$5$ and wholesale cost $c = \$3$:
+
+\textbf{Cost of Underage (lost profit per stockout):}
+\[
+C_u = p - c = 5 - 3 = \$2.00
+\]
+
+Every unit of unmet demand costs us \$2 in lost profit margin.
+
+\textbf{Cost of Overage (net loss per unsold unit):}
+\[
+C_o = c(1-f) + s = 3(1-0.5) + 0.5 = \$2.00
+\]
+
+Every unsold unit costs us \$2: we paid \$3, get back \$1.50 refund (50\% of cost), but pay \$0.50 shipping to return it.
+
+\textbf{Ambiguity Resolution - Overage Cost Interpretation:}
+
+The overage cost $C_o$ represents the \textit{net loss} per unsold unit. While we receive a refund of $f \cdot c = \$1.50$, we incur a shipping cost of $s = \$0.50$ to return the unit. Therefore:
+\begin{align*}
+\text{Net loss} &= \text{Cost} - \text{Refund} + \text{Shipping} \\
+&= c - fc + s = c(1-f) + s
+\end{align*}
+
+\subsubsection{Conceptual Prediction}
+
+\textbf{Prediction:} The optimal order quantity $Q^*$ should \textbf{EQUAL} expected demand (270 units).
+
+\textbf{Reasoning:}
+\begin{itemize}
+    \item Since $C_u = C_o = \$2.00$, the costs of understocking and overstocking are perfectly balanced
+    \item For every extra unit we don't sell, it costs us \$2
+    \item For every unit shortage we have, we lose \$2 in profit
+    \item This symmetric cost structure implies we should balance stockout probability and excess inventory probability equally
+    \item For a uniform distribution, this balance occurs at the median, which equals the mean (270 units)
+    \item Mathematically, we seek the point where $P(D \geq Q) = P(D \leq Q) = 0.5$
+\end{itemize}
+
+This prediction will be verified analytically in Part 2.
+
+%==============================================================================
+\subsection{Part 2: Optimal Order Quantity}
+%==============================================================================
+
+\subsubsection{Newsvendor Model Formulation}
+
+\textbf{Parameters:} $p = \$5$ (selling price), $c = \$3$ (unit cost), $f = 0.5$ (refund fraction), $s = \$0.50$ (shipping cost per return), $K = \$20$ (fixed ordering cost).
+
+\textbf{Cost Structure:}
+\begin{align*}
+C_u &= p - c = 5 - 3 = \$2.00 \quad \text{(underage cost: lost profit per stockout)}\\
+C_o &= c(1-f) + s = 3(1-0.5) + 0.5 = \$2.00 \quad \text{(overage cost: net loss per unsold unit)}
+\end{align*}
+
+\textbf{Critical Ratio:}
+\[
+\text{CR} = \frac{C_u}{C_u + C_o} = \frac{2.00}{2.00 + 2.00} = 0.5000
+\]
+
+\textbf{Optimal Order Quantity:}
+\[
+Q^* = a + (b-a) \times \text{CR} = 120 + (420-120) \times 0.5 = \boxed{270 \text{ units}}
+\]
+
+\textbf{Verification:} This confirms our conceptual prediction from Part 1. The balanced cost structure ($C_u = C_o$) results in $Q^*$ exactly at the expected demand.
+
+\subsubsection{Profit Breakdown at $Q^* = 270$}
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{lrl}
+\toprule
+\textbf{Component} & \textbf{Value} & \textbf{Calculation} \\
+\midrule
+Expected Sales & 232.50 units & $\E[\min(D, Q^*)]$ \\
+Expected Leftover & 37.50 units & $Q^* - \E[\text{Sales}]$ \\
+\midrule
+Revenue & \$1,162.50 & $232.50 \times \$5$ \\
+Salvage Value & \$56.25 & $37.50 \times \$3 \times 0.5$ \\
+Shipping Cost & $-$\$18.75 & $37.50 \times \$0.50$ \\
+Ordering Cost & $-$\$20.00 & Fixed \\
+Variable Cost & $-$\$810.00 & $270 \times \$3$ \\
+\midrule
+\textcolor{accentred}{\textbf{Expected Profit}} & \textcolor{accentred}{\textbf{\$370.00}} & Total \\
+\bottomrule
+\end{tabular}
+\caption{Profit decomposition at optimal order quantity (Q1-Q2)}
+\label{tab:q2_breakdown}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{../output/plots/q1_q2_profit_curve.png}
+\caption{Expected profit curve showing optimum at $Q^* = 270$ units}
+\label{fig:q2_profit}
+\end{figure}
+
+\textbf{Key Insight:} Since $C_u = C_o$, the critical ratio equals 0.5, placing optimal inventory exactly at the median (which equals the mean for uniform distribution). This balanced trade-off minimizes total expected cost of stockouts and overages.
+
+%==============================================================================
+\subsection{Part 3: Refund Sensitivity Analysis}
+%==============================================================================
+
+We evaluate how refund generosity affects optimal ordering decisions across the full spectrum from no refunds to full refunds: $f \in \{0.00, 0.25, 0.50, 0.75, 1.00\}$.
+
+\subsubsection{Sensitivity Results}
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{ccccccc}
+\toprule
+\textbf{Refund} & \textbf{$C_o$} & \textbf{$C_u$} & \textbf{Critical} & \textbf{$Q^*$} & \textbf{$\E[\text{Profit}]$} \\
+\textbf{Rate $f$} & & & \textbf{Ratio} & \textbf{(units)} & \\
+\midrule
+0.00 & \$3.50 & \$2.00 & 0.3636 & 229.1 & \$329.09 \\
+0.25 & \$2.75 & \$2.00 & 0.4211 & 246.3 & \$346.32 \\
+0.50 & \$2.00 & \$2.00 & 0.5000 & 270.0 & \$370.00 \\
+0.75 & \$1.25 & \$2.00 & 0.6154 & 304.6 & \$404.62 \\
+1.00 & \$0.50 & \$2.00 & 0.8000 & 360.0 & \$460.00 \\
+\bottomrule
+\end{tabular}
+\caption{Refund sensitivity analysis across full spectrum (Q3)}
+\label{tab:q3_sensitivity}
+\end{table}
+
+\textbf{Observations:}
+\begin{itemize}
+    \item Higher refund rates systematically reduce overage cost ($C_o \downarrow$), increasing critical ratio and optimal $Q^*$
+    \item Boundary cases reveal the full range: $Q^*$ varies from 229 units (no refund) to 360 units (full refund)
+    \item Expected profit increases monotonically from \$329 ($f=0$) to \$460 ($f=1$)—a \$131 gain
+    \item Full refund ($f=1.00$) essentially eliminates overage risk ($C_o = \$0.50$ shipping only), encouraging aggressive ordering
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{../output/plots/q3_Qstar_vs_refund.png}
+    \caption*{(a) Optimal $Q^*$ vs refund rate}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{../output/plots/q3_profit_vs_refund.png}
+    \caption*{(b) Expected profit vs refund rate}
+\end{minipage}
+\caption{Impact of refund policy on order quantity and profitability (Q3)}
+\label{fig:q3_sensitivity}
+\end{figure}
+
+%==============================================================================
+\subsection{Part 4: Pricing Decision}
+%==============================================================================
+
+We compare two pricing strategies assuming demand is price-inelastic: $p = \$5$ (baseline) vs $p = \$6$ (premium pricing).
+
+\subsubsection{Conceptual Prediction for $p = \$6$}
+
+Before calculating, let's predict how the higher price affects optimal ordering:
+
+\textbf{At $p = \$6$:}
+\begin{itemize}
+    \item Cost of Underage: $C_u = p - c = 6 - 3 = \$3$ (increased from \$2)
+    \item Cost of Overage: $C_o = c(1-f) + s = \$2$ (unchanged)
+    \item Since $C_u > C_o$, it now hurts more to lose a sale than to have excess inventory
+\end{itemize}
+
+\textbf{Prediction:} The optimal order quantity should be \textbf{higher than 270 units}.
+
+\textbf{Reasoning:} When the cost of stockouts increases relative to overage costs, the optimal strategy shifts toward ordering more inventory to reduce stockout risk. The critical ratio $C_u/(C_u + C_o) = 3/5 = 0.60 > 0.50$, so we expect $Q^* > 270$.
+
+\subsubsection{Comparative Analysis}
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Price} & \textbf{$C_u$} & \textbf{Critical} & \textbf{$Q^*$} & \textbf{$\E[\text{Sales}]$} & \textbf{$\E[\text{Leftover}]$} & \textbf{$\E[\text{Profit}]$} \\
+& & \textbf{Ratio} & \textbf{(units)} & \textbf{(units)} & \textbf{(units)} & \\
+\midrule
+\$5 & \$2.00 & 0.5000 & 270.0 & 232.50 & 37.50 & \$370.00 \\
+\$6 & \$3.00 & 0.6000 & 300.0 & 246.00 & 54.00 & \$610.00 \\
+\midrule
+\multicolumn{6}{r}{\textbf{Profit Increase:}} & \textcolor{accentred}{+\$240.00 (+64.9\%)} \\
+\bottomrule
+\end{tabular}
+\caption{Pricing comparison: \$5 vs \$6 (Q4)}
+\label{tab:q4_pricing}
+\end{table}
+
+\textbf{Recommendation:} Set $p = \$6$. The higher price increases expected profit by 65\% while requiring only 11\% more inventory (300 vs 270 units). The increased underage cost ($C_u$ rises from \$2 to \$3) justifies stocking more units to capture higher per-unit margins.
+
+\subsubsection{Price Elasticity Sensitivity Analysis}
+
+\textbf{Critical Assumption:} The preceding analysis assumes demand is \textbf{price-inelastic} (demand remains Uniform$(120, 420)$ regardless of price). This is unrealistic for most products.
+
+\textbf{Real-World Consideration:} A price increase from \$5 to \$6 (20\% hike) would likely reduce demand. Let's explore three plausible elasticity scenarios:
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llcccc}
+\toprule
+\textbf{Scenario} & \textbf{Demand} & \textbf{Mean} & \textbf{$Q^*$} & \textbf{$\E[\Pi]$} & \textbf{vs \$5} \\
+& \textbf{Distribution} & \textbf{Demand} & & \textbf{@ \$6} & \textbf{baseline} \\
+\midrule
+\textit{Baseline} & Uniform(120, 420) & 270 & 270 & \$370 & --- \\[0.5ex]
+\midrule
+A: Inelastic & Uniform(120, 420) & 270 & 300 & \$610 & \textcolor{primaryblue}{+65\%} \\
+B: Moderate elastic & Uniform(96, 336) & 216 & 240 & \$448 & \textcolor{primaryblue}{+21\%} \\
+C: Highly elastic & Uniform(72, 252) & 162 & 180 & \$286 & \textcolor{accentred}{$-$23\%} \\
+\bottomrule
+\end{tabular}
+\caption{Price elasticity scenarios at $p = \$6$ (Q4 sensitivity)}
+\label{tab:q4_elasticity}
+\end{table}
+
+\textbf{Scenario Details:}
+\begin{itemize}
+    \item \textbf{Scenario A (Inelastic):} Demand unchanged—unrealistic but provides upper bound on \$6 profit
+    \item \textbf{Scenario B (Moderate):} 20\% demand reduction (proportional to price increase)—mean drops to 216 units
+    \item \textbf{Scenario C (Highly elastic):} 40\% demand reduction—luxury/discretionary products often exhibit this behavior
+\end{itemize}
+
+\textbf{Strategic Implications:}
+\begin{enumerate}
+    \item \textbf{Moderate elasticity} (Scenario B) still favors \$6 pricing with +21\% profit gain
+    \item \textbf{High elasticity} (Scenario C) makes \$6 pricing detrimental—profit falls 23\% below \$5 baseline
+    \item \textbf{Decision criterion:} Price elasticity of demand must be better than $-$2.0 for \$6 to outperform \$5
+\end{enumerate}
+
+\textbf{Recommendation:} Before implementing \$6 pricing, conduct market research or A/B testing to estimate true price elasticity. If elasticity is moderate ($|\varepsilon| < 1.0$), proceed with premium pricing. If highly elastic ($|\varepsilon| > 2.0$), maintain \$5 pricing to preserve volume.
+
+%==============================================================================
+\subsection{Part 5: Risk \& Simulation Analysis}
+%==============================================================================
+
+Using the optimal policy from Part 2 ($Q^* = 270$, $p = \$5$), we simulate 500 demand realizations to assess profit variability and downside risk.
+
+\subsubsection{Ambiguity Resolution - Continuous vs Discrete Demand}
+
+The problem states demand is Uniform$(120, 420)$ without specifying continuous or discrete.
+
+\textbf{Our approach:}
+\begin{itemize}
+    \item \textbf{Parts 1--4, 6--8 (analytical work):} Treat demand as \textit{continuous} $D \sim \text{Uniform}[120, 420]$ to enable calculus-based optimization
+    \item \textbf{Part 5 (simulation):} Use \textit{discrete} demand $D \in \{120, 121, \ldots, 420\}$ with equal probability (1/301 each)
+\end{itemize}
+
+\textbf{Justification:} Real demand is discrete (integer cases), but continuous approximation simplifies analysis with negligible error for large demand ranges. Simulation uses discrete values to reflect actual demand realizations.
+
+\subsubsection{Simulation Setup and Random Number Generation}
+
+\textbf{Random Number Generation Logic:}
+
+To simulate demand realizations, we use Python's \texttt{random.randint(a, b)} function, which generates discrete uniform random integers over $[a, b]$ with equal probability $1/(b-a+1)$ for each outcome.
+
+\textbf{Algorithm:}
+\begin{enumerate}
+    \item \textbf{Seed initialization:} Set \texttt{random.seed(6334)} to ensure reproducibility—same seed produces identical sequence of random numbers
+    \item \textbf{Demand generation:} For each of 500 trials, call \texttt{random.randint(120, 420)} to generate $D_i \in \{120, 121, \ldots, 420\}$
+    \item \textbf{Profit calculation:} Compute $\Pi(Q^*, D_i)$ using:
+    \begin{itemize}
+        \item Sales: $\min(D_i, Q^*)$
+        \item Leftover: $\max(0, Q^* - D_i)$
+        \item Profit: $p \cdot \text{Sales} + f \cdot c \cdot \text{Leftover} - s \cdot \text{Leftover} - K - c \cdot Q^*$
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Simulation Parameters:}
+\begin{itemize}
+    \item \textbf{Trials:} 500 Monte Carlo replications
+    \item \textbf{Random seed:} 6334 (ISYE course number—ensures reproducibility)
+    \item \textbf{Demand distribution:} Discrete Uniform$(120, 420)$ with 301 equally likely outcomes
+    \item \textbf{Order quantity:} $Q^* = 270$ (optimal from Part 2)
+\end{itemize}
+
+\subsubsection{Multi-Seed Robustness Verification}
+
+Since simulation results depend on random number generation, we verify robustness by running with three different seeds:
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{cccccc}
+\toprule
+\textbf{Random} & \textbf{Mean} & \textbf{Std Dev} & \textbf{Min} & \textbf{P(Loss)} & \textbf{5th Pct} \\
+\textbf{Seed} & \textbf{Profit} & & \textbf{Profit} & & \\
+\midrule
+6334 & \$373.00 & \$194.45 & -\$80.00 & 6.8\% & \$-22.60 \\
+1234 & \$379.12 & \$191.72 & -\$80.00 & 5.4\% & \$-7.80 \\
+5678 & \$387.86 & \$189.09 & -\$76.00 & 6.2\% & \$5.20 \\
+\midrule
+\textbf{Average} & \textbf{\$380.00} & \textbf{\$191.75} & & \textbf{6.1\%} & \\
+\bottomrule
+\end{tabular}
+\caption{Multi-seed robustness check (Q5)}
+\label{tab:q5_multiseed}
+\end{table}
+
+\textbf{Conclusion:} Mean profits cluster tightly around theoretical \$370, confirming simulation validity. The 6.1\% average loss probability indicates moderate downside risk under baseline assumptions.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{../output/plots/q5_multiseed_comparison.png}
+\caption{Profit distribution across three random seeds (Q5)}
+\label{fig:q5_multiseed}
+\end{figure}
+
+\subsubsection{Break-Even Analysis and Conservative Ordering Strategy}
+
+\textbf{Critical Question:} At what demand does profit become zero?
+
+Setting $\Pi(Q, D) = 0$ and solving for $D$:
+\begin{align*}
+p \cdot D + f \cdot c \cdot (Q - D) - s \cdot (Q - D) - K - c \cdot Q &= 0 \\
+D \cdot (p - fc + s) &= K + Q \cdot (c - fc + s) \\
+D^* &= \frac{K + Q \cdot (c - fc + s)}{p - fc + s}
+\end{align*}
+
+For $Q^* = 270$: $D^* = \frac{20 + 270(3 - 1.5 + 0.5)}{5 - 1.5 + 0.5} = \frac{560}{4} = \boxed{140}$ cases.
+
+\textbf{Key Insight:} Profit becomes zero at $D = 140$. Since minimum demand is 120, there is only a \textbf{20-unit safety buffer} before losses occur. This gap is alarmingly small (120 to 140 represents just 6.7\% of the demand range).
+
+\textbf{Conservative Strategy:} Order $Q = 260$ instead of $Q^* = 270$ to reduce downside risk.
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Strategy} & \textbf{$Q$} & \textbf{Mean} & \textbf{Std Dev} & \textbf{Min} & \textbf{Num} & \textbf{P(Loss)} \\
+ & & \textbf{Profit} & & \textbf{Profit} & \textbf{Losses} & \\
+\midrule
+Optimal & 270 & \$373.00 & \$194.45 & -\$80.00 & 34 & 6.8\% \\
+Conservative & 260 & \$371.82 & \$178.83 & -\$60.00 & 25 & 5.0\% \\
+\midrule
+\textbf{Difference} & -10 & \textcolor{accentred}{-\$1.17} & \textcolor{primaryblue}{-\$15.62} & \textcolor{primaryblue}{+\$20.00} & \textcolor{primaryblue}{-9} & \textcolor{primaryblue}{-1.8\%} \\
+\bottomrule
+\end{tabular}
+\caption{Conservative ordering strategy: Q=270 vs Q=260 (Q5)}
+\label{tab:q5_conservative}
+\end{table}
+
+\textbf{Trade-off:} By reducing $Q$ from 270 to 260:
+\begin{itemize}
+    \item Sacrifice only \$1.17 in expected profit (0.3\% reduction)
+    \item Reduce loss probability from 6.8\% to 5.0\% (26\% relative reduction)
+    \item Improve worst-case profit by \$20 (-\$60 vs -\$80)
+    \item Reduce profit volatility ($\sigma$ drops \$15.62)
+\end{itemize}
+
+\textbf{Recommendation:} If SparkFire is risk-averse or capital-constrained, order $Q = 260$ for better risk-adjusted returns.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../output/plots/q5_conservative_strategy.png}
+\caption{Profit distribution: Q*=270 vs Conservative Q=260 (Q5)}
+\label{fig:q5_conservative}
+\end{figure}
+
+\subsubsection{Demand Shock Scenarios: Weather and Regulatory Risk}
+
+\textbf{Critical Assumption:} All prior analysis assumes demand remains Uniform$(120, 420)$ regardless of external conditions. This is unrealistic.
+
+\textbf{Real-world risks:}
+\begin{itemize}
+    \item \textbf{Weather:} Heavy rain during July 4th weekend reduces outdoor celebrations
+    \item \textbf{Regulatory:} Sudden fireworks ban due to drought/fire risk
+\end{itemize}
+
+If demand drops while $Q^* = 270$ is already ordered, SparkFire faces severe overstocking losses.
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Scenario} & \textbf{Demand} & \textbf{Mean} & \textbf{Mean} & \textbf{Profit} & \textbf{Min} & \textbf{P(Loss)} \\
+ & \textbf{Reduction} & \textbf{Demand} & \textbf{Profit} & \textbf{Change} & \textbf{Profit} & \\
+\midrule
+Baseline & 0\% & 270 & \$373.00 & --- & -\$80 & 6.8\% \\
+Mild shock & 10\% & 243 & \$328.91 & -11.8\% & -\$128 & 12.0\% \\
+Moderate (weather) & 20\% & 216 & \$259.95 & \textcolor{accentred}{-30.3\%} & -\$176 & 18.6\% \\
+Severe & 40\% & 162 & \$95.82 & \textcolor{accentred}{-74.3\%} & -\$272 & 36.8\% \\
+Catastrophic (ban) & 60\% & 108 & \textcolor{accentred}{-\$132.28} & \textcolor{accentred}{-135.5\%} & -\$368 & \textcolor{accentred}{75.6\%} \\
+\bottomrule
+\end{tabular}
+\caption{Demand shock impact on profitability with fixed Q*=270 (Q5)}
+\label{tab:q5_shock}
+\end{table}
+
+\textbf{Critical Findings:}
+\begin{itemize}
+    \item 20\% demand reduction (plausible weather scenario) → 30\% profit erosion
+    \item 60\% demand reduction (regulatory ban) → Expected \textbf{loss} of \$132 (75.6\% of trials lose money)
+    \item The profit function is \textbf{highly sensitive} to demand shocks when $Q$ is fixed
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{../output/plots/q5_demand_shock_impact.png}
+    \caption*{(a) Mean profit across shock scenarios}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{../output/plots/q5_breakeven_analysis.png}
+    \caption*{(b) Break-even point visualization}
+\end{minipage}
+\caption{Demand shock analysis and break-even dynamics (Q5)}
+\label{fig:q5_shock}
+\end{figure}
+
+\subsubsection{Enhanced Risk Mitigation Strategies}
+
+Based on comprehensive risk analysis, we propose a three-tier mitigation framework:
+
+\textbf{Tier 1: Pre-Order Intelligence}
+\begin{itemize}
+    \item Monitor 10-day weather forecasts before finalizing order
+    \item Track regulatory developments (drought conditions, fire risk advisories)
+    \item If adverse conditions detected, reduce $Q$ to 260 or 246 (conservative/ultra-conservative)
+\end{itemize}
+
+\textbf{Tier 2: Conservative Baseline Policy}
+\begin{itemize}
+    \item Default to $Q = 260$ instead of $Q^* = 270$ (sacrifice \$1 profit, gain 1.8\% loss probability reduction)
+    \item This provides larger buffer: break-even at $D = 135$ (15-unit gap from min demand vs 20 for Q=270)
+\end{itemize}
+
+\textbf{Tier 3: Portfolio Diversification}
+\begin{itemize}
+    \item Negotiate higher refund rate $f$ with Leisure Limited (increase from 50\% to 75\%)
+    \item Explore spot market sales if overstocked (sell excess inventory at discount post-July 4th)
+    \item Consider partial ordering: order 200 units initially, option to order additional 70 units 48 hours before event
+\end{itemize}
+
+\textbf{Quantitative Impact:} If implementing Tier 1+2 reduces demand shock risk by 50\%, expected profit becomes:
+$$\E[\Pi_{\text{mitigated}}] = 0.93 \times \$370 + 0.07 \times \$260 = \$362$$
+This \$8 sacrifice (2.2\%) provides substantial downside protection against catastrophic scenarios.
+
+%==============================================================================
+\subsection{Part 6: Behavioral Incentive (Prize)}
+%==============================================================================
+
+Leisure Limited offers a \$40,000 Corvette prize to the stand with highest statewide sales. We evaluate how this incentive affects optimal ordering decisions.
+
+\subsubsection{Part (a): Modified Profit Model with Prize}
+
+The profit function now includes expected prize value:
+$$\Pi(Q, D) = \text{Base Profit}(Q, D) + \E[\text{Prize} \mid Q]$$
+
+\textbf{Prize Rule Interpretation - Three Scenarios:}
+
+The problem states three potential prize structures. We compare all three:
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{clc}
+\toprule
+\textbf{Scenario} & \textbf{Prize Rule} & \textbf{Interpretation} \\
+\midrule
+A & 5\% @ sales $\geq 400$ only & Mutually exclusive \\
+B & 5\% @ 400 + 3\% @ 380 & Multi-threshold (additive) \\
+C & 7\% @ sales $\geq 420$ only & Most aggressive threshold \\
+\bottomrule
+\end{tabular}
+\caption{Prize rule scenarios (Q6)}
+\label{tab:q6_scenarios}
+\end{table}
+
+\textbf{Selected Approach (Scenario B):} We use the multi-threshold interpretation where qualifying for multiple thresholds yields additive probabilities. This reflects common promotional structures and provides conservative middle-ground expected value.
+
+\textbf{Expected Prize Calculation (Scenario B):}
+
+For $Q \geq 400$:
+\begin{align*}
+\E[\text{Prize}] &= 40{,}000 \times [0.05 \times P(D \geq 400) + 0.03 \times P(D \geq 380)] \\
+&= 40{,}000 \times \left[0.05 \times \frac{20}{300} + 0.03 \times \frac{40}{300}\right] \\
+&= 40{,}000 \times [0.00333 + 0.00400] = \boxed{\$213.33}
+\end{align*}
+
+\subsubsection{Part (b): Optimal Q** Under Each Scenario}
+
+\subsubsection{Part (b): Optimal Q** Under Each Scenario}
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Scenario} & \textbf{$Q^{**}$} & \textbf{Base Profit} & \textbf{Total E[Profit]} \\
+\midrule
+A: 5\% @ 400 only & 400 & \$257 & \$391 \\
+\rowcolor{lightgray} B: Multi-threshold (5\%+3\%) & \textbf{400} & \textbf{\$257} & \textbf{\$551} \\
+C: 7\% @ 420 only & 270 & \$370 & \$370 \\
+\midrule
+\textit{Baseline (no prize)} & 270 & \$370 & \$370 \\
+\bottomrule
+\end{tabular}
+\caption{Optimal quantities under different prize scenarios (Q6)}
+\label{tab:q6_scenarios_results}
+\end{table}
+
+\textbf{Key Finding:} Scenario B (our selected interpretation) yields $Q^{**} = 400$, increasing order quantity by +48\% vs baseline. Scenario C's high threshold (420) makes prize too difficult to achieve, so rational ordering reverts to $Q^* = 270$.
+
+\subsubsection{Sensitivity Analysis}
+
+\textbf{1. Probability Sensitivity} (fixed threshold @ 400, vary P(win)):
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{cccc}
+\toprule
+\textbf{P(win)} & \textbf{$Q^{**}$} & \textbf{Total E[Profit]} & \textbf{\% vs Baseline} \\
+\midrule
+1\% & 270 & \$370 & +0\% \\
+3\% & 270 & \$370 & +0\% \\
+5\% & 400 & \$391 & +6\% \\
+7\% & 400 & \$444 & +20\% \\
+10\% & 400 & \$524 & +42\% \\
+\bottomrule
+\end{tabular}
+\caption{Probability sensitivity (threshold = 400) (Q6)}
+\label{tab:q6_prob_sens}
+\end{table}
+
+\textbf{Tipping point:} At P(win) $\approx$ 4\%, expected prize value becomes sufficient to justify shifting from $Q=270$ to $Q=400$.
+
+\textbf{2. Prize Amount Sensitivity} (fixed 5\% @ 400):
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{cccc}
+\toprule
+\textbf{Prize} & \textbf{$Q^{**}$} & \textbf{Total E[Profit]} & \textbf{E[Prize]} \\
+\midrule
+\$20k & 270 & \$370 & \$0 \\
+\$30k & 270 & \$370 & \$0 \\
+\$40k & 400 & \$391 & \$67 \\
+\$60k & 400 & \$457 & \$133 \\
+\$80k & 400 & \$524 & \$200 \\
+\bottomrule
+\end{tabular}
+\caption{Prize amount sensitivity (P=5\% @ 400) (Q6)}
+\label{tab:q6_prize_sens}
+\end{table}
+
+\textbf{Tipping point:} Prize must exceed $\approx$\$35k for rational shift to $Q=400$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../output/plots/q6_sensitivity.png}
+\caption{Sensitivity analysis: Probability and prize amount effects on Q** (Q6)}
+\label{fig:q6_sensitivity}
+\end{figure}
+
+\subsubsection{Part (c): Behavioral Analysis - Risk-Seeking Incentive}
+
+\textbf{Comparison: $Q^*$ (no prize) vs $Q^{**}$ (with prize):}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+\textbf{Metric} & \textbf{$Q^* = 270$} & \textbf{$Q^{**} = 400$} & \textbf{Change} \\
+\midrule
+Order Quantity & 270 & 400 & +130 (+48\%) \\
+Expected Sales & 232.5 & 269.3 & +36.8 \\
+Expected Leftover & 37.5 & 130.7 & +93.2 \\
+Base Profit & \$370 & \$257 & -\$113 \\
+Expected Prize & \$0 & \$213 & +\$213 \\
+\midrule
+\textbf{Total E[Profit]} & \textbf{\$370} & \textbf{\$471} & \textbf{+\$101 (+27\%)} \\
+\bottomrule
+\end{tabular}
+\caption{Impact of prize incentive on ordering behavior (Q6)}
+\label{tab:q6_comparison}
+\end{table}
+
+\textbf{Risk-Seeking Behavior Induced:}
+
+The prize creates strong incentive to order aggressively:
+\begin{itemize}
+    \item SparkFire orders 130 additional units (nearly 50\% increase)
+    \item Base profit \textit{decreases} by \$113 due to massive overage (131 vs 38 leftover units)
+    \item Expected prize of \$213 more than compensates, yielding +\$101 total profit
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{../output/plots/q6_profit_comparison.png}
+    \caption*{(a) Profit curves with/without prize}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{../output/plots/q6_breakdown.png}
+    \caption*{(b) Profit breakdown at Q**=400}
+\end{minipage}
+\caption{Prize incentive effect visualization (Q6)}
+\label{fig:q6_analysis}
+\end{figure}
+
+\textbf{Expected Value vs Behavioral Reality:}
+
+\textit{Limitation of EV model:} Our analysis adds expected prize value (\$213) to optimize decision. However, this dramatically understates the psychological impact:
+
+\begin{enumerate}
+    \item \textbf{Framing effect}: ``Win a \$40,000 Corvette'' is emotionally vivid, not abstract \$213 expectation
+    \item \textbf{Probability weighting}: People overestimate small probabilities—5\% may \textit{feel} like 15\%+
+    \item \textbf{Utility of money}: Marginal utility of \$40k windfall $>>$ utility of \$213 expected value
+    \item \textbf{Regret aversion}: Fear of ``missing out'' on Corvette drives over-ordering beyond rational $Q^{**}$
+\end{enumerate}
+
+\textbf{Real-world implication:} Decision-makers likely order \textbf{beyond} $Q^{**}=400$ (perhaps 420--450) due to behavioral biases, sacrificing expected profit to chase the emotionally compelling \$40k prize. The \$213 expected value calculation is rational but ignores human psychology that makes lotteries appealing even when actuarially unfavorable.
+
+%==============================================================================
+\subsection{Part 7: Quantity Discounts}
+%==============================================================================
+
+The wholesaler offers all-units quantity discounts with tiered pricing:
+\[
+c(Q) = \begin{cases}
+\$3.00 & \text{if } Q \in [1, 199] \\
+\$2.85 & \text{if } Q \in [200, 399] \\
+\$2.70 & \text{if } Q \geq 400
+\end{cases}
+\]
+
+\subsubsection{Tier-by-Tier Analysis}
+
+For each cost tier, we compute the unconstrained newsvendor optimal $Q^*$, then evaluate feasibility within tier bounds.
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lccccccc}
+\toprule
+\textbf{Tier} & \textbf{Unit} & \textbf{$C_o$} & \textbf{$C_u$} & \textbf{Critical} & \textbf{Unconstrained} & \textbf{In} & \textbf{Candidate} \\
+\textbf{Range} & \textbf{Cost} & & & \textbf{Ratio} & \textbf{$Q^*$} & \textbf{Range?} & \textbf{$Q$} \\
+\midrule
+1--199 & \$3.00 & \$2.00 & \$2.00 & 0.5000 & 270.0 & No & 199 \\
+200--399 & \$2.85 & \$1.93 & \$2.15 & 0.5276 & 278.3 & Yes & 278 \\
+400+ & \$2.70 & \$1.85 & \$2.30 & 0.5542 & 286.3 & No & 400 \\
+\bottomrule
+\end{tabular}
+\caption{Discount tier feasibility analysis (Q7)}
+\label{tab:q7_tiers}
+\end{table}
+
+\textbf{Feasibility Check:}
+\begin{itemize}
+    \item \textbf{Tier 1 (\$3.00):} Unconstrained $Q^* = 270$ exceeds tier maximum (199), so evaluate boundary $Q = 199$
+    \item \textbf{Tier 2 (\$2.85):} Unconstrained $Q^* = 278$ falls within [200, 399], this is a feasible interior solution
+    \item \textbf{Tier 3 (\$2.70):} Unconstrained $Q^* = 286$ below tier minimum (400), so evaluate boundary $Q = 400$
+\end{itemize}
+
+\subsubsection{Candidate Profit Comparison}
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{cccccc}
+\toprule
+\textbf{$Q$} & \textbf{Unit Cost} & \textbf{$\E[\text{Sales}]$} & \textbf{$\E[\text{Leftover}]$} & \textbf{$\E[\text{Profit}]$} & \textbf{Note} \\
+\midrule
+199 & \$3.00 & 188.60 & 10.40 & \$336.39 & Tier 1 max \\
+\rowcolor{lightgray} 278 & \$2.85 & 236.53 & 41.76 & \textbf{\$408.15} & Tier 2 optimal \\
+400 & \$2.70 & 269.33 & 130.67 & \$357.74 & Tier 3 min \\
+\bottomrule
+\end{tabular}
+\caption{Candidate order quantities and expected profits (Q7)}
+\label{tab:q7_candidates}
+\end{table}
+
+\textbf{Optimal Decision:} $Q^*_d = 278$ units at \$2.85/unit
+
+\textbf{Analysis:}
+\begin{itemize}
+    \item Middle tier (\$2.85) dominates despite not having the lowest unit cost
+    \item Ordering 400 units to access \$2.70 pricing forces excessive overage (131 units expected leftover)
+    \item Overage cost penalty outweighs \$0.15/unit savings: total cost increases by \$50.41
+\end{itemize}
+
+\subsubsection{Comparison to Baseline}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+\textbf{Scenario} & \textbf{$Q^*$} & \textbf{Unit Cost} & \textbf{$\E[\text{Profit}]$} \\
+\midrule
+Part 2 Baseline & 270 & \$3.00 & \$370.00 \\
+Part 7 w/ Discounts & 278 & \$2.85 & \$408.15 \\
+\midrule
+\textbf{Improvement} & +8 units & $-$\$0.15 & \textcolor{accentred}{+\$38.15 (+10.3\%)} \\
+\bottomrule
+\end{tabular}
+\caption{Quantity discount benefit vs baseline (Q7)}
+\label{tab:q7_comparison}
+\end{table}
+
+The quantity discount structure increases expected profit by 10.3\% while requiring minimal additional inventory (8 units).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{../output/plots/q7_profit_by_tier.png}
+\caption{Expected profit across discount tiers showing $Q^*_d = 278$ optimum (Q7)}
+\label{fig:q7_profit}
+\end{figure}
+
+\textbf{Supply Chain Coordination Insight:} Quantity discounts align supplier and buyer incentives by encouraging larger orders (beneficial for supplier's economies of scale) while sharing cost savings with the buyer. The tiered structure prevents extreme ordering behavior; the marginal benefit of the deepest discount (400+ tier) is insufficient to justify the inventory risk.
+
+%==============================================================================
+% End of Technical Appendix
+%==============================================================================
+
+\vspace{1em}
+\noindent\textit{Note: Complete Python code, full CSV datasets, and Excel workbook with formula documentation are available in the project repository and submission materials.}
