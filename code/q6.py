@@ -10,10 +10,7 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 
-# =============================================================================
-# Path Configuration (robust for reproducibility)
-# =============================================================================
-
+# Setup directories
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(SCRIPT_DIR)
 OUTPUT_DIR = os.path.join(PROJECT_DIR, 'output')
@@ -23,13 +20,10 @@ PLOTS_DIR = os.path.join(OUTPUT_DIR, 'plots')
 os.makedirs(CSV_DIR, exist_ok=True)
 os.makedirs(PLOTS_DIR, exist_ok=True)
 
-# Plot colors
 PRIMARY_BLUE = '#003366'
 ACCENT_RED = '#990000'
 
-# =============================================================================
-# Parameters
-# =============================================================================
+# Model parameters
 
 c = 3.00        # wholesale cost
 p = 5           # selling price  
@@ -42,9 +36,7 @@ b = 420         # max demand
 
 prize = 40000   # Corvette prize value
 
-# =============================================================================
-# Helper Functions
-# =============================================================================
+# Helper functions
 
 def expected_sales(Q, a, b):
     """Calculate expected sales for order quantity Q with Uniform(a,b) demand"""
@@ -112,9 +104,7 @@ def calculate_expected_profit_with_prize(Q, p, c, f, s, K, a, b, prize):
         'total_expected_profit': total_expected_profit
     }
 
-# =============================================================================
 # Part 6: Find Q** that maximizes expected profit with prize
-# =============================================================================
 
 print("=" * 70)
 print("PART 6: Behavioral Incentive (Prize)")
@@ -203,9 +193,7 @@ for Q_val in key_quantities:
     result = calculate_expected_profit_with_prize(Q_val, p, c, f, s, K, a, b, prize)
     print(f"{Q_val:<10} {result['expected_sales']:<15.2f} ${result['base_profit']:<14.2f} ${result['expected_prize']:<14.2f} ${result['total_expected_profit']:<14.2f}")
 
-# =============================================================================
 # Save to CSV
-# =============================================================================
 
 csv_file = os.path.join(CSV_DIR, 'q6_results.csv')
 
@@ -241,7 +229,6 @@ with open(csv_file, 'w') as file:
                    f"{r['prize_400']:.2f},{r['prize_380']:.2f},{r['expected_prize']:.2f},{r['total_expected_profit']:.2f}\n")
 
 # Generate Plots
-# =============================================================================
 
 # Extract data for plotting
 Q_vals = [r['Q'] for r in results]
@@ -306,9 +293,7 @@ plt.savefig(plot2_path, dpi=150)
 plt.close()
 print(f"Plot saved to: {plot2_path}")
 
-# =============================================================================
 # SENSITIVITY ANALYSIS
-# =============================================================================
 
 print()
 print("=" * 70)

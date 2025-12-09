@@ -21,9 +21,7 @@ print("="*70)
 print("TASK 8: TWO-STAGE ORDERING WITH DEMAND SIGNAL")
 print("="*70)
 
-# ============================================================================
 # DOM'S APPROACH: Discrete demand states
-# ============================================================================
 
 print("\n" + "="*70)
 print("DOM'S DISCRETE APPROXIMATION")
@@ -93,9 +91,7 @@ print(f"  E[Π | S=Low] = {exp_profit_L:.2f}")
 print(f"  E[Π total] = {exp_profit_dom:.2f}")
 print(f"  (Dom reports: $415.6)")
 
-# ============================================================================
 # THEORETICALLY CORRECT APPROACH: Continuous distributions
-# ============================================================================
 
 print("\n" + "="*70)
 print("CONTINUOUS DISTRIBUTION APPROACH (Theoretically Correct)")
@@ -187,9 +183,7 @@ print(f"  Q1*(High) = {best_Q1_H:.1f} → Total = {best_Q0 + best_Q1_H:.1f}")
 print(f"  Q1*(Low) = {best_Q1_L:.1f} → Total = {best_Q0 + best_Q1_L:.1f}")
 print(f"  E[Π total] = ${best_exp_profit:.2f}")
 
-# ============================================================================
 # COMPARISON
-# ============================================================================
 
 print("\n" + "="*70)
 print("COMPARISON: DOM'S DISCRETE vs CONTINUOUS APPROACH")
@@ -208,9 +202,7 @@ print(f"  ΔQ0 = {abs(Q0_dom - best_Q0)}")
 print(f"  ΔE[Π] = ${abs(exp_profit_dom - best_exp_profit):.2f}")
 print(f"  Relative error = {abs(exp_profit_dom - best_exp_profit) / best_exp_profit * 100:.2f}%")
 
-# ============================================================================
 # VOSRC CALCULATION
-# ============================================================================
 
 print("\n" + "="*70)
 print("VALUE OF SIGNAL AND REACTIVE CAPACITY (VOSRC)")
@@ -231,9 +223,7 @@ print(f"\nWith Signal (Continuous approach):")
 print(f"  E[Π] = ${best_exp_profit:.2f}")
 print(f"  VOSRC = ${best_exp_profit - baseline_profit:.2f}")
 
-# ============================================================================
 # ASSESSMENT
-# ============================================================================
 
 print("\n" + "="*70)
 print("ASSESSMENT OF DOM'S APPROACH")

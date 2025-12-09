@@ -11,10 +11,7 @@ import random
 import matplotlib.pyplot as plt
 import numpy as np
 
-# =============================================================================
-# Path Configuration (robust for reproducibility)
-# =============================================================================
-
+# Setup directories
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(SCRIPT_DIR)
 OUTPUT_DIR = os.path.join(PROJECT_DIR, 'output')
@@ -24,13 +21,10 @@ PLOTS_DIR = os.path.join(OUTPUT_DIR, 'plots')
 os.makedirs(CSV_DIR, exist_ok=True)
 os.makedirs(PLOTS_DIR, exist_ok=True)
 
-# Plot colors
 PRIMARY_BLUE = '#003366'
 ACCENT_RED = '#990000'
 
-# =============================================================================
-# Parameters
-# =============================================================================
+# Model parameters
 
 c = 3.00        # wholesale cost
 p = 5           # selling price
@@ -44,11 +38,9 @@ b = 420         # max demand
 Q_star = 270    # optimal order quantity from Part 2
 
 num_trials = 500
-random_seeds = [6334, 1234, 5678]  # multiple seeds for robustness check
+random_seeds = [6334, 1234, 5678]
 
-# =============================================================================
-# Helper Functions
-# =============================================================================
+# Helper functions
 
 def simulate_single_trial(Q, demand, p, c, f, s, K):
     """
@@ -101,9 +93,7 @@ for i in range(num_trials):
     result['trial'] = i + 1
     trials.append(result)
 
-# =============================================================================
 # Calculate Statistics
-# =============================================================================
 
 profits = [t['profit'] for t in trials]
 
@@ -118,9 +108,7 @@ prob_loss = num_losses / len(profits)
 min_profit = min(profits)
 max_profit = max(profits)
 
-# =============================================================================
 # Print Results
-# =============================================================================
 
 print("=" * 70)
 print("PART 5: Risk & Simulation")
@@ -172,9 +160,7 @@ print("  especially if SparkFire is risk-averse or has limited capital.")
 print("  Alternatively, negotiate a higher refund rate (f) with Leisure Limited")
 print("  to reduce the cost of overage situations.")
 
-# =============================================================================
 # Save to CSV
-# =============================================================================
 
 csv_file = os.path.join(CSV_DIR, 'q5_simulation.csv')
 
@@ -206,9 +192,7 @@ with open(csv_file, 'w') as file:
 
 print(f"\nCSV saved to: {csv_file}")
 
-# =============================================================================
 # Generate Plots
-# =============================================================================
 
 # Extract data
 trial_nums = [t['trial'] for t in trials]

@@ -13,9 +13,7 @@ import random
 import matplotlib.pyplot as plt
 import numpy as np
 
-# =============================================================================
 # Path Configuration
-# =============================================================================
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(SCRIPT_DIR)
@@ -29,9 +27,7 @@ os.makedirs(PLOTS_DIR, exist_ok=True)
 PRIMARY_BLUE = '#003366'
 ACCENT_RED = '#990000'
 
-# =============================================================================
 # Parameters
-# =============================================================================
 
 c = 3.00
 p = 5
@@ -48,9 +44,7 @@ Q_conservative = 260  # conservative strategy
 num_trials = 500
 random_seeds = [6334, 1234, 5678]
 
-# =============================================================================
 # Helper Functions
-# =============================================================================
 
 def calculate_profit(Q, demand, p_val, c_val, f_val, s_val, K_val):
     """Calculate profit for given Q and demand"""
@@ -79,9 +73,7 @@ def run_simulation(Q, a_val, b_val, n_trials, seed):
     
     return profits
 
-# =============================================================================
 # PART 1: Multi-Seed Robustness Check
-# =============================================================================
 
 print("=" * 80)
 print("PART 5 ENHANCED: RISK & SIMULATION ANALYSIS")
@@ -144,9 +136,7 @@ with open(csv_multiseed, 'w') as f:
 
 print(f"Multi-seed CSV saved to: {csv_multiseed}\n")
 
-# =============================================================================
 # PART 2: Break-Even Analysis and Conservative Q=260 Strategy
-# =============================================================================
 
 print("=" * 80)
 print("ANALYSIS 2: BREAK-EVEN POINT & CONSERVATIVE ORDERING")
@@ -240,9 +230,7 @@ with open(csv_conservative, 'w') as f:
 
 print(f"Conservative strategy CSV saved to: {csv_conservative}\n")
 
-# =============================================================================
 # PART 3: Demand Shock Analysis (Weather/Ban Scenarios)
-# =============================================================================
 
 print("=" * 80)
 print("ANALYSIS 3: DEMAND SHOCK SCENARIOS (WEATHER/BAN IMPACT)")
@@ -319,9 +307,7 @@ with open(csv_shock, 'w') as f:
 
 print(f"Demand shock CSV saved to: {csv_shock}\n")
 
-# =============================================================================
 # Generate Enhanced Plots
-# =============================================================================
 
 print("Generating enhanced visualization plots...")
 

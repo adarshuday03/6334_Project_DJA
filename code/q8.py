@@ -16,10 +16,7 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 
-# =============================================================================
-# Path Configuration (robust for reproducibility)
-# =============================================================================
-
+# Setup directories
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(SCRIPT_DIR)
 OUTPUT_DIR = os.path.join(PROJECT_DIR, 'output')
@@ -29,13 +26,10 @@ PLOTS_DIR = os.path.join(OUTPUT_DIR, 'plots')
 os.makedirs(CSV_DIR, exist_ok=True)
 os.makedirs(PLOTS_DIR, exist_ok=True)
 
-# Plot colors
 PRIMARY_BLUE = '#003366'
 ACCENT_RED = '#990000'
 
-# =============================================================================
-# Parameters
-# =============================================================================
+# Model parameters
 
 p = 5           # selling price
 f = 0.50        # refund fraction
@@ -45,7 +39,6 @@ K = 20          # admin fee (per order)
 c0 = 3.00       # pre-season cost
 c1 = 3.60       # in-season expedited cost
 
-# Signal probabilities
 P_high = 0.45
 P_low = 0.55
 
@@ -59,9 +52,7 @@ a_L, b_L = 120, 260
 # Baseline profit from Part 2 (for VOSRC calculation)
 baseline_profit = 370.00
 
-# =============================================================================
 # Helper Functions
-# =============================================================================
 
 def expected_sales(Q, a, b):
     """Calculate expected sales for order quantity Q with Uniform(a,b) demand"""
@@ -152,9 +143,7 @@ def calculate_expected_profit_twostage(Q0, Q1_H, Q1_L, p, c0, c1, f, s, K,
         'expected_profit': expected_profit
     }
 
-# =============================================================================
 # Part 8(a): Formulate profit function - done above
-# =============================================================================
 
 print("=" * 70)
 print("PART 8: Context Signal & Deferred Purchasing")
@@ -168,9 +157,7 @@ print(f"  D|High ~ Uniform({a_H}, {b_H})")
 print(f"  D|Low ~ Uniform({a_L}, {b_L})")
 print()
 
-# =============================================================================
 # Part 8(b): Find optimal Q*_H and Q*_L using second-stage cost
-# =============================================================================
 
 print("=" * 70)
 print("PART 8(b): Optimal Total Inventory by Signal (using c1=${:.2f})".format(c1))
@@ -195,9 +182,7 @@ print(f"Q*_H (High signal): {a_H} + ({b_H}-{a_H})*{crit_ratio_c1:.4f} = {Q_star_
 print(f"Q*_L (Low signal): {a_L} + ({b_L}-{a_L})*{crit_ratio_c1:.4f} = {Q_star_L:.2f}")
 print()
 
-# =============================================================================
 # Part 8(c): Optimize Q0
-# =============================================================================
 
 print("=" * 70)
 print("PART 8(c): Optimize Initial Order Q0")
@@ -253,9 +238,7 @@ print(f"  Profit if Low signal: ${best_result['profit_L']:.2f}")
 print(f"  Expected Profit: {P_high}*{best_result['profit_H']:.2f} + {P_low}*{best_result['profit_L']:.2f} = ${best_result['expected_profit']:.2f}")
 print()
 
-# =============================================================================
 # Part 8(d): VOSRC Calculation
-# =============================================================================
 
 print("=" * 70)
 print("PART 8(d): Value of Signal and Reactive Capacity (VOSRC)")
@@ -288,9 +271,7 @@ else:
     print("  The signal provides enough information about demand to profitably adjust")
     print("  inventory levels. The value exceeds the expedited cost premium.")
 
-# =============================================================================
 # Save to CSV
-# =============================================================================
 
 csv_file = os.path.join(CSV_DIR, 'q8_results.csv')
 
@@ -337,9 +318,7 @@ with open(csv_file, 'w') as file:
 
 print(f"\nCSV saved to: {csv_file}")
 
-# =============================================================================
 # Generate Plots
-# =============================================================================
 
 # Plot 1: Conditional Demand Distributions
 fig, ax = plt.subplots(figsize=(10, 5))

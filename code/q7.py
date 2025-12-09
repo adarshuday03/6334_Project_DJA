@@ -12,10 +12,7 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 
-# =============================================================================
-# Path Configuration (robust for reproducibility)
-# =============================================================================
-
+# Setup directories
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(SCRIPT_DIR)
 OUTPUT_DIR = os.path.join(PROJECT_DIR, 'output')
@@ -25,14 +22,11 @@ PLOTS_DIR = os.path.join(OUTPUT_DIR, 'plots')
 os.makedirs(CSV_DIR, exist_ok=True)
 os.makedirs(PLOTS_DIR, exist_ok=True)
 
-# Plot colors
 PRIMARY_BLUE = '#003366'
 ACCENT_RED = '#990000'
 TIER_COLORS = ['#003366', '#990000', '#006600']
 
-# =============================================================================
-# Parameters
-# =============================================================================
+# Model parameters
 
 p = 5           # selling price
 f = 0.50        # refund fraction
@@ -42,16 +36,13 @@ K = 20          # admin fee
 a = 120         # min demand
 b = 420         # max demand
 
-# Discount tiers: (min_qty, max_qty, unit_cost)
 discount_tiers = [
     (1, 199, 3.00),
     (200, 399, 2.85),
     (400, float('inf'), 2.70)
 ]
 
-# =============================================================================
 # Helper Functions
-# =============================================================================
 
 def expected_sales(Q, a, b):
     """Calculate expected sales for order quantity Q with Uniform(a,b) demand"""
@@ -97,9 +88,7 @@ def find_optimal_Q_for_cost(c, p, f, s, a, b):
     Q_star = a + (b - a) * critical_ratio
     return Q_star, critical_ratio, Co, Cu
 
-# =============================================================================
 # Part 7: Quantity Discount Analysis
-# =============================================================================
 
 print("=" * 70)
 print("PART 7: Quantity Discounts")
@@ -242,9 +231,7 @@ print("  2. Shifting inventory risk to the retailer (SparkFire)")
 print("  3. Aligning retailer incentives with supply chain efficiency")
 print("  4. Reducing total transactions and logistics complexity")
 
-# =============================================================================
 # Save to CSV
-# =============================================================================
 
 csv_file = os.path.join(CSV_DIR, 'q7_results.csv')
 
@@ -281,9 +268,7 @@ with open(csv_file, 'w') as file:
 
 print(f"\nCSV saved to: {csv_file}")
 
-# =============================================================================
 # Generate Plots
-# =============================================================================
 
 # Plot 1: Cost Function (step function)
 fig, ax = plt.subplots(figsize=(10, 5))

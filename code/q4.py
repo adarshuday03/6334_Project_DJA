@@ -9,10 +9,7 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 
-# =============================================================================
-# Path Configuration (robust for reproducibility)
-# =============================================================================
-
+# Setup directories
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(SCRIPT_DIR)
 OUTPUT_DIR = os.path.join(PROJECT_DIR, 'output')
@@ -22,13 +19,10 @@ PLOTS_DIR = os.path.join(OUTPUT_DIR, 'plots')
 os.makedirs(CSV_DIR, exist_ok=True)
 os.makedirs(PLOTS_DIR, exist_ok=True)
 
-# Plot colors
 PRIMARY_BLUE = '#003366'
 ACCENT_RED = '#990000'
 
-# =============================================================================
-# Parameters
-# =============================================================================
+# Model parameters
 
 c = 3.00        # wholesale cost
 f = 0.50        # refund fraction
@@ -38,12 +32,9 @@ K = 20          # admin fee
 a = 120         # min demand
 b = 420         # max demand
 
-# Prices to compare
 prices = [5, 6]
 
-# =============================================================================
-# Helper Functions
-# =============================================================================
+# Helper functions
 
 def expected_sales(Q, a, b):
     """Calculate expected sales for order quantity Q with Uniform(a,b) demand"""
@@ -85,9 +76,7 @@ def calculate_profit(Q, p, c, f, s, K, a, b):
         'expected_profit': profit
     }
 
-# =============================================================================
 # Part 4: Pricing Comparison
-# =============================================================================
 
 print("=" * 70)
 print("PART 4: Pricing Decision")
@@ -133,9 +122,7 @@ for p in prices:
     print(f"  Expected Profit = ${profit_data['expected_profit']:.2f}")
     print()
 
-# =============================================================================
 # Comparison and Recommendation
-# =============================================================================
 
 print("=" * 70)
 print("COMPARISON")
@@ -166,9 +153,7 @@ print("  - The advantage of $6 would shrink or possibly reverse")
 print("  - We would need to model price elasticity to find optimal price")
 print("  - The demand distribution would shift left with higher prices")
 
-# =============================================================================
 # Save to CSV
-# =============================================================================
 
 csv_file = os.path.join(CSV_DIR, 'q4_results.csv')
 
@@ -188,11 +173,8 @@ with open(csv_file, 'w') as file:
 
 print(f"\nCSV saved to: {csv_file}")
 
-# =============================================================================
 # Generate Plots
-# =============================================================================
 
-# Plot 1: Expected Profit Curves for Both Prices
 Q_range = np.linspace(a, b, 300)
 
 fig, ax = plt.subplots(figsize=(10, 6))

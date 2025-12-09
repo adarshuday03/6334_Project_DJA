@@ -9,24 +9,17 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 
-# =============================================================================
-# Path Configuration (robust for reproducibility)
-# =============================================================================
-
-# Get the directory where this script is located
+# Setup directories for output
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(SCRIPT_DIR)
 OUTPUT_DIR = os.path.join(PROJECT_DIR, 'output')
 CSV_DIR = os.path.join(OUTPUT_DIR, 'csv')
 PLOTS_DIR = os.path.join(OUTPUT_DIR, 'plots')
 
-# Create directories if they don't exist
 os.makedirs(CSV_DIR, exist_ok=True)
 os.makedirs(PLOTS_DIR, exist_ok=True)
 
-# =============================================================================
-# Parameters (from project description)
-# =============================================================================
+# Model parameters
 
 c = 3.00        # wholesale cost per unit
 p = 5           # selling price per unit
@@ -39,11 +32,9 @@ a = 120         # minimum demand
 b = 420         # maximum demand
 mean_demand = (a + b) / 2   # = 270
 
-# =============================================================================
 # Part 1: Conceptual Analysis
-# =============================================================================
 
-# Cost of Overage (Co): cost incurred per unsold unit
+# Cost of Overage (Co): what we lose per unsold unit
 # When we don't sell a unit:
 #   - We paid c for it
 #   - We get back f*c as refund
@@ -59,7 +50,7 @@ Co = c * (1 - f) + s
 
 Cu = p - c
 
-# Critical ratio determines where Q* falls relative to demand distribution
+# The critical ratio tells us where to set Q* in the demand distribution
 critical_ratio = Cu / (Cu + Co)
 
 print("=" * 60)
@@ -82,9 +73,7 @@ print(f"  - Every missed sale costs us ${Cu:.2f}")
 if Co == Cu:
     print("  - Since these are equal, we balance exactly at the median (= mean for uniform)")
 
-# =============================================================================
 # Part 2: Optimal Order Quantity
-# =============================================================================
 
 # For Uniform(a, b), the optimal Q* satisfies:
 # F(Q*) = (Q* - a) / (b - a) = critical_ratio
@@ -100,9 +89,7 @@ print(f"Q* = a + (b-a) * critical_ratio")
 print(f"Q* = {a} + ({b}-{a}) * {critical_ratio:.4f}")
 print(f"Q* = {Q_star:.2f} units")
 
-# =============================================================================
 # Expected Profit Calculation
-# =============================================================================
 
 # For uniform distribution, expected sales when ordering Q:
 # E[Sales] = integral from a to Q of (x * 1/(b-a)) dx + integral from Q to b of (Q * 1/(b-a)) dx
@@ -168,9 +155,7 @@ print(f"e. Variable Cost:    (${result['variable_cost']:.2f})")
 print(f"")
 print(f"Expected Profit:     ${result['expected_profit']:.2f}")
 
-# =============================================================================
 # Save results to CSV
-# =============================================================================
 
 csv_file = os.path.join(CSV_DIR, 'q1_q2_results.csv')
 
@@ -209,11 +194,8 @@ with open(csv_file, 'w') as file:
 
 print(f"\nCSV saved to: {csv_file}")
 
-# =============================================================================
 # Generate Plots
-# =============================================================================
 
-# Plot colors (matching report theme)
 PRIMARY_BLUE = '#003366'
 ACCENT_RED = '#990000'
 
