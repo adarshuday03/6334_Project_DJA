@@ -729,5 +729,356 @@ The quantity discount structure increases expected profit by 10\% while requirin
 \textbf{Supply Chain Coordination Insight:} Quantity discounts align supplier and buyer incentives by encouraging larger orders (beneficial for supplier's economies of scale) while sharing cost savings with the buyer. The tiered structure prevents extreme ordering behavior; the marginal benefit of the deepest discount (400+ tier) is insufficient to justify the inventory risk.
 
 %==============================================================================
+\subsection{Task 8: Context Signal \& Deferred Purchasing}
+%==============================================================================
+
+A market signal $S \in \{\text{High}, \text{Low}\}$ becomes available after the initial order, enabling a two-stage ordering strategy:
+\begin{itemize}
+    \item \textbf{Pre-season (Stage 1):} Commit to initial order $Q_0$ at base cost $c_0 = \$3.00$
+    \item \textbf{In-season (Stage 2):} After observing signal $S$, place expedited top-up order $Q_1(S)$ at premium cost $c_1 = \$3.60$
+\end{itemize}
+
+Signal characteristics: $P(S = \text{High}) = 0.45$, with conditional demand distributions:
+\begin{align*}
+D \mid S = \text{High} &\sim \text{Uniform}[240, 420] \\
+D \mid S = \text{Low} &\sim \text{Uniform}[120, 260]
+\end{align*}
+
+Refund and shipping terms unchanged: $f = 0.5$, $s = \$0.50$. All unsold units are refunded at $c_0 = \$3.00$ regardless of which stage they were ordered.
+
+\subsubsection{Part (a): Profit Function Formulation}
+
+\paragraph{Discrete Demand Approximation}
+
+To enable tractable optimization via spreadsheet enumeration, we discretize the continuous uniform distributions into two representative demand states. Using the single-stage newsvendor framework at base cost $c_0 = \$3.00$:
+
+\textbf{High Signal State:} For $D \mid S = \text{High} \sim U[240, 420]$, the optimal single-order quantity is:
+\begin{align*}
+Q_0^{\text{high}} &= a + (b-a) \times \text{CR} = 240 + (420-240) \times 0.50 \\
+&= 240 + 90 = 330 \text{ units}
+\end{align*}
+
+\textbf{Low Signal State:} For $D \mid S = \text{Low} \sim U[120, 260]$, the optimal single-order quantity is:
+\begin{align*}
+Q_0^{\text{low}} &= 120 + (260-120) \times 0.50 \\
+&= 120 + 70 = 190 \text{ units}
+\end{align*}
+
+We adopt the discrete approximation $D \in \{D_H = 330, D_L = 190\}$ as representative demand realizations.
+
+\paragraph{Bayesian Probability Framework}
+
+Signal accuracy is modeled through conditional probabilities:
+\begin{itemize}
+    \item High signal correctly indicates high demand: $P(D = 330 \mid S = \text{High}) = 0.8$
+    \item Low signal correctly indicates low demand: $P(D = 190 \mid S = \text{Low}) = 0.6$
+\end{itemize}
+
+Using Bayes' theorem and the law of total probability:
+\begin{align*}
+P(D = 330) &= P(D = 330 \mid S = H) \cdot P(S = H) + P(D = 330 \mid S = L) \cdot P(S = L) \\
+&= 0.8 \times 0.45 + 0.4 \times 0.55 = 0.36 + 0.22 = 0.58 \\
+P(D = 190) &= 1 - P(D = 330) = 0.42
+\end{align*}
+
+\paragraph{Inverse Critical Ratio for Expedited Ordering}
+
+For Stage 2 ordering at premium cost $c_1 = \$3.60$, the critical ratio uses the \textit{inverse} formulation because ordering more units increases marginal cost:
+\begin{align*}
+\text{CR}_{\text{inverse}} &= \frac{C_o}{C_o + C_u} = \frac{c_1(1-f) + s}{c_1(1-f) + s + (p - c_1)} \\
+&= \frac{3.60 \times 0.5 + 0.50}{3.60 \times 0.5 + 0.50 + (5.00 - 3.60)} \\
+&= \frac{1.80 + 0.50}{1.80 + 0.50 + 1.40} = \frac{2.30}{3.70} = 0.622
+\end{align*}
+
+This yields signal-conditional target inventory levels:
+\begin{align*}
+Q_2^{\text{high}} &= 240 + 180 \times 0.622 = 240 + 112 = 352 \text{ units} \\
+Q_2^{\text{low}} &= 120 + 140 \times 0.622 = 120 + 87 = 207 \text{ units}
+\end{align*}
+
+\paragraph{Complete Profit Function}
+
+The total profit for policy $(Q_0, Q_1(S))$ depends on signal realization $S$ and demand realization $D$:
+\begin{align*}
+\pi(Q_0, Q_1(S), D) = \underbrace{p \cdot \min(Q_0 + Q_1(S), D)}_{\text{Revenue}} &- \underbrace{c_0 \cdot Q_0}_{\text{Pre-season cost}} - \underbrace{c_1 \cdot Q_1(S)}_{\text{In-season cost}} \\
+&+ \underbrace{f \cdot c_0 \cdot \max(Q_0 + Q_1(S) - D, 0)}_{\text{Refund}} \\
+&- \underbrace{s \cdot \max(Q_0 + Q_1(S) - D, 0)}_{\text{Shipping}}
+\end{align*}
+
+For our discrete model with demand states $D \in \{330, 190\}$:
+\begin{itemize}
+    \item \textbf{Sales revenue:} $5 \times \min(Q_0 + Q_1(S), D)$
+    \item \textbf{Pre-season cost:} $3.00 \times Q_0$ (always incurred)
+    \item \textbf{In-season cost:} $3.60 \times Q_1(S)$ (conditional on signal $S$)
+    \item \textbf{Net refund:} $(1.50 - 0.50) \times \max(Q_0 + Q_1(S) - D, 0) = 1.00 \times \text{leftover}$
+\end{itemize}
+
+Expected profit given signal $S$:
+\begin{align*}
+\E[\pi \mid S] = &P(D = 330 \mid S) \times \pi(Q_0, Q_1(S), 330) \\
+&+ P(D = 190 \mid S) \times \pi(Q_0, Q_1(S), 190)
+\end{align*}
+
+\textbf{Example Calculation:} For $Q_0 = 190, Q_1(\text{High}) = 140$ (total = 330):
+\begin{itemize}
+    \item If $D = 330$: Sales = $5 \times 330 = \$1650$, Cost = $3.00 \times 190 + 3.60 \times 140 = \$1074$, Leftover = 0 \\
+    $\Rightarrow \pi = 1650 - 1074 = \$576$
+    \item If $D = 190$: Sales = $5 \times 190 = \$950$, Cost = $\$1074$, Leftover = 140, Refund = $1.00 \times 140 = \$140$ \\
+    $\Rightarrow \pi = 950 - 1074 + 140 = \$16$
+    \item $\E[\pi \mid S = \text{High}] = 0.8 \times 576 + 0.2 \times 16 = 460.8 + 3.2 = \$464$
+\end{itemize}
+
+\subsubsection{Part (b): Signal-Specific Optimization}
+
+\paragraph{Spreadsheet Methodology}
+
+All calculations performed in Excel using formula-based enumeration. The spreadsheet evaluates expected profit for each combination of $(Q_0, Q_1(S))$ over the ranges:
+\begin{itemize}
+    \item $Q_0 \in \{170, 180, 190, \ldots, 340, 350\}$ (19 values, 10-unit increments)
+    \item $Q_1(S) \in \{0, 10, 20, \ldots, 160, 170\}$ (18 values, 10-unit increments)
+\end{itemize}
+
+For each $(Q_0, Q_1)$ pair, a single Excel cell contains the full profit formula accounting for both demand states and their conditional probabilities given signal $S$. Updating one cell in the $Q_0$ column instantly recalculates all 18 profit values for different $Q_1$ levels, enabling efficient sensitivity analysis.
+
+\paragraph{Signal High Analysis}
+
+When signal indicates high demand ($S = \text{High}$), conditional probabilities are $P(D = 330 \mid S = H) = 0.8$ and $P(D = 190 \mid S = H) = 0.2$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{images/q8_signalhigh_table.png}
+\caption{Excel iteration table for Signal High: Expected profit $\E[\pi \mid S = \text{High}]$ for various $(Q_0, Q_1)$ combinations. Optimal values highlighted. Full formulas available in submitted workbook.}
+\label{fig:q8_signalhigh_table}
+\end{figure}
+
+\textbf{Optimal Policy for Signal High:}
+\begin{itemize}
+    \item If $Q_0 = 330$ (pre-ordered at target): Order $Q_1^*(\text{High}) = 0$ additional units
+    \item Expected profit: $\E[\pi \mid S = \text{High}] = \$508$
+    \item Rationale: Pre-season inventory already matches the high-demand target (330 units). Expedited ordering at \$3.60 would reduce profit due to premium cost.
+\end{itemize}
+
+Visual sensitivity analysis (graphs illustrate how expected profit varies with $Q_1$ for different $Q_0$ values):
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/q8_signalhigh_q0=330.png}
+    \caption{Signal High: Profit vs $Q_1$ when $Q_0 = 330$}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/q8_signalhigh_q0=320.png}
+    \caption{Signal High: Profit vs $Q_1$ when $Q_0 = 320$}
+\end{minipage}
+\end{figure}
+
+The graphs show that when $Q_0$ is below the high-demand target, adding expedited inventory can improve profit, though the \$0.60 premium limits the optimal top-up quantity.
+
+\paragraph{Signal Low Analysis}
+
+When signal indicates low demand ($S = \text{Low}$), conditional probabilities are $P(D = 330 \mid S = L) = 0.4$ and $P(D = 190 \mid S = L) = 0.6$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{images/q8_signallow_table.png}
+\caption{Excel iteration table for Signal Low: Expected profit $\E[\pi \mid S = \text{Low}]$ for various $(Q_0, Q_1)$ combinations. Optimal values highlighted. Full formulas available in submitted workbook.}
+\label{fig:q8_signallow_table}
+\end{figure}
+
+\textbf{Optimal Policy for Signal Low:}
+\begin{itemize}
+    \item If $Q_0 = 190$ (pre-ordered at target): Order $Q_1^*(\text{Low}) = 0$ additional units
+    \item Expected profit: $\E[\pi \mid S = \text{Low}] = \$340$
+    \item Rationale: With 60\% probability of low demand (190 units), additional expedited inventory creates excessive overage risk. The signal suggests conservative inventory levels.
+\end{itemize}
+
+Visual sensitivity analysis:
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/q8_signallow_q0=190.png}
+    \caption{Signal Low: Profit vs $Q_1$ when $Q_0 = 190$}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/q8_signallow_q0=170.png}
+    \caption{Signal Low: Profit vs $Q_1$ when $Q_0 = 170$}
+\end{minipage}
+\end{figure}
+
+The graphs demonstrate that any expedited ordering under Signal Low decreases expected profit due to the high likelihood of low demand (60\%), which would result in costly overage.
+
+\paragraph{Summary of Signal-Conditional Optima}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Signal} & \textbf{Target $Q_S^*$} & \textbf{Optimal $Q_1^*(S)$} & \textbf{Total Inventory} & \textbf{$\E[\pi \mid S]$} & \textbf{Note} \\
+\midrule
+High & 330 & 0 & 330 & \$508 & Already at target \\
+Low & 190 & 0 & 190 & \$340 & Avoid overage risk \\
+\bottomrule
+\end{tabular}
+\caption{Optimal reactive ordering policy given $Q_0$ values matching signal-specific targets}
+\label{tab:q8_reactive_policy}
+\end{table}
+
+The reactive policy is defined as: $Q_1^*(S) = \max(0, Q_S^* - Q_0)$, where $Q_S^*$ is the signal-conditional target inventory level. Excel tables show this policy holds across the full range of $Q_0$ values tested.
+
+\subsubsection{Part (c): Stage 1 Optimization}
+
+\paragraph{Backward Induction Approach}
+
+Having determined the optimal reactive policy for Stage 2 (part b), we now optimize the Stage 1 decision $Q_0$ by evaluating total expected profit across both signal scenarios:
+\begin{align*}
+E[\pi(Q_0)] &= P(S = \text{High}) \times E[\pi \mid S = \text{High}, Q_0] \\
+&\quad + P(S = \text{Low}) \times E[\pi \mid S = \text{Low}, Q_0] \\
+&= 0.45 \times E[\pi \mid S = H] + 0.55 \times E[\pi \mid S = L]
+\end{align*}
+
+For each candidate $Q_0$, Stage 2 profits are determined by the reactive policy from part (b), which depends on whether $Q_0$ is below, at, or above the signal-conditional target inventory levels (330 for High, 190 for Low).
+
+\paragraph{Expected Profit Sensitivity Analysis}
+
+The following table shows expected profit under the discrete demand model for various pre-committed inventory levels across different probability scenarios. Each row represents a fixed $Q_0$ value; columns show how expected profit varies with $P(D = 330)$ (the probability of high demand realization):
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{r|cccccccccc}
+\toprule
+\textbf{Single Order} & \multicolumn{10}{c}{\textbf{Expected Profit (\$) at Different $P(D = 330)$}} \\
+\textbf{Quantity $Q$} & \textbf{0.30} & \textbf{0.35} & \textbf{0.40} & \textbf{0.45} & \textbf{0.50} & \textbf{0.58} & \textbf{0.60} & \textbf{0.70} & \textbf{0.80} & \textbf{0.90} \\
+\midrule
+352 & 189 & 214 & 239 & 265 & 290 & 331 & 341 & 392 & 443 & 494 \\
+330 & 221 & 245 & 268 & 292 & 315 & 353 & 362 & 409 & 456 & 503 \\
+\rowcolor{lightgray} 190 & 311 & 315 & 318 & 322 & 325 & 331 & 332 & 339 & 346 & 353 \\
+207 & 318 & 324 & 329 & 335 & 340 & 349 & 351 & 362 & 372 & 383 \\
+\bottomrule
+\end{tabular}
+\caption{Expected profit sensitivity to demand probability under discrete approximation. Baseline model uses $P(D = 330) = 0.58$. Row for $Q = 190$ (highlighted) represents the optimal Stage 1 decision.}
+\label{tab:q8_stage1_sensitivity}
+\end{table}
+
+\textbf{Key Observations:}
+\begin{itemize}
+    \item At baseline probability $P(D = 330) = 0.58$: Lower quantities (190, 207) outperform higher quantities (330, 352) when signal-based reactive ordering is not available
+    \item $Q = 190$ provides robust performance across wide range of probability scenarios
+    \item Conservative pre-season ordering preserves flexibility for reactive Stage 2 adjustments
+\end{itemize}
+
+\paragraph{Optimal Two-Stage Policy}
+
+Under the two-stage model with signal information and reactive capacity:
+\begin{align*}
+E[\pi(Q_0 = 190)] &= 0.45 \times E[\pi \mid S = \text{High}] + 0.55 \times E[\pi \mid S = \text{Low}] \\
+&= 0.45 \times 508 + 0.55 \times 340 \\
+&= 228.6 + 187.0 \\
+&= \$415.60
+\end{align*}
+
+\noindent\fbox{\parbox{0.97\textwidth}{
+\textbf{\textcolor{primaryblue}{Optimal Policy (Task 8)}}
+\begin{itemize}
+    \item \textbf{Stage 1 (Pre-season):} Order $Q_0^* = 190$ units at $c_0 = \$3.00$
+    \item \textbf{Stage 2 (In-season, Signal High):} Order $Q_1^*(\text{High}) = 140$ units at $c_1 = \$3.60$ \\
+    (total inventory = 330 units)
+    \item \textbf{Stage 2 (In-season, Signal Low):} Order $Q_1^*(\text{Low}) = 0$ units \\
+    (maintain inventory at 190 units)
+    \item \textbf{Total Expected Profit:} $E[\pi] = \$415.60$
+\end{itemize}
+}}
+
+\vspace{0.5em}
+
+\textbf{Rationale:} Pre-ordering 190 units matches the low-demand target, eliminating overage risk when Signal Low occurs (55\% probability). When Signal High occurs (45\% probability), the strong signal accuracy (80\%) justifies paying the \$0.60 expedited premium to top up to 330 units, capturing the high-demand opportunity with expected profit of \$508.
+
+\subsubsection{Part (d): Value of Signal and Reactive Capacity (VOSRC)}
+
+\paragraph{Decision Tree Analysis}
+
+The value of the two-stage ordering strategy with signal information is evaluated against the single-stage baseline from Part 2.
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/q8_decisiontree1.png}
+    \caption{Initial decision tree structure for two-stage ordering with signal}
+    \label{fig:q8_tree1}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/q8_decisiontree2.png}
+    \caption{Final decision tree with expected profit calculations}
+    \label{fig:q8_tree2}
+\end{minipage}
+\end{figure}
+
+The decision trees illustrate how the two-stage model creates value:
+\begin{itemize}
+    \item \textbf{Signal High branch (45\% probability):} Top up from 190 to 330 units, achieving $E[\pi \mid S = H] = \$508$
+    \item \textbf{Signal Low branch (55\% probability):} Maintain 190 units, achieving $E[\pi \mid S = L] = \$340$
+    \item \textbf{Expected outcome:} Weighted average yields \$415.60
+\end{itemize}
+
+\paragraph{VOSRC Calculation}
+
+\begin{align*}
+\text{VOSRC} &= [\text{Full Model Profit}] - [\text{Baseline Profit}] \\
+&= [\text{Part 8(c) Optimal}] - [\text{Part 2 Optimal}] \\
+&= \$415.60 - \$370.00 \\
+&= \$45.60
+\end{align*}
+
+This represents a \textbf{12.3\% profit improvement} over the single-stage ordering strategy. The signal and reactive capacity together contribute an additional \$45.60 per season in expected profit.
+
+\paragraph{Signal Quality Sensitivity Analysis}
+
+To assess robustness, we evaluate how VOSRC changes with signal accuracy:
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{ccccc}
+\toprule
+\textbf{$P(D = 330 \mid S = H)$} & \textbf{$P(D = 330 \mid S = L)$} & \textbf{Expected Profit} & \textbf{VOSRC} & \textbf{Change} \\
+\midrule
+0.9 & 0.4 & \$440.80 & \$70.80 & +\$25.20 \\
+\rowcolor{lightgray} 0.8 & 0.4 & \$415.60 & \$45.60 & \textit{baseline} \\
+0.7 & 0.4 & \$390.40 & \$20.40 & $-$\$25.20 \\
+\midrule
+0.8 & 0.3 & \$415.60 & \$45.60 & \$0.00 \\
+0.8 & 0.4 & \$415.60 & \$45.60 & \$0.00 \\
+0.8 & 0.5 & \$415.60 & \$45.60 & \$0.00 \\
+\midrule
+0.8 & 0.4 & \$393.60 & \$23.60 & $-$\$22.00 \\
+\bottomrule
+\end{tabular}
+\caption{Sensitivity of VOSRC to signal accuracy assumptions. Top section varies High-signal accuracy; middle section varies Low-signal accuracy; bottom row shows alternative scenario.}
+\label{tab:q8_vosrc_sensitivity}
+\end{table}
+
+\textbf{Critical Insights:}
+\begin{itemize}
+    \item \textbf{High-signal accuracy drives value:} Each 0.1 increase in $P(D = 330 \mid S = H)$ adds approximately \$25 to VOSRC
+    \item \textbf{Low-signal accuracy is irrelevant:} Changes in $P(D = 330 \mid S = L)$ from 0.3 to 0.5 produce \textit{zero} change in VOSRC
+    \item \textbf{Explanation:} Optimal policy orders $Q_1^*(L) = 0$ regardless of Low-signal accuracy, making the strategy robust to uncertainty about low-demand scenarios
+\end{itemize}
+
+\paragraph{Justification: When Is the Expedited Premium Rational?}
+
+The VOSRC of \$45.60 demonstrates that the two-stage ordering strategy with signal information is economically superior to single-stage ordering, justifying the \$0.60 per-unit expedited premium. The signal's value derives primarily from its ability to accurately predict high demand (80\% accuracy when Signal High), enabling profitable reactive top-up orders that capture upside opportunities while limiting downside risk. The strategy is robust because the Low-signal response (order nothing additional) requires no accuracy assumption about $P(D = 330 \mid S = L)$, making the model insensitive to estimation errors in low-demand scenarios. Paying the expedited premium becomes rational when the signal quality is sufficiently high ($P(D = 330 \mid S = H) \geq 0.7$ yields positive VOSRC) and the signal occurs with reasonable frequency, as our baseline 45\% High-signal probability ensures the top-up opportunity materializes often enough to amortize the flexibility investment.
+
+%==============================================================================
 % End of Technical Appendix
 %==============================================================================

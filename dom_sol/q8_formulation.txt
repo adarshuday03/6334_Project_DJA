@@ -1,0 +1,95 @@
+deciding the single order points:
+	There are two ways to manager this, eigher have just a single pre-season order or have a pre season and then in season order			
+	Lets make the payoff table. The states of nature are D⏐S=High  and D⏐S=Low			
+	Decision taken are Ordering optimal quantity basis S=High or S=Low at the beginning with no top up or order S=Low optimal with a top up to match S=High			
+	At pre season cost of $3.00			
+	For D⏐S=High  single order			
+			co= 3-0.5*3+.5=	2
+			cu=5-3=	2
+			P(D≤Q 0)=cu/(cu+co)=	0.5
+				(𝑄_(0/ℎ𝑖𝑔ℎ)−240)/(420−240)=0.5=>𝑄_(0/ℎ𝑖𝑔ℎ)=0.5*180+240=>𝑸_𝟎𝑰𝒉𝒊𝒈𝒉=330
+				
+	for D⏐S=Low single order			
+			co= 3-0.5*3+.5=	2
+			cu=5-3=	2
+			P(D≤Q 0)=cu/(cu+co)=	0.5
+				(𝑄_(0/𝑙𝑜𝑤)−120)/(260−120)=0.5=>𝑄_(0/𝑙𝑜𝑤)=0.5*140+120=>𝑸_(𝟎/𝒍𝒐𝒘)=190
+				
+for both pre and in season ordering, the pre order could be placed till Q0/low or Q0/high and then basis high signal, place the next order to add Q1			
+This looks like a quantity discount problem except the inverse since at higher quantity, the cost is going up. So we can use a similar approach			
+Lets find Q2/high =Q1+Q0			(Q0 can be Q0/high or Q0/low)
+		co= 3.6-0.5*3.6+.5=	2.3
+		cu=5-3.6=	1.4
+		P(D≤Q0)=cu/(cu+co)=	0.62
+			(𝑄_(2/ℎ𝑖𝑔ℎ)−240)/(420−240)=0.62=>𝑄_(2/ℎ𝑖𝑔ℎ)=0.62*180+240=>𝑸_(𝟐/𝒉𝒊𝒈𝒉)=352
+			
+Lets find Q2/low =Q1+Q0			
+		co= 3.6-0.5*3.6+.5=	2.3
+		cu=5-3.6=	1.4
+		P(D≤Q0)=cu/(cu+co)=	0.62
+			(𝑄_(2/𝑙𝑜𝑤)−120)/(260−120)=0.62=>𝑄_(2/𝑙𝑜𝑤)=0.62*140+120=>𝑸_(𝟐/𝒍𝒐𝒘)=207
+
+now we need to find, for each of these order points, what the expected profit is
+	Expected Profit					
+						
+				D is High		D is low
+	Single order 352			545		36 
+	Single order 330			550		80 
+	Single order 190			360		290 
+	Single order 207			394		286 
+
+to find the expected profit, we need P(D=H) and P(D=L)
+
+we get this from bayesian analyses:
+
+P(S=H)	0.45
+P(S=L)	0.55
+P(D=H⏐S=L)	0.4
+P(D=L⏐S=L)	0.6
+P(D=H⏐S=H)	0.8
+P(D=L⏐S=H)	0.2
+
+P(S=L⏐D=H)=	P(D=H⏐S=L)P(S=L)divided by [P(D=H⏐S=L)P(S=L)+P(D=H⏐S=H)P(S=H)] = 0.38
+
+P(S=H⏐D=H)=				0.62
+
+P(S=L⏐D=L)=	P(D=L⏐S=L)P(S=L) divided by [P(D=L⏐S=L)P(S=L)+P(D=L⏐S=H)P(S=H)]	= 0.79
+
+P(S=H⏐D=L)=				0.21
+
+P(D=H⏐S=L)=	P(S=L⏐D=H)P(D=H) divided by [P(S=L⏐D=H)P(D=H)+P(S=L⏐D=L)P(D=L)]		
+
+0.4*[0.38P(D=H)+0.79P(D=L)]=	0.38P(D=H)
+[0.38P(D=H)+0.79P(D=L)]=	0.95P(D=H)
+[0.79P(D=L)]=	0.57P(D=H)
+P(D=L)=	0.72P(D=H)
+	
+P(D=L)+P(D=H)=	1
+1.72P(D=H)=	1
+P(D=H)=	0.58
+P(D=L)=	0.42
+
+so we get the P that demand is High is 0.58 and P that demand is Low is 0.42
+
+below table shows the expected profit for 	
+    Single order 352
+	Single order 330
+	Single order 190
+	Single order 207
+
+
+
+for our specific calculated P(D=High) value of 0.58, the expected profits are:
+E(Profit)
+331
+353
+331
+349
+
+in that specific order, for different P(D=High) values, a sensitvyt analysis for various P(D=High) values is below
+E(Profit)	E(Profit)	E(Profit)	E(Profit)	E(Profit)	E(Profit)	E(Profit)	E(Profit)	E(Profit)
+189	239	214	265	290	341	392	443	494
+221	268	245	292	315	362	409	456	503
+311	318	315	322	325	332	339	346	353
+318	329	324	335	340	351	362	372	383
+0.3	0.4	0.35	0.45	0.5	0.6	0.7	0.8	0.9

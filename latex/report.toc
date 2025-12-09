@@ -1,60 +1,95 @@
-\contentsline {section}{\numberline {1}Executive Summary}{4}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Task 1: Conceptual Analysis of Order Quantity}{4}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Task 2: Optimal Order Quantity Calculation}{4}{subsection.1.2}%
-\contentsline {subsubsection}{\numberline {1.2.1}Newsvendor Model}{4}{subsubsection.1.2.1}%
-\contentsline {subsubsection}{\numberline {1.2.2}Reflection: Distribution Assumption Limitation}{4}{subsubsection.1.2.2}%
-\contentsline {subsection}{\numberline {1.3}Task 3: Refund Sensitivity}{4}{subsection.1.3}%
-\contentsline {subsection}{\numberline {1.4}Task 4: Pricing Decision}{5}{subsection.1.4}%
-\contentsline {subsubsection}{\numberline {1.4.1}Optimal Quantity at p = \$6}{5}{subsubsection.1.4.1}%
-\contentsline {subsubsection}{\numberline {1.4.2}Policy Comparison \& Recommendation}{5}{subsubsection.1.4.2}%
-\contentsline {subsubsection}{\numberline {1.4.3}Reflection: Price-Demand Relationship}{5}{subsubsection.1.4.3}%
-\contentsline {subsection}{\numberline {1.5}Task 5: Monte Carlo Simulation \& Risk Analysis}{5}{subsection.1.5}%
-\contentsline {subsubsection}{\numberline {1.5.1}Simulation Results}{5}{subsubsection.1.5.1}%
-\contentsline {subsubsection}{\numberline {1.5.2}Risk Mitigation Strategy}{5}{subsubsection.1.5.2}%
-\contentsline {subsubsection}{\numberline {1.5.3}Local Reflection: Weather \& Regulatory Risk}{6}{subsubsection.1.5.3}%
-\contentsline {subsection}{\numberline {1.6}Task 6: Corvette Prize Incentive}{6}{subsection.1.6}%
-\contentsline {subsubsection}{\numberline {1.6.1}(a) Modified Profit Model}{6}{subsubsection.1.6.1}%
-\contentsline {subsubsection}{\numberline {1.6.2}(b) Optimal Quantity Q**}{6}{subsubsection.1.6.2}%
-\contentsline {subsubsection}{\numberline {1.6.3}(c) Risk-Seeking Behavior Analysis}{6}{subsubsection.1.6.3}%
-\contentsline {subsubsection}{\numberline {1.6.4}Assumption \& Reflection}{7}{subsubsection.1.6.4}%
-\contentsline {subsection}{\numberline {1.7}Task 7: Quantity Discounts}{7}{subsection.1.7}%
-\contentsline {subsubsection}{\numberline {1.7.1}(a) Modified Profit Model}{7}{subsubsection.1.7.1}%
-\contentsline {subsubsection}{\numberline {1.7.2}(b) Optimal Quantity with Discounts}{7}{subsubsection.1.7.2}%
-\contentsline {subsubsection}{\numberline {1.7.3}(c) Comparison to Baseline}{7}{subsubsection.1.7.3}%
-\contentsline {subsubsection}{\numberline {1.7.4}(d) Supply Chain Coordination}{7}{subsubsection.1.7.4}%
-\contentsline {subsection}{\numberline {1.8}Task 8: Two-Stage Ordering with Demand Signal}{7}{subsection.1.8}%
-\contentsline {subsection}{\numberline {1.9}Managerial Insights}{8}{subsection.1.9}%
-\contentsline {section}{\numberline {2}Open-Ended Discussion}{8}{section.2}%
-\contentsline {section}{\numberline {3}Technical Appendix}{8}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Task 1: Conceptual Analysis of Order Quantity}{8}{subsection.3.1}%
-\contentsline {subsubsection}{\numberline {3.1.1}Overage vs. Underage Trade-off Analysis}{8}{subsubsection.3.1.1}%
-\contentsline {subsubsection}{\numberline {3.1.2}Ambiguity Resolution}{9}{subsubsection.3.1.2}%
-\contentsline {subsubsection}{\numberline {3.1.3}Conceptual Prediction}{9}{subsubsection.3.1.3}%
-\contentsline {subsection}{\numberline {3.2}Task 2: Optimal Order Quantity Calculation}{9}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Newsvendor Model Formulation}{9}{subsubsection.3.2.1}%
-\contentsline {subsubsection}{\numberline {3.2.2}Profit Breakdown at $Q^* = 270$}{10}{subsubsection.3.2.2}%
-\contentsline {subsubsection}{\numberline {3.2.3}Distribution Sensitivity Analysis}{10}{subsubsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.3}Task 3: Refund Sensitivity Analysis}{10}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.1}Sensitivity Results}{11}{subsubsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.4}Task 4: Pricing Decision}{11}{subsection.3.4}%
-\contentsline {subsubsection}{\numberline {3.4.1}Conceptual Prediction for $p = \$6$}{11}{subsubsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {3.4.2}Comparative Analysis}{12}{subsubsection.3.4.2}%
-\contentsline {subsubsection}{\numberline {3.4.3}Price Elasticity Sensitivity Analysis}{12}{subsubsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.5}Task 5: Risk \& Simulation Analysis}{13}{subsection.3.5}%
-\contentsline {subsubsection}{\numberline {3.5.1}Ambiguity Resolution - Continuous vs Discrete Demand}{13}{subsubsection.3.5.1}%
-\contentsline {subsubsection}{\numberline {3.5.2}Simulation Setup and Random Number Generation}{13}{subsubsection.3.5.2}%
-\contentsline {subsubsection}{\numberline {3.5.3}Multi-Seed Robustness Verification}{13}{subsubsection.3.5.3}%
-\contentsline {subsubsection}{\numberline {3.5.4}Excel Implementation: Single-Iteration Transparency}{14}{subsubsection.3.5.4}%
-\contentsline {subsubsection}{\numberline {3.5.5}Break-Even Analysis and Conservative Ordering Strategy}{14}{subsubsection.3.5.5}%
-\contentsline {subsubsection}{\numberline {3.5.6}Demand Shock Scenarios: Weather and Regulatory Risk}{15}{subsubsection.3.5.6}%
-\contentsline {subsubsection}{\numberline {3.5.7}Risk Mitigation Strategies}{15}{subsubsection.3.5.7}%
-\contentsline {subsection}{\numberline {3.6}Task 6: Corvette Prize Incentive}{16}{subsection.3.6}%
-\contentsline {subsubsection}{\numberline {3.6.1}Ambiguity Resolution: Prize Rule Selection}{16}{subsubsection.3.6.1}%
-\contentsline {subsubsection}{\numberline {3.6.2}(a) Modified Profit Model}{16}{subsubsection.3.6.2}%
-\contentsline {subsubsection}{\numberline {3.6.3}(b) Optimal Quantity Q** Calculation}{17}{subsubsection.3.6.3}%
-\contentsline {subsubsection}{\numberline {3.6.4}(c) Risk-Seeking Behavior Analysis}{17}{subsubsection.3.6.4}%
-\contentsline {subsubsection}{\numberline {3.6.5}Behavioral Economics: EV Model Limitations}{18}{subsubsection.3.6.5}%
-\contentsline {subsection}{\numberline {3.7}Task 7: Quantity Discounts}{18}{subsection.3.7}%
-\contentsline {subsubsection}{\numberline {3.7.1}Tier-by-Tier Analysis}{18}{subsubsection.3.7.1}%
-\contentsline {subsubsection}{\numberline {3.7.2}Candidate Profit Comparison}{19}{subsubsection.3.7.2}%
-\contentsline {subsubsection}{\numberline {3.7.3}Comparison to Baseline}{19}{subsubsection.3.7.3}%
+\contentsline {section}{\numberline {1}Executive Summary}{5}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Task 1: Conceptual Analysis of Order Quantity}{5}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Task 2: Optimal Order Quantity Calculation}{5}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Newsvendor Model}{5}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}Reflection: Distribution Assumption Limitation}{5}{subsubsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.3}Task 3: Refund Sensitivity}{5}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Task 4: Pricing Decision}{6}{subsection.1.4}%
+\contentsline {subsubsection}{\numberline {1.4.1}Optimal Quantity at p = \$6}{6}{subsubsection.1.4.1}%
+\contentsline {subsubsection}{\numberline {1.4.2}Policy Comparison \& Recommendation}{6}{subsubsection.1.4.2}%
+\contentsline {subsubsection}{\numberline {1.4.3}Reflection: Price-Demand Relationship}{6}{subsubsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.5}Task 5: Monte Carlo Simulation \& Risk Analysis}{6}{subsection.1.5}%
+\contentsline {subsubsection}{\numberline {1.5.1}Simulation Results}{6}{subsubsection.1.5.1}%
+\contentsline {subsubsection}{\numberline {1.5.2}Risk Mitigation Strategy}{6}{subsubsection.1.5.2}%
+\contentsline {subsubsection}{\numberline {1.5.3}Local Reflection: Weather \& Regulatory Risk}{7}{subsubsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.6}Task 6: Corvette Prize Incentive}{7}{subsection.1.6}%
+\contentsline {subsubsection}{\numberline {1.6.1}(a) Modified Profit Model}{7}{subsubsection.1.6.1}%
+\contentsline {subsubsection}{\numberline {1.6.2}(b) Optimal Quantity Q**}{7}{subsubsection.1.6.2}%
+\contentsline {subsubsection}{\numberline {1.6.3}(c) Risk-Seeking Behavior Analysis}{7}{subsubsection.1.6.3}%
+\contentsline {subsubsection}{\numberline {1.6.4}Assumption \& Reflection}{8}{subsubsection.1.6.4}%
+\contentsline {subsection}{\numberline {1.7}Task 7: Quantity Discounts}{8}{subsection.1.7}%
+\contentsline {subsubsection}{\numberline {1.7.1}(a) Modified Profit Model}{8}{subsubsection.1.7.1}%
+\contentsline {subsubsection}{\numberline {1.7.2}(b) Optimal Quantity with Discounts}{8}{subsubsection.1.7.2}%
+\contentsline {subsubsection}{\numberline {1.7.3}(c) Comparison to Baseline}{8}{subsubsection.1.7.3}%
+\contentsline {subsubsection}{\numberline {1.7.4}(d) Supply Chain Coordination}{8}{subsubsection.1.7.4}%
+\contentsline {subsection}{\numberline {1.8}Task 8: Two-Stage Ordering with Demand Signal}{8}{subsection.1.8}%
+\contentsline {subsubsection}{\numberline {1.8.1}(a) Profit Function}{8}{subsubsection.1.8.1}%
+\contentsline {subsubsection}{\numberline {1.8.2}(b) Signal-Specific Optimal Inventory}{9}{subsubsection.1.8.2}%
+\contentsline {subsubsection}{\numberline {1.8.3}(c) Stage 1 Optimization}{9}{subsubsection.1.8.3}%
+\contentsline {subsubsection}{\numberline {1.8.4}(d) Value of Signal and Reactive Capacity (VOSRC)}{9}{subsubsection.1.8.4}%
+\contentsline {subsection}{\numberline {1.9}Managerial Insights}{9}{subsection.1.9}%
+\contentsline {section}{\numberline {2}Technical Appendix}{10}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Task 1: Conceptual Analysis of Order Quantity}{10}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Overage vs. Underage Trade-off Analysis}{10}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Ambiguity Resolution}{10}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Conceptual Prediction}{10}{subsubsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.2}Task 2: Optimal Order Quantity Calculation}{11}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Newsvendor Model Formulation}{11}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Profit Breakdown at $Q^* = 270$}{11}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Distribution Sensitivity Analysis}{11}{subsubsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.3}Task 3: Refund Sensitivity Analysis}{12}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Sensitivity Results}{12}{subsubsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.4}Task 4: Pricing Decision}{13}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Conceptual Prediction for $p = \$6$}{13}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}Comparative Analysis}{13}{subsubsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.3}Price Elasticity Sensitivity Analysis}{13}{subsubsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.5}Task 5: Risk \& Simulation Analysis}{14}{subsection.2.5}%
+\contentsline {subsubsection}{\numberline {2.5.1}Ambiguity Resolution - Continuous vs Discrete Demand}{14}{subsubsection.2.5.1}%
+\contentsline {subsubsection}{\numberline {2.5.2}Simulation Setup and Random Number Generation}{14}{subsubsection.2.5.2}%
+\contentsline {subsubsection}{\numberline {2.5.3}Multi-Seed Robustness Verification}{15}{subsubsection.2.5.3}%
+\contentsline {subsubsection}{\numberline {2.5.4}Excel Implementation: Single-Iteration Transparency}{15}{subsubsection.2.5.4}%
+\contentsline {subsubsection}{\numberline {2.5.5}Break-Even Analysis and Conservative Ordering Strategy}{16}{subsubsection.2.5.5}%
+\contentsline {subsubsection}{\numberline {2.5.6}Demand Shock Scenarios: Weather and Regulatory Risk}{17}{subsubsection.2.5.6}%
+\contentsline {subsubsection}{\numberline {2.5.7}Risk Mitigation Strategies}{17}{subsubsection.2.5.7}%
+\contentsline {subsection}{\numberline {2.6}Task 6: Corvette Prize Incentive}{18}{subsection.2.6}%
+\contentsline {subsubsection}{\numberline {2.6.1}Ambiguity Resolution: Prize Rule Selection}{18}{subsubsection.2.6.1}%
+\contentsline {subsubsection}{\numberline {2.6.2}(a) Modified Profit Model}{18}{subsubsection.2.6.2}%
+\contentsline {subsubsection}{\numberline {2.6.3}(b) Optimal Quantity Q** Calculation}{19}{subsubsection.2.6.3}%
+\contentsline {subsubsection}{\numberline {2.6.4}(c) Risk-Seeking Behavior Analysis}{19}{subsubsection.2.6.4}%
+\contentsline {subsubsection}{\numberline {2.6.5}Behavioral Economics: EV Model Limitations}{20}{subsubsection.2.6.5}%
+\contentsline {subsection}{\numberline {2.7}Task 7: Quantity Discounts}{20}{subsection.2.7}%
+\contentsline {subsubsection}{\numberline {2.7.1}Tier-by-Tier Analysis}{20}{subsubsection.2.7.1}%
+\contentsline {subsubsection}{\numberline {2.7.2}Candidate Profit Comparison}{21}{subsubsection.2.7.2}%
+\contentsline {subsubsection}{\numberline {2.7.3}Comparison to Baseline}{21}{subsubsection.2.7.3}%
+\contentsline {subsection}{\numberline {2.8}Task 8: Context Signal \& Deferred Purchasing}{22}{subsection.2.8}%
+\contentsline {subsubsection}{\numberline {2.8.1}Part (a): Profit Function Formulation}{22}{subsubsection.2.8.1}%
+\contentsline {paragraph}{Discrete Demand Approximation}{22}{subsubsection.2.8.1}%
+\contentsline {paragraph}{Bayesian Probability Framework}{22}{subsubsection.2.8.1}%
+\contentsline {paragraph}{Inverse Critical Ratio for Expedited Ordering}{22}{subsubsection.2.8.1}%
+\contentsline {paragraph}{Complete Profit Function}{23}{subsubsection.2.8.1}%
+\contentsline {subsubsection}{\numberline {2.8.2}Part (b): Signal-Specific Optimization}{24}{subsubsection.2.8.2}%
+\contentsline {paragraph}{Spreadsheet Methodology}{24}{subsubsection.2.8.2}%
+\contentsline {paragraph}{Signal High Analysis}{24}{subsubsection.2.8.2}%
+\contentsline {paragraph}{Signal Low Analysis}{25}{figure.caption.18}%
+\contentsline {paragraph}{Summary of Signal-Conditional Optima}{26}{figure.caption.20}%
+\contentsline {subsubsection}{\numberline {2.8.3}Part (c): Stage 1 Optimization}{26}{subsubsection.2.8.3}%
+\contentsline {paragraph}{Backward Induction Approach}{26}{subsubsection.2.8.3}%
+\contentsline {paragraph}{Expected Profit Sensitivity Analysis}{26}{subsubsection.2.8.3}%
+\contentsline {paragraph}{Optimal Two-Stage Policy}{27}{table.caption.22}%
+\contentsline {subsubsection}{\numberline {2.8.4}Part (d): Value of Signal and Reactive Capacity (VOSRC)}{27}{subsubsection.2.8.4}%
+\contentsline {paragraph}{Decision Tree Analysis}{27}{subsubsection.2.8.4}%
+\contentsline {paragraph}{VOSRC Calculation}{28}{figure.caption.23}%
+\contentsline {paragraph}{Signal Quality Sensitivity Analysis}{28}{figure.caption.23}%
+\contentsline {paragraph}{Justification: When Is the Expedited Premium Rational?}{28}{table.caption.24}%
+\contentsline {section}{\numberline {3}Open-Ended Discussion}{29}{section.3}%
+\contentsline {subsection}{\numberline {3.1}OE1: Contract Design}{29}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Current Contract Analysis}{29}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Proposed Two-Parameter Contract: Reduced Buyback + Enhanced Incentives}{29}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Trade-off Impact}{29}{subsubsection.3.1.3}%
+\contentsline {subsubsection}{\numberline {3.1.4}Alternative: Demand Enhancement Contract}{30}{subsubsection.3.1.4}%
+\contentsline {subsubsection}{\numberline {3.1.5}Data Requirements}{30}{subsubsection.3.1.5}%
+\contentsline {subsection}{\numberline {3.2}OE4: Negotiation Playbook}{30}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Sensitivity Analysis Framework}{30}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Numerical Results}{30}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Explanation: Why Refund Fraction Dominates}{31}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Negotiation Recommendation}{31}{subsubsection.3.2.4}%
