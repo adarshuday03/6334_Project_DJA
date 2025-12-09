@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.11.4)  7 DEC 2025 20:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.11.4)  8 DEC 2025 19:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -386,34 +386,54 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks31
 \@floatcapt=\box58
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 50.
+(C:\Users\Adarsh\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+
+(C:\Users\Adarsh\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen185
+\captionmargin=\dimen186
+\caption@leftmargin=\dimen187
+\caption@rightmargin=\dimen188
+\caption@width=\dimen189
+\caption@indent=\dimen190
+\caption@parindent=\dimen191
+\caption@hangindent=\dimen192
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count296
+\c@continuedfloat=\count297
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 51.
 
 (C:\Users\Adarsh\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pd
 ftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count296
+\l__color_backend_stack_int=\count298
 \l__pdf_internal_box=\box59
 ) (report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -453,16 +473,16 @@ LaTeX Font Info:    ... okay on input line 116.
 (C:\Users\Adarsh\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.m
 kii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count297
-\scratchdimen=\dimen185
+\scratchcounter=\count299
+\scratchdimen=\dimen193
 \scratchbox=\box60
-\nofMPsegments=\count298
-\nofMParguments=\count299
+\nofMPsegments=\count300
+\nofMParguments=\count301
 \everyMPshowfont=\toks32
-\MPscratchCnt=\count300
-\MPscratchDim=\dimen186
-\MPnumerator=\count301
-\makeMPintoPDFobject=\count302
+\MPscratchCnt=\count302
+\MPscratchDim=\dimen194
+\MPnumerator=\count303
+\makeMPintoPDFobject=\count304
 \everyMPtoPDFconversion=\toks33
 )
 (C:\Users\Adarsh\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-
@@ -475,27 +495,29 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring ON on input line 116.
+Package hyperref Info: Link coloring ON on input line 117.
  (report.out) (report.out)
 \@outlinefile=\write3
 \openout3 = `report.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 120
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 121
 .
 
 (C:\Users\Adarsh\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 120
+LaTeX Font Info:    Trying to load font information for U+msb on input line 121
 .
 
 (C:\Users\Adarsh\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<images/gt.png, id=182, 284.06125pt x 178.6675pt>
+<images/gt.png, id=246, 284.06125pt x 178.6675pt>
 File: images/gt.png Graphic file (type png)
 <use images/gt.png>
-Package pdftex.def Info: images/gt.png  used on input line 120.
+Package pdftex.def Info: images/gt.png  used on input line 121.
 (pdftex.def)             Requested size: 67.85533pt x 42.67912pt.
 
 [1
@@ -505,339 +527,147 @@ Package pdftex.def Info: images/gt.png  used on input line 120.
 \tf@toc=\write4
 \openout4 = `report.toc'.
 
- [3] [4] [5
-pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
- been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.233 
-      ] [6] (tech.tex [7] [8]
+ [3] [4]
+Overfull \hbox (0.74382pt too wide) in paragraph at lines 246--247
+\OT1/cmr/m/n/12 Python im-ple-men-ta-tion, seed=6334 - re-sults align with the-
+o-ret-i-cal ex-pec-ta-tion (\TS1/cmr/m/n/12 $\OT1/cmr/m/n/12 370). Multi-
+ []
+
+[5] [6] [7] (tech.tex [8]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 93.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 93.
+(hyperref)                removing `math shift' on input line 89.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 93.
+(hyperref)                removing `superscript' on input line 89.
 
-<../output/plots/q1_q2_profit_curve.png, id=281, 722.7pt x 433.62pt>
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 89.
+
+
+Overfull \hbox (20.49986pt too wide) in paragraph at lines 97--113
+ [][] 
+ []
+
+<../output/plots/q1_q2_profit_curve.png, id=364, 722.7pt x 433.62pt>
 File: ../output/plots/q1_q2_profit_curve.png Graphic file (type png)
 <use ../output/plots/q1_q2_profit_curve.png>
 Package pdftex.def Info: ../output/plots/q1_q2_profit_curve.png  used on input 
-line 121.
-(pdftex.def)             Requested size: 352.31625pt x 211.39055pt.
-[9
-pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has
- been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.127 
-      
-pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.127 
-       <../output/plots/q1_q2_profit_curve.png>]
-<../output/plots/q3_Qstar_vs_refund.png, id=292, 578.16pt x 361.35pt>
+line 118.
+(pdftex.def)             Requested size: 211.38832pt x 126.83168pt.
+[9] [10 <../output/plots/q1_q2_profit_curve.png>]
+<../output/plots/q3_Qstar_vs_refund.png, id=378, 578.16pt x 361.35pt>
 File: ../output/plots/q3_Qstar_vs_refund.png Graphic file (type png)
 <use ../output/plots/q3_Qstar_vs_refund.png>
 Package pdftex.def Info: ../output/plots/q3_Qstar_vs_refund.png  used on input 
-line 168.
+line 185.
 (pdftex.def)             Requested size: 225.4804pt x 140.92041pt.
-<../output/plots/q3_profit_vs_refund.png, id=293, 578.16pt x 361.35pt>
+<../output/plots/q3_profit_vs_refund.png, id=379, 578.16pt x 361.35pt>
 File: ../output/plots/q3_profit_vs_refund.png Graphic file (type png)
 <use ../output/plots/q3_profit_vs_refund.png>
 Package pdftex.def Info: ../output/plots/q3_profit_vs_refund.png  used on input
- line 174.
+ line 191.
 (pdftex.def)             Requested size: 225.4804pt x 140.92041pt.
- [10
-pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has
- been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.187 ...tion{Conceptual Prediction for $p = \$6$}
-                                                  
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.187 ...tion{Conceptual Prediction for $p = \$6$}
-                                                  
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.187 ...tion{Conceptual Prediction for $p = \$6$}
-                                                  
-pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.187 ...tion{Conceptual Prediction for $p = \$6$}
-                                                   <../output/plots/q3_Qstar_vs
-_refund.png> <../output/plots/q3_profit_vs_refund.png>]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 187.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 187.
+(hyperref)                removing `math shift' on input line 204.
 
-[11
-pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has
- been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.253     \item \textbf
-                       {Scenario A (Inelastic):} Demand unchanged—unrealis...
 
-pdfTeX warning (ext4): destination with the same identifier (name{table.5}) has
- been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.253     \item \textbf
-                       {Scenario A (Inelastic):} Demand unchanged—unrealis...
-] [12]
-<../output/plots/q5_multiseed_comparison.png, id=320, 1084.05pt x 289.08pt>
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 204.
+
+[11 <../output/plots/q3_Qstar_vs_refund.png> <../output/plots/q3_profit_vs_refu
+nd.png>] [12]
+<../output/plots/q5_multiseed_comparison.png, id=399, 1084.05pt x 289.08pt>
 File: ../output/plots/q5_multiseed_comparison.png Graphic file (type png)
 <use ../output/plots/q5_multiseed_comparison.png>
 Package pdftex.def Info: ../output/plots/q5_multiseed_comparison.png  used on i
-nput line 339.
+nput line 333.
 (pdftex.def)             Requested size: 422.77664pt x 112.74074pt.
- [13
-pdfTeX warning (ext4): destination with the same identifier (name{table.6}) has
- been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.353 \end{align*}
-                  
-pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.353 \end{align*}
-                   <../output/plots/q5_multiseed_comparison.png>]
-<../output/plots/q5_conservative_strategy.png, id=330, 722.7pt x 433.62pt>
-File: ../output/plots/q5_conservative_strategy.png Graphic file (type png)
-<use ../output/plots/q5_conservative_strategy.png>
-Package pdftex.def Info: ../output/plots/q5_conservative_strategy.png  used on 
-input line 392.
-(pdftex.def)             Requested size: 399.29463pt x 239.57684pt.
- [14
-pdfTeX warning (ext4): destination with the same identifier (name{table.7}) has
- been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.396 
-      ]
-<../output/plots/q5_demand_shock_impact.png, id=336, 722.7pt x 433.62pt>
-File: ../output/plots/q5_demand_shock_impact.png Graphic file (type png)
-<use ../output/plots/q5_demand_shock_impact.png>
-Package pdftex.def Info: ../output/plots/q5_demand_shock_impact.png  used on in
-put line 440.
-(pdftex.def)             Requested size: 225.4804pt x 135.28757pt.
-<../output/plots/q5_breakeven_analysis.png, id=337, 722.7pt x 433.62pt>
-File: ../output/plots/q5_breakeven_analysis.png Graphic file (type png)
-<use ../output/plots/q5_breakeven_analysis.png>
-Package pdftex.def Info: ../output/plots/q5_breakeven_analysis.png  used on inp
-ut line 446.
-(pdftex.def)             Requested size: 225.4804pt x 135.28757pt.
- [15
-pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.452 
-      
-pdfTeX warning (ext4): destination with the same identifier (name{table.8}) has
- been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.452 
-       <../output/plots/q5_conservative_strategy.png>] [16
-pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.490 ...Profit}(Q, D) + \E[\text{Prize} \mid Q]$$
-                                                  
-pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.490 ...Profit}(Q, D) + \E[\text{Prize} \mid Q]$$
-                                                  
-pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.490 ...Profit}(Q, D) + \E[\text{Prize} \mid Q]$$
-                                                   <../output/plots/q5_demand_s
-hock_impact.png> <../output/plots/q5_breakeven_analysis.png>] [17
-pdfTeX warning (ext4): destination with the same identifier (name{table.9}) has
- been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.569 
-      
-pdfTeX warning (ext4): destination with the same identifier (name{table.10}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.569 
-      ]
-<../output/plots/q6_sensitivity.png, id=361, 1011.78pt x 361.35pt>
-File: ../output/plots/q6_sensitivity.png Graphic file (type png)
-<use ../output/plots/q6_sensitivity.png>
-Package pdftex.def Info: ../output/plots/q6_sensitivity.png  used on input line
- 596.
-(pdftex.def)             Requested size: 399.29463pt x 142.60762pt.
- [18
-pdfTeX warning (ext4): destination with the same identifier (name{table.11}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.624 
-      
-pdfTeX warning (ext4): destination with the same identifier (name{table.12}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.624 
-      
-pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.624 
-       <../output/plots/q6_sensitivity.png>]
-<../output/plots/q6_profit_comparison.png, id=371, 722.7pt x 433.62pt>
-File: ../output/plots/q6_profit_comparison.png Graphic file (type png)
-<use ../output/plots/q6_profit_comparison.png>
-Package pdftex.def Info: ../output/plots/q6_profit_comparison.png  used on inpu
-t line 638.
-(pdftex.def)             Requested size: 225.4804pt x 135.28757pt.
-<../output/plots/q6_breakdown.png, id=372, 578.16pt x 361.35pt>
-File: ../output/plots/q6_breakdown.png Graphic file (type png)
-<use ../output/plots/q6_breakdown.png>
-Package pdftex.def Info: ../output/plots/q6_breakdown.png  used on input line 6
-44.
-(pdftex.def)             Requested size: 225.4804pt x 140.92041pt.
- [19
-pdfTeX warning (ext4): destination with the same identifier (name{table.13}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.663 
-      
-pdfTeX warning (ext4): destination with the same identifier (name{figure.11}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.663 
-      
-pdfTeX warning (ext4): destination with the same identifier (name{figure.12}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.663 
-      
-pdfTeX warning (ext4): destination with the same identifier (name{figure.13}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.663 
-       <../output/plots/q6_profit_comparison.png> <../output/plots/q6_breakdown
-.png>] [20
-pdfTeX warning (ext4): destination with the same identifier (name{table.14}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.731     \item O
-                 verage cost penalty outweighs \$0.15/unit savings: total co...
+ [13 <../output/plots/q5_multiseed_comparison.png>]
+<images/q5_excel_first5iter.png, id=411, 1141.26375pt x 145.54375pt>
+File: images/q5_excel_first5iter.png Graphic file (type png)
+<use images/q5_excel_first5iter.png>
+Package pdftex.def Info: images/q5_excel_first5iter.png  used on input line 346
+.
+(pdftex.def)             Requested size: 225.4804pt x 28.75511pt.
+<images/q5_excel_sim_results.png, id=412, 317.185pt x 121.45375pt>
+File: images/q5_excel_sim_results.png Graphic file (type png)
+<use images/q5_excel_sim_results.png>
+Package pdftex.def Info: images/q5_excel_sim_results.png  used on input line 35
+2.
+(pdftex.def)             Requested size: 225.4804pt x 86.34209pt.
+<images/q5_expvsactualprofit.png, id=413, 412.54124pt x 167.12437pt>
+File: images/q5_expvsactualprofit.png Graphic file (type png)
+<use images/q5_expvsactualprofit.png>
+Package pdftex.def Info: images/q5_expvsactualprofit.png  used on input line 36
+0.
+(pdftex.def)             Requested size: 225.4804pt x 91.3449pt.
+<images/q5_netprofit_500sims_excel.png, id=414, 420.06938pt x 164.86594pt>
+File: images/q5_netprofit_500sims_excel.png Graphic file (type png)
+<use images/q5_netprofit_500sims_excel.png>
+Package pdftex.def Info: images/q5_netprofit_500sims_excel.png  used on input l
+ine 366.
+(pdftex.def)             Requested size: 225.4804pt x 88.49545pt.
+ [14 <./images/q5_excel_first5iter.png (PNG copy)> <./images/q5_excel_sim_resul
+ts.png (PNG copy)> <./images/q5_expvsactualprofit.png> <./images/q5_netprofit_5
+00sims_excel.png>] [15] [16] [17] [18]
+Overfull \hbox (51.20946pt too wide) in paragraph at lines 705--715
+ [][] 
+ []
 
-pdfTeX warning (ext4): destination with the same identifier (name{table.15}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.731     \item O
-                 verage cost penalty outweighs \$0.15/unit savings: total co...
-]
-<../output/plots/q7_profit_by_tier.png, id=395, 722.7pt x 433.62pt>
+<../output/plots/q7_profit_by_tier.png, id=451, 722.7pt x 433.62pt>
 File: ../output/plots/q7_profit_by_tier.png Graphic file (type png)
 <use ../output/plots/q7_profit_by_tier.png>
 Package pdftex.def Info: ../output/plots/q7_profit_by_tier.png  used on input l
-ine 757.
-(pdftex.def)             Requested size: 352.31625pt x 211.39055pt.
-) [21
-pdfTeX warning (ext4): destination with the same identifier (name{table.16}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.333 \end{document}
-                    
-pdfTeX warning (ext4): destination with the same identifier (name{figure.14}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.333 \end{document}
-                     <../output/plots/q7_profit_by_tier.png>] (report.aux)
+ine 721.
+(pdftex.def)             Requested size: 201.99121pt x 121.19443pt.
+) [19 <../output/plots/q7_profit_by_tier.png>] [20] (report.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `report.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `report.out':
-(rerunfilecheck)             Before: 1E619E3EFF41B4F21E493BD38F6200AC;9803
-(rerunfilecheck)             After:  90432E9FC72069108A5162E088FBB830;10350.
+Package rerunfilecheck Info: File `report.out' has not changed.
+(rerunfilecheck)             Checksum: 10C01D193050B2A49D2EB978FF90E775;14017.
  ) 
 Here is how much of TeX's memory you used:
- 11877 strings out of 474486
- 185429 string characters out of 5743283
- 1940542 words of memory out of 5000000
- 33883 multiletter control sequences out of 15000+600000
- 572795 words of font info for 90 fonts, out of 8000000 for 9000
+ 13176 strings out of 474486
+ 210451 string characters out of 5743283
+ 1943542 words of memory out of 5000000
+ 35171 multiletter control sequences out of 15000+600000
+ 573176 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,14n,79p,434b,672s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\Adarsh\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcb
-x1200.pk> <C:\Users\Adarsh\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi
+ 75i,15n,79p,434b,577s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\Adarsh\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tct
+i1095.pk> <C:\Users\Adarsh\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi
 600\tcbx1095.pk> <C:\Users\Adarsh\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen
-/ec/dpi600\tcrm1095.pk> <C:\Users\Adarsh\AppData\Local\MiKTeX\fonts/pk/ljfour/j
-knappen/ec/dpi600\tcrm1200.pk><C:/Users/Adarsh/AppData/Local/Programs/MiKTeX/fo
-nts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Adarsh/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Adarsh/AppData/Loca
-l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Adarsh/Ap
-pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users
-/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb
-><C:/Users/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmmi8.pfb><C:/Users/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmr10.pfb><C:/Users/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmr12.pfb><C:/Users/Adarsh/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Adarsh/AppData/Local/Programs/MiK
-TeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Adarsh/AppData/Local/Pr
-ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Adarsh/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Adar
-sh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/
-Users/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt1
-2.pfb><C:/Users/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
-s/symbols/msbm10.pfb>
-Output written on report.pdf (21 pages, 945367 bytes).
+/ec/dpi600\tcbx1200.pk> <C:\Users\Adarsh\AppData\Local\MiKTeX\fonts/pk/ljfour/j
+knappen/ec/dpi600\tcrm1095.pk> <C:\Users\Adarsh\AppData\Local\MiKTeX\fonts/pk/l
+jfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/Adarsh/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Adarsh/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Adarsh/AppDa
+ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/Ada
+rsh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:
+/Users/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi
+10.pfb><C:/Users/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmmi12.pfb><C:/Users/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmmi8.pfb><C:/Users/Adarsh/AppData/Local/Programs/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Adarsh/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Adarsh/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Adarsh/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Adarsh/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/User
+s/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pf
+b><C:/Users/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmti12.pfb><C:/Users/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmtt12.pfb><C:/Users/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/symbols/msbm10.pfb>
+Output written on report.pdf (20 pages, 684094 bytes).
 PDF statistics:
- 509 PDF objects out of 1000 (max. 8388607)
- 112 named destinations out of 1000 (max. 500000)
- 413 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 579 PDF objects out of 1000 (max. 8388607)
+ 116 named destinations out of 1000 (max. 500000)
+ 531 words of extra memory for PDF output out of 10000 (max. 10000000)
 

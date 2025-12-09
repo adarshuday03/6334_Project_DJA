@@ -15,6 +15,7 @@
 \usepackage{array}
 \usepackage{colortbl}
 \usepackage{float}
+\usepackage{caption}
 
 % Color definitions
 \definecolor{primaryblue}{RGB}{0,51,102}
@@ -128,85 +129,53 @@
 \section{Executive Summary}
 %==============================================================================
 
-This report presents a comprehensive Newsvendor analysis for SparkFire LLC, a fireworks distributor facing demand uncertainty for its ``Seventh Heaven'' sparkler product. We analyze optimal order quantities under various business scenarios including pricing decisions, promotional incentives, quantity discounts, and advance demand signals.
+This report analyzes optimal order quantities for SparkFire LLC's ``Seventh Heaven'' sparkler product under demand uncertainty. We examine baseline newsvendor decisions, pricing strategies, promotional incentives, quantity discounts, and two-stage ordering with demand signals. Key ambiguity resolutions are specified task-wise in the Technical Appendix.
 
 %------------------------------------------------------------------------------
-\subsection{Assumptions and Ambiguity Resolution}
+\subsection{Task 1: Conceptual Analysis of Order Quantity}
 %------------------------------------------------------------------------------
 
-\subsubsection{Model Assumptions}
+Based on cost parameters ($p=\$5$, $c=\$3$, $f=0.5$, $s=\$0.50$), we predict $Q^*$ will \textbf{EQUAL} expected demand of 270 units.
 
 \begin{itemize}
-    \item Demand $D$ follows a continuous Uniform distribution on $[120, 420]$ cases
-    \item Single-period horizon: no multi-period inventory carryover
-    \item Risk-neutral decision maker maximizing expected profit
-    \item All costs and revenues are deterministic (no price/cost uncertainty)
-    \item Fixed ordering cost $K = \$20$ is incurred regardless of order size
-    \item Unsold inventory is returned for partial refund at fraction $f$ of cost
-    \item Salvage value $s = \$0.50$ per case for leftover units (after refund)
+    \item \textbf{Underage Cost:} $C_u = p - c = \$2.00$ per stockout
+    \item \textbf{Overage Cost:} $C_o = c(1-f) + s = \$2.00$ per unsold unit
 \end{itemize}
 
-\subsubsection{Key Ambiguity Resolutions}
-
-Where the problem statement contains ambiguity, we state our interpretation clearly in the relevant analysis section. Brief summary:
-
-\begin{itemize}
-    \item \textbf{Overage cost definition:} Net loss per unsold unit including refund and shipping (detailed in Part 2)
-    \item \textbf{Continuous vs discrete demand:} Continuous for analytical work, discrete for simulation (detailed in Part 5)
-    \item \textbf{Prize structure:} Multi-threshold non-exclusive categories (detailed in Part 6)
-    \item \textbf{Two-stage timeline:} Orders received before sales commence (detailed in Part 8)
-    \item \textbf{VOSRC baseline:} Compared against single-stage model at same pre-season cost (detailed in Part 8)
-\end{itemize}
-
-Detailed assumptions and justifications are provided within each Part's technical analysis below.
+Since $C_u = C_o$, costs are perfectly balanced. This symmetric structure places optimal inventory at the distribution median, which equals the mean (270 units) for uniform demand.
 
 %------------------------------------------------------------------------------
-\subsection{Summary of Key Results}
+\subsection{Task 2: Optimal Order Quantity Calculation}
 %------------------------------------------------------------------------------
 
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{l c c l}
-\toprule
-\textcolor{primaryblue}{\textbf{Scenario}} & \textcolor{primaryblue}{\textbf{Optimal $Q$}} & \textcolor{primaryblue}{\textbf{E[Profit]}} & \textcolor{primaryblue}{\textbf{Notes}}\\
-\midrule
-Baseline ($p=\$5$, $f=0.5$) & \textcolor{primaryblue}{$Q^* = 270$} & \textcolor{accentred}{\$370} & Critical ratio = 0.50\\
-Higher price ($p=\$6$) & \textcolor{primaryblue}{$Q^* = 300$} & \textcolor{accentred}{\$610} & Critical ratio = 0.60\\
-With Corvette prize & \textcolor{primaryblue}{$Q^{**} = 400$} & \textcolor{accentred}{\$471} & Multi-threshold prize\\
-Quantity discounts & \textcolor{primaryblue}{$Q^*_d = 278$} & \textcolor{accentred}{\$408} & Uses \$2.85 tier\\
-\midrule
-\multicolumn{4}{l}{\textit{\textcolor{accentred}{Two-Stage Model (Part 8)}}}\\
-\midrule
-Pre-season order & \textcolor{primaryblue}{$Q^*_0 = 207$} & --- & Before signal\\
-Expedited (High signal) & \textcolor{primaryblue}{$Q^*_1(\text{H}) = 101$} & --- & Total = 308\\
-Expedited (Low signal) & \textcolor{primaryblue}{$Q^*_1(\text{L}) = 0$} & --- & Total = 207\\
-Two-stage profit & --- & \textcolor{accentred}{\$366.56} & Combined\\
-VOSRC & --- & \textcolor{accentred}{$-\$3.40$} & Signal not valuable\\
-\bottomrule
-\end{tabular}
-\caption{Summary of optimal order quantities and expected profits across scenarios.}
-\label{tab:summary}
-\end{table}
+\subsubsection{Newsvendor Model}
 
-%------------------------------------------------------------------------------
-\subsection{Part-by-Part Analysis}
-%------------------------------------------------------------------------------
-
-\subsubsection{Parts 1--2: Baseline Newsvendor}
-
-With $p = \$5$, $c = \$3$, $f = 0.5$, $s = \$0.5$:
+Cost parameters:
 \begin{align*}
-C_u &= p - c = 5 - 3 = \$2 \quad \text{(underage cost)}\\
-C_o &= c(1-f) + s = 3(0.5) + 0.5 = \$2 \quad \text{(overage cost)}\\
-\text{Critical ratio} &= \frac{C_u}{C_u + C_o} = \frac{2}{4} = 0.50
+C_u &= p - c = 5 - 3 = \$2.00 \quad \text{(underage)} \\
+C_o &= c(1-f) + s = 3(0.5) + 0.5 = \$2.00 \quad \text{(overage)}
 \end{align*}
 
-For $D \sim U[120, 420]$: $Q^* = 120 + 0.50 \times 300 = \boxed{270}$ cases.
+Critical ratio: $\text{CR} = C_u/(C_u + C_o) = 2.00/4.00 = 0.50$
+
+Optimal quantity for $D \sim \text{Uniform}[120, 420]$:
+\[
+Q^* = a + (b-a) \times \text{CR} = 120 + 300 \times 0.50 = \boxed{270 \text{ cases}}
+\]
 
 Expected profit: $\E[\Pi(Q^*)] = \$370$.
 
-\subsubsection{Part 3: Refund Sensitivity}
+\subsubsection{Reflection: Distribution Assumption Limitation}
+
+The uniform distribution assumes equal likelihood for all demand values, which rarely holds in practice. Alternative distributions impact results:
+
+\begin{itemize}
+    \item \textbf{Normal:} Similar $Q^*$, higher profit (reduced variance)
+    \item \textbf{Lognormal:} Higher $Q^*$ (right-skew increases stockout risk)
+    \item \textbf{Impact:} Distribution choice significantly affects both optimal policy and profitability
+\end{itemize}
+
+\subsection{Task 3: Refund Sensitivity}
 
 \begin{center}
 \small
@@ -223,57 +192,178 @@ Refund $f$ & $C_o$ & $Q^*$ & $\E[\Pi]$\\
 \end{tabular}
 \end{center}
 
-Higher refund rates reduce overage cost, encouraging larger orders. Full refund ($f=1.0$) eliminates overage risk, increasing profit by \$131 (+40\%) vs no refund.
+Higher refund rates reduce overage cost, making excess inventory less costly. This encourages larger orders and increases expected profit. Full refund eliminates downside risk entirely, boosting profit by \$131 versus no refund. Conversely, low refund rates make SparkFire more conservative due to higher financial exposure on unsold inventory.
 
-\subsubsection{Part 4: Pricing Decision}
+\subsection{Task 4: Pricing Decision}
 
-At $p = \$6$: $C_u = 3$, critical ratio = $3/(3+2) = 0.60$, yielding $Q^* = 300$.
+\subsubsection{Optimal Quantity at p = \$6}
 
-Expected profit increases from \$370 to \$610 (+65\%). The higher price justifies stocking more inventory despite the same demand distribution.
-
-\subsubsection{Part 5: Monte Carlo Simulation \& Risk Analysis}
-
-Using 500 replications with integer demand $D \in \{120, \ldots, 420\}$ (seed=6334 for reproducibility):
-
-\textbf{Multi-seed robustness:} Mean profit consistent across 3 seeds (\$373--\$388), confirming \$370 theoretical expectation.
-
-\textbf{Break-even analysis:} Profit becomes zero at $D = 140$ cases. With minimum demand at 120, only a \textbf{20-unit buffer} exists before losses—alarmingly small (6.7\% of demand range).
-
-\textbf{Conservative strategy:} Ordering $Q = 260$ instead of $Q^* = 270$ sacrifices just \$1.17 in expected profit but reduces loss probability from 6.8\% to 5.0\% and improves worst-case profit by \$20.
-
-\textbf{Demand shock scenarios:} If demand drops 20\% (weather), profit falls 30\%; 60\% drop (ban) yields expected \textbf{loss} of \$132 with 75.6\% loss probability.
-
-\textbf{Risk mitigation:} (1) Monitor weather/regulatory indicators pre-order; (2) Default to conservative $Q=260$; (3) Negotiate higher refund rate or explore spot market sales.
-
-\subsubsection{Part 6: Corvette Prize Incentive}
-
-The \$40,000 Corvette prize creates a multi-threshold incentive structure. We interpret qualifying thresholds as non-mutually-exclusive categories:
-
+With higher price $p = \$6$ (and $f=0.5$):
 \begin{itemize}
-    \item \textit{Baseline}: $Q^* = 270$, $\E[\Pi] = \$370$ (no prize eligibility)
-    \item \textit{Prize-seeking}: $Q^{**} = 400$, $\E[\Pi] = \$471$ (includes prize EV)
+    \item $C_u = p - c = 6 - 3 = \$3.00$ (increased from \$2.00)
+    \item $C_o = c(1-f) + s = \$2.00$ (unchanged)
+    \item Critical ratio: $3/(3+2) = 0.60$
+    \item $Q^*_{p=6} = 120 + 300 \times 0.60 = \boxed{300 \text{ cases}}$
 \end{itemize}
 
-Expected prize value: \$213.33 (combining 5\% at 400 units + 3\% at 380 units). Optimal decision: Order 400 cases. The prize contribution outweighs the overage cost increase of ordering 130 additional units.
+\subsubsection{Policy Comparison \& Recommendation}
 
-\subsubsection{Part 7: Quantity Discounts}
-
-Evaluating each tier:
 \begin{center}
+\small
+\begin{tabular}{lccc}
+\toprule
+Policy & $Q^*$ & $\E[\Pi]$ & Change\\\midrule
+$(p=\$5, Q^*=270)$ & 270 & \$370 & Baseline\\
+$(p=\$6, Q^*=300)$ & 300 & \$610 & +\$240 (+65\%)\\\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Recommendation:} Set $p = \$6$. $\E[\Pi]$ increases 65\% with only 11\% more inventory.
+
+\subsubsection{Reflection: Price-Demand Relationship}
+
+Our analysis assumes demand remains at [120,420]. If \$6 pricing reduces demand, moderate elasticity ($\sim$20\% drop) still favors \$6, but high elasticity ($\sim$40\% drop) makes \$5 optimal. 
+\subsection{Task 5: Monte Carlo Simulation \& Risk Analysis}
+
+\subsubsection{Simulation Results}
+
+Using 500 replications with discrete demand $D \in \{120, \ldots, 420\}$ and optimal $Q^* = 270$:
+
+\begin{center}
+\small
+\begin{tabular}{lc}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Mean Profit & \$373.00 \\
+Std Deviation & \$194.45 \\
+Min Profit & -\$80.00 \\
+P(Loss) & 6.8\% \\
+5th Percentile & -\$22.60 \\
+\bottomrule
+\end{tabular}
+\end{center}
+Python implementation, seed=6334 - results align with theoretical expectation (\$370). Multi-seed robustness testing (seeds 6334, 1234, 5678) confirms stability.
+
+\subsubsection{Risk Mitigation Strategy}
+
+Break-even occurs at $D = 140$, 20-units above minimum demand (6.7\% of range).
+
+\textbf{Recommended Action:} Order $Q \in [255, 260]$ instead of $Q^* = 270$ for downside protection.
+
+\textbf{Trade-offs:}
+\begin{itemize}
+    \item Profit sacrifice: \$2 to \$3 (less than 1\%)
+    \item P(Loss) reduction: 6.8\% to around 4.5\% (38\% relative improvement)
+    \item Worst-case improvement: \$20 to \$30 better minimum profit
+\end{itemize}
+
+\subsubsection{Local Reflection: Weather \& Regulatory Risk}
+
+\textbf{Weather Impact (ex: Rainy October):} assumed a 20\% demand drop
+\begin{itemize}
+    \item Profit erosion by around 30\%
+    \item Validates need for weather monitoring pre-order
+\end{itemize}
+
+\textbf{Regulatory Risk (ex: Fireworks Ban in County):} assumed a 60\% demand drop
+\begin{itemize}
+    \item Loss probability of about 75\%
+    \item Underscores importance of regulatory tracking
+\end{itemize}
+
+\textbf{Mitigation:} Conservative ordering ($Q=255$ to 260) combined with monitoring of weather forecasts and local regulations provides essential risk controls for local market.
+
+\subsection{Task 6: Corvette Prize Incentive}
+
+\subsubsection{(a) Modified Profit Model}
+
+Expected profit with prize:
+\[
+\E[\Pi_{\text{prize}}(Q)] = \E[\Pi_{\text{base}}(Q)] + \text{Prize} \times P(\text{win} \mid Q)
+\]
+
+Using 5\% win probability at sales $\geq 400$ units:
+\[
+P(\text{win} \mid Q \geq 400) = 0.05 \times P(D \geq 400) = 0.05 \times \frac{20}{300} = 0.00333
+\]
+
+Expected prize value at $Q=400$: $\$40{,}000 \times 0.00333 = \$133$.
+
+\subsubsection{(b) Optimal Quantity Q**}
+\begin{center}
+\small
 \begin{tabular}{cccc}
 \toprule
-Tier & Cost & Optimal $Q$ & $\E[\Pi]$\\
+$Q$ & Base Profit & Prize EV & Total $\E[\Pi]$ \\
 \midrule
-\$3.00 & 1--199 & 195 (capped) & \$357\\
-\$2.85 & 200--399 & 278 & \$408\\
-\$2.70 & 400+ & 400 (floor) & \$398\\
+270 & \$370 & \$0 & \$370 \\
+380 & \$289 & \$160 & \$449 \\
+400 & \$257 & \$214 & \$471 \\
+420 & \$220 & \$213 & \$433 \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-The middle tier ($Q^*_d = 278$ at \$2.85) maximizes profit. The deepest discount tier forces too much inventory, increasing overage risk.
+\textbf{Optimal decision:} $Q^{**} = 400$ units maximizes total expected profit at \$471.
 
-\subsubsection{Part 8: Two-Stage Ordering with Demand Signal}
+\subsubsection{(c) Risk-Seeking Behavior Analysis}
+\begin{itemize}
+    \item $Q^* = 270$ (no prize): Safe, balanced inventory
+    \item $Q^{**} = 400$ (with prize): +48\% inventory (+130 units)
+    \item Base profit drops \$370 $\to$ \$257 (aggressive overstocking)
+    \item Prize EV compensates: Total profit +27\% (\$370 $\to$ \$471)
+\end{itemize}
+
+\textbf{Incentive Effect:} The prize encourages \textbf{risk-seeking} behavior. SparkFire stocks 130 additional units (97\% increase in leftover inventory from 38 to 131 units) to maximize prize eligibility, accepting 31\% lower base profit for potential windfall.
+
+\subsubsection{Assumption \& Reflection}
+
+\textbf{Prize Rule:} We use 5\% @ 400 units as the primary threshold, consistent with the problem. The 3\% @ 380 and 7\% @ 420 are treated as contextual references from other states.
+\textbf{Behavioral Limitation:} Adding expected value (\$133 to \$267) understates psychological impact. The vivid prospect of winning a \$40,000 Corvette likely drives decision-makers to order \textit{beyond} rational $Q^{**}$, as small probabilities are overweighted (Kahneman-Tversky theory). Real ordering may exceed 420 units due to regret aversion and lottery appeal.
+
+\subsection{Task 7: Quantity Discounts}
+
+\subsubsection{(a) Modified Profit Model}
+\[
+c(Q) = \begin{cases}
+\$3.00 & Q \in [1, 199] \\
+\$2.85 & Q \in [200, 399] \\
+\$2.70 & Q \geq 400
+\end{cases}
+\]
+\[
+\E[\Pi(Q)] = p \cdot \E[\text{Sales}] + c(Q) \cdot f \cdot \E[\text{Leftover}] - s \cdot \E[\text{Leftover}] - c(Q) \cdot Q - K
+\]
+\subsubsection{(b) Optimal Quantity with Discounts}
+\begin{center}
+\small
+\begin{tabular}{ccccc}
+\toprule
+Tier & $Q$ Candidate & Unit Cost & $\E[\text{Sales}]$ & $\E[\Pi]$ \\
+\midrule
+1--199 & 199 & \$3.00 & 189 & \$336 \\
+200--399 & 278 & \$2.85 & 237 & \$408 \\
+400+ & 400 & \$2.70 & 269 & \$358 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Optimal:} $Q^*_d = 278$ units at \$2.85/unit maximizes profit at \$408.
+\subsubsection{(c) Comparison to Baseline}
+\begin{itemize}
+    \item \textbf{Baseline Q*} 270 units at \$3.00 to \$370 profit
+    \item \textbf{With discounts Q*\textsubscript{d}:} 278 units at \$2.85 to \$408 profit
+    \item \textbf{Improvement:} +\$38 (+10\%), requiring only 8 additional units
+\end{itemize}
+\subsubsection{(d) Supply Chain Coordination}
+\begin{itemize}
+    \item \textbf{Supplier benefit:} Larger orders improve economies of scale
+    \item \textbf{Buyer benefit:} Cost savings offset inventory risk (\$0.15/unit reduction)
+    \item \textbf{Coordination:} Shared surplus prevents extreme decision like unprofitable 400+ overorder
+\end{itemize}
+
+\subsection{Task 8: Two-Stage Ordering with Demand Signal}
 
 Pre-season cost $c_0 = \$3.00$; expedited cost $c_1 = \$3.60$.
 

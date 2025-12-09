@@ -1,0 +1,74 @@
+	a)	From 1,2,3 we have below X* at various Selling prices and fraction as refund							
+				X* at various fractions of refund					
+				0.25	0.5	0.75			
+		Sellling Price	$5 	246	270	305			
+			$6 	277	300	332			
+									
+		Now below are the changes of winning							
+									
+			Sales	Probability of winning		Correspond X* 			
+			>=400	5%		Nil			
+			>=380	3%		Nil			
+			>=420	7%		Nil			
+									
+		Lets find X* with below add ons							
+		1. Assuming sales >=400, then Addional revenue=40000*.05=					2000	overall; So per unit on 400 (minimum qty)=	2000/400
+		So Cu=5+5-3=		7					
+		Co=3-0.5*3+.5=		2					
+		So F(X*)=		0.777777778					
+		X*=		353.3333333		at 0.5 refund fraction			
+									
+		1. Assuming X* >=380, then Addional revenue=40000*.03=					1200	overall; So per unit on 380 (minimum qty)=	1200/300
+		So Cu=5+3.2-3=		5.2					
+		Co=3-0.5*3+.5=		2					
+		So F(X*)=		0.722222222					
+		X*=		336.6666667		at 0.5 refund fraction			
+									
+									
+		To sell 400 we need atleast 400. suppose we stock 400 units							
+		So demand could be split as either <= 400,  or >400 							
+		Expected sale when demand<400 is					242.6666667		
+		Expected Profit when Demand<400=				250.6666667	(without set up cost)		
+		Probability Demand>=380 but less than 400=P(D<=400)-p(D<=380=(400-120)/(420-120)-(380-120)/(420-120)							
+						=	0.066666667		
+		Probability Demand>400=1-P(D<=400)=				0.066666667			
+		for Demand>400, sale=		400					
+		So profit without winning prize=			800	for Demand>=400			
+		Profit with winning prize=			40800				
+		Expected profit when Demand>=400=				186.6666667			
+									
+									
+		Total profit=		417.3333333		(inclusive of ordering cost)			
+		At EOQ in part 2 we saw the profit was=			$370.00 	which is lesser than with the reward			
+									
+		Now suppose we had inventory at 380 units							
+		Expected sale when demand<380 is					216.6666667		
+		Expected Profit when Demand<380=				106.6666667	(without set up cost)		
+		Probability Demand>=380=1-P(D<=380)=1-(380-120)/(380-120)=						0.133333333	
+		Since we have stock=		380					
+		So profit without winning prize=			760				
+		Profit with winning prize=			40760				
+		Expected profit when Demand>=380=				261.3333333			
+		Total profit=		348		(inclusive of ordering cost)			
+		At EOQ in part 2 we saw the profit was=			$370.00 	which is still better			
+									
+		Suppose we now hand inventory at 420 units							
+		Expected sale now=		270					
+		Exected profit=		$433.33 		(inclusive of ordering cost)			
+									
+									
+		Final table							
+		Without reward		With reward					
+	Optimal Q	270	380	400	420				
+	Profit	$370 	$348 	$417 	$433 				
+
+																			
+Probabilities		D<	380	0.867	380	<=D<=	400	0.066666667	D<	400	0.933	400	<=D<=	420	0.066666667	<=D	420	0	
+Exp Sale			217							243							270		
+Exp left			163							157							150		
+Exp profit			106.6666667							170.6666667							240		
+																			
+Sales	Probability of winning																		
+>=400	5%																		
+>=380	3%																		
+>=420	7%																		
