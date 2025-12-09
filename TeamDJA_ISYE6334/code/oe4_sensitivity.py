@@ -1,36 +1,37 @@
-# team dja - dominic, jatin, adarsh
-# isye 6334 group project fall 2025
-# task oe4
+"""
+OE4 Sensitivity Analysis: Impact of f, s, c1 on VOSRC
+Tests which parameter change gives largest improvement per unit change
+"""
 
 import numpy as np
 import pandas as pd
 
-# baseline parameters
+# Baseline parameters
 p = 5.00
 c0 = 3.00
 f_base = 0.5
 s_base = 0.5
 c1_base = 3.60
 
-# discrete demand states
+# Discrete demand states
 D_H = 330
 D_L = 190
 
-# signal probabilities
+# Signal probabilities
 P_S_H = 0.45
 P_S_L = 0.55
 
-# conditional probabilities
+# Conditional probabilities
 P_D_H_given_S_H = 0.8
 P_D_L_given_S_H = 0.2
 P_D_H_given_S_L = 0.4
 P_D_L_given_S_L = 0.6
 
-# baseline profit from part 2 (continuous uniform, single-stage)
+# Baseline profit from Part 2 (continuous uniform, single-stage)
 baseline_profit_part2 = 370.00
 
 def calculate_profit(Q0, Q1, D, f, s, c1):
-    """calculate profit for given policy and demand realization"""
+    """Calculate profit for given policy and demand realization"""
     total_inventory = Q0 + Q1
     sales = min(total_inventory, D)
     leftover = max(total_inventory - D, 0)
@@ -45,21 +46,21 @@ def calculate_profit(Q0, Q1, D, f, s, c1):
     return profit
 
 def calculate_critical_ratio(c, f, s, p):
-    """calculate critical ratio for given cost parameters"""
+    """Calculate critical ratio for given cost parameters"""
     Co = c * (1 - f) + s
     Cu = p - c
     CR = Cu / (Cu + Co)
     return CR
 
 def calculate_inverse_critical_ratio(c1, f, s, p):
-    """calculate inverse critical ratio for expedited ordering"""
+    """Calculate inverse critical ratio for expedited ordering"""
     Co = c1 * (1 - f) + s
     Cu = p - c1
     CR_inv = Co / (Co + Cu)
     return CR_inv
 
 def find_optimal_targets(c1, f, s):
-    """find q_h* and q_l* using inverse critical ratio"""
+    """Find Q_H* and Q_L* using inverse critical ratio"""
     CR_inv = calculate_inverse_critical_ratio(c1, f, s, p)
     
     # High signal: D ~ U[240, 420]
@@ -71,14 +72,14 @@ def find_optimal_targets(c1, f, s):
     return Q_H_star, Q_L_star
 
 def optimize_two_stage(f, s, c1):
-    """optimize two-stage policy for given parameters"""
+    """Optimize two-stage policy for given parameters"""
     Q_H_star, Q_L_star = find_optimal_targets(c1, f, s)
     
-    # round to nearest 10 for discrete optimization
+    # Round to nearest 10 for discrete optimization
     Q_H_star = round(Q_H_star / 10) * 10
     Q_L_star = round(Q_L_star / 10) * 10
     
-    # test q0 values around key targets
+    # Test Q0 values around key targets
     Q0_candidates = [170, 180, 190, 200, 210, 220, 330, 340]
     best_profit = -np.inf
     best_Q0 = None
@@ -86,21 +87,21 @@ def optimize_two_stage(f, s, c1):
     best_Q1_L = None
     
     for Q0 in Q0_candidates:
-        # reactive policy
+        # Reactive policy
         Q1_H = max(0, Q_H_star - Q0)
         Q1_L = max(0, Q_L_star - Q0)
         
-        # expected profit given signal high
+        # Expected profit given Signal High
         profit_H_DH = calculate_profit(Q0, Q1_H, D_H, f, s, c1)
         profit_H_DL = calculate_profit(Q0, Q1_H, D_L, f, s, c1)
         E_profit_given_H = P_D_H_given_S_H * profit_H_DH + P_D_L_given_S_H * profit_H_DL
         
-        # expected profit given signal low
+        # Expected profit given Signal Low
         profit_L_DH = calculate_profit(Q0, Q1_L, D_H, f, s, c1)
         profit_L_DL = calculate_profit(Q0, Q1_L, D_L, f, s, c1)
         E_profit_given_L = P_D_H_given_S_L * profit_L_DH + P_D_L_given_S_L * profit_L_DL
         
-        # total expected profit
+        # Total expected profit
         total_profit = P_S_H * E_profit_given_H + P_S_L * E_profit_given_L
         
         if total_profit > best_profit:

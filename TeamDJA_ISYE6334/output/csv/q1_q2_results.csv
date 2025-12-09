@@ -1,0 +1,28 @@
+SparkFire Newsvendor Model - Parts 1 & 2
+
+Parameters
+Wholesale cost (c),$3.00
+Selling price (p),$5.00
+Refund fraction (f),0.5
+Return shipping (s),$0.50
+Admin fee (K),$20.00
+Demand min (a),120
+Demand max (b),420
+
+Part 1 - Conceptual Analysis
+Cost of Overage (Co),$2.00
+Cost of Underage (Cu),$2.00
+Critical Ratio,0.5000
+Mean Demand,270.0
+Q* relative to mean,Equal (since ratio = 0.5)
+
+Part 2 - Optimal Order Quantity
+Optimal Q*,270.00
+Expected Sales,232.50
+Expected Leftover,37.50
+Revenue,$1162.50
+Salvage Value,$56.25
+Shipping Cost,$18.75
+Ordering Cost,$20.00
+Variable Cost,$810.00
+Expected Profit,$370.00

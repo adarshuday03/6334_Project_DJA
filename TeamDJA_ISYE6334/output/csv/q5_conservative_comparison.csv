@@ -1,0 +1,5 @@
+Conservative Ordering Strategy Analysis
+
+Strategy,Order Qty,Mean Profit,Std Dev,Min Profit,Num Losses,P(Loss),Break-even Demand
+Optimal,270,$372.98,$194.45,$-80.00,34,0.0680,140.0
+Conservative,260,$371.82,$178.83,$-60.00,25,0.0500,135.0

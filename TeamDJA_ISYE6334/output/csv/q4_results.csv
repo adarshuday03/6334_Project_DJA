@@ -1,0 +1,8 @@
+Part 4 - Pricing Decision
+
+Price (p),Co,Cu,Critical Ratio,Q*,Expected Sales,Expected Leftover,Revenue,Expected Profit
+$5.00,$2.00,$2.00,0.5000,270.00,232.50,37.50,$1162.50,$370.00
+$6.00,$2.00,$3.00,0.6000,300.00,246.00,54.00,$1476.00,$610.00
+
+Profit Improvement (p=$6 vs p=$5),$240.00
+Recommendation,Set price to $6

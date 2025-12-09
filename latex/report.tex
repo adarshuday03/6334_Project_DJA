@@ -9,6 +9,7 @@
 \usepackage{hyperref}
 \usepackage{setspace}
 \usepackage{enumitem}
+\usepackage{tocloft}
 \usepackage{titlesec}
 \usepackage{xcolor}
 \usepackage{booktabs}
@@ -41,6 +42,14 @@
 \titlespacing*{\section}{0pt}{1.2ex plus 0.4ex minus 0.2ex}{0.25ex plus 0.1ex}
 \titlespacing*{\subsection}{0pt}{1ex plus 0.3ex minus 0.1ex}{0.25ex plus 0.1ex}
 \titlespacing*{\subsubsection}{0pt}{0.8ex plus 0.2ex minus 0.1ex}{0.2ex plus 0.1ex}
+
+% Table of contents customization for compact spacing
+\renewcommand{\cftbeforesecskip}{3pt}
+\renewcommand{\cftbeforesubsecskip}{2pt}
+\renewcommand{\cftbeforesubsubsecskip}{1pt}
+\renewcommand{\cftsecindent}{0em}
+\renewcommand{\cftsubsecindent}{1em}
+\renewcommand{\cftsubsubsecindent}{2em}
 
 % Hyperlink colors
 \hypersetup{
