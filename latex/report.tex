@@ -167,13 +167,7 @@ Expected profit: $\E[\Pi(Q^*)] = \$370$.
 
 \subsubsection{Reflection: Distribution Assumption Limitation}
 
-The uniform distribution assumes equal likelihood for all demand values, which rarely holds in practice. Alternative distributions impact results:
-
-\begin{itemize}
-    \item \textbf{Normal:} Similar $Q^*$, higher profit (reduced variance)
-    \item \textbf{Lognormal:} Higher $Q^*$ (right-skew increases stockout risk)
-    \item \textbf{Impact:} Distribution choice significantly affects both optimal policy and profitability
-\end{itemize}
+The uniform distribution assumes equal likelihood for all demand values, which rarely holds in practice. Alternative distributions (Normal, Lognormal) significantly affect both optimal $Q^*$ and expected profit, with right-skewed distributions increasing optimal order quantities due to higher stockout risk.
 
 \subsection{Task 3: Refund Sensitivity}
 
@@ -247,32 +241,11 @@ Python implementation, seed=6334 - results align with theoretical expectation (\
 
 \subsubsection{Risk Mitigation Strategy}
 
-Break-even occurs at $D = 140$, 20-units above minimum demand (6.7\% of range).
-
-\textbf{Recommended Action:} Order $Q \in [255, 260]$ instead of $Q^* = 270$ for downside protection.
-
-\textbf{Trade-offs:}
-\begin{itemize}
-    \item Profit sacrifice: \$2 to \$3 (less than 1\%)
-    \item P(Loss) reduction: 6.8\% to around 4.5\% (38\% relative improvement)
-    \item Worst-case improvement: \$20 to \$30 better minimum profit
-\end{itemize}
+Break-even occurs at $D = 140$. \textbf{Recommended Action:} Order $Q \in [255, 260]$ instead of $Q^* = 270$ for downside protection, sacrificing <1\% profit (\$2-\$3) to reduce P(Loss) from 6.8\% to 4.5\% (38\% relative improvement) and improve worst-case by \$20-\$30.
 
 \subsubsection{Local Reflection: Weather \& Regulatory Risk}
 
-\textbf{Weather Impact (ex: Rainy October):} assumed a 20\% demand drop
-\begin{itemize}
-    \item Profit erosion by around 30\%
-    \item Validates need for weather monitoring pre-order
-\end{itemize}
-
-\textbf{Regulatory Risk (ex: Fireworks Ban in County):} assumed a 60\% demand drop
-\begin{itemize}
-    \item Loss probability of about 75\%
-    \item Underscores importance of regulatory tracking
-\end{itemize}
-
-\textbf{Mitigation:} Conservative ordering ($Q=255$ to 260) combined with monitoring of weather forecasts and local regulations provides essential risk controls for local market.
+Adverse Georgia weather, such as a rainy June, could substantially reduce demand, eroding profits by roughly a third. More severely, a last-minute county-level fireworks ban would dramatically increase loss probability, potentially making profitability unlikely. Conservative ordering ($Q=255$-260) combined with pre-season monitoring of weather forecasts and regulatory developments provides essential risk controls for local market volatility. Detailed scenario quantification available in Technical Appendix.
 
 \subsection{Task 6: Corvette Prize Incentive}
 
@@ -319,8 +292,8 @@ $Q$ & Base Profit & Prize EV & Total $\E[\Pi]$ \\
 
 \subsubsection{Assumption \& Reflection}
 
-\textbf{Prize Rule:} We use 5\% @ 400 units as the primary threshold, consistent with the problem. The 3\% @ 380 and 7\% @ 420 are treated as contextual references from other states.
-\textbf{Behavioral Limitation:} Adding expected value (\$133 to \$267) understates psychological impact. The vivid prospect of winning a \$40,000 Corvette likely drives decision-makers to order \textit{beyond} rational $Q^{**}$, as small probabilities are overweighted (Kahneman-Tversky theory). Real ordering may exceed 420 units due to regret aversion and lottery appeal.
+\textbf{Prize Rule:} 5\% @ 400 units is our threshold; 3\% @ 380 and 7\% @ 420 are contextual. 
+\textbf{Behavioral Limitation:} Expected value (\$133-\$267) understates psychological impact. The vivid \$40,000 Corvette prospect likely drives ordering \textit{beyond} rational $Q^{**}$ due to probability overweighting (Kahneman-Tversky), with real orders potentially exceeding 420 units.
 
 \subsection{Task 7: Quantity Discounts}
 
@@ -342,8 +315,8 @@ c(Q) = \begin{cases}
 \toprule
 Tier & $Q$ Candidate & Unit Cost & $\E[\text{Sales}]$ & $\E[\Pi]$ \\
 \midrule
-1--199 & 199 & \$3.00 & 189 & \$336 \\
-200--399 & 278 & \$2.85 & 237 & \$408 \\
+1 to 199 & 199 & \$3.00 & 189 & \$336 \\
+200 to 399 & 278 & \$2.85 & 237 & \$408 \\
 400+ & 400 & \$2.70 & 269 & \$358 \\
 \bottomrule
 \end{tabular}
@@ -367,9 +340,11 @@ Tier & $Q$ Candidate & Unit Cost & $\E[\text{Sales}]$ & $\E[\Pi]$ \\
 
 \subsubsection{(a) Profit Function}
 
-\[
-\pi(Q_0, Q_1(S), D) = p \cdot \min(Q_0 + Q_1(S), D) - c_0 \cdot Q_0 - c_1 \cdot Q_1(S) + f \cdot c_0 \cdot \max(Q_0 + Q_1(S) - D, 0) - s \cdot \max(Q_0 + Q_1(S) - D, 0)
-\]
+\begin{align*}
+\pi(Q_0, Q_1(S), D) &= p \cdot \min(Q_0 + Q_1(S), D) - c_0 \cdot Q_0 - c_1 \cdot Q_1(S) \\
+&\quad + f \cdot c_0 \cdot \max(Q_0 + Q_1(S) - D, 0) \\
+&\quad - s \cdot \max(Q_0 + Q_1(S) - D, 0)
+\end{align*}
 
 where $Q_0$ is pre-season order at $c_0 = \$3.00$, $Q_1(S)$ is expedited order at $c_1 = \$3.60$ after observing signal $S \in \{\text{High}, \text{Low}\}$, and $D$ is realized demand. All refunds at $c_0$ regardless of ordering stage.
 
@@ -408,25 +383,7 @@ Backward induction yields optimal pre-season order:
 
 where \$370.00 is baseline profit from Part 2 (single-stage ordering).
 
-\textbf{Justification:} The VOSRC of \$45.60 demonstrates that paying the \$0.60 expedited premium is rational when the signal accurately predicts high demand (80\% accuracy) and occurs with sufficient frequency (45\% probability). The signal's value derives from enabling profitable reactive top-up orders that capture high-demand opportunities while the conservative pre-season order (190 units) limits downside risk. The strategy is robust because the Low-signal response requires zero additional orders regardless of Low-signal accuracy, making VOSRC insensitive to uncertainty in low-demand scenarios. Expedited ordering becomes economically justified when signal quality exceeds approximately 70\% accuracy for the High signal, which our baseline 80\% comfortably satisfies.
-
-%------------------------------------------------------------------------------
-\subsection{Managerial Insights}
-%------------------------------------------------------------------------------
-
-\begin{enumerate}
-    \item The baseline order of 270 cases uses a critical ratio of 0.5, balancing underage and overage risks equally.
-    
-    \item Price increases have substantial leverage: a \$1 price increase raises optimal profit by 65\%.
-    
-    \item The Corvette promotion shifts optimal behavior from 207 to 400 cases---a 93\% increase driven by lottery-style incentives.
-    
-    \item Quantity discounts should be evaluated holistically; the middle tier (\$2.85) outperforms the deepest discount.
-    
-    \item Two-stage ordering with signal information adds \$45.60 value (12\% improvement) when signal quality is high.
-\end{enumerate}
-
-\vspace{1em}
+\textbf{Justification:} VOSRC of \$45.60 (12\% improvement) justifies the \$0.60 expedited premium given 80\% High-signal accuracy. Value derives from reactive top-up orders capturing upside while conservative pre-season inventory limits downside. The zero-order Low-signal strategy ensures robustness to demand uncertainty. Expedited ordering becomes rational when High-signal accuracy exceeds ~70\%.
 
 %==============================================================================
 % Technical Appendix
@@ -442,21 +399,7 @@ where \$370.00 is baseline profit from Part 2 (single-stage ordering).
 
 \subsubsection{Current Contract Analysis}
 
-The existing buyback contract with $f = 0.5$ and $s = \$0.50$ creates misaligned incentives:
-
-\textbf{SparkFire's perspective:}
-\begin{itemize}
-    \item Overage cost: $C_o = c(1-f) + s = 3.00(0.5) + 0.50 = \$2.00$
-    \item Underage cost: $C_u = p - c = 5.00 - 3.00 = \$2.00$
-    \item Generous refund policy encourages overstocking (risk shifted to Leisure Limited)
-\end{itemize}
-
-\textbf{Leisure Limited's perspective:}
-\begin{itemize}
-    \item Bears cost of refurbishing/reselling returned inventory
-    \item High refund rate (\$1.50 per unit) creates financial burden when many stands overorder
-    \item No mechanism to share upside when demand is high
-\end{itemize}
+The existing buyback contract with $f = 0.5$ and $s = \$0.50$ creates misaligned incentives. SparkFire faces symmetric costs ($C_o = C_u = \$2.00$), encouraging overstocking as generous refunds shift risk to Leisure Limited. Meanwhile, Leisure Limited bears refurbishing costs (\$1.50 per returned unit) without sharing upside from high demand, creating financial burden when stands collectively overorder.
 
 \subsubsection{Proposed Two-Parameter Contract: Reduced Buyback + Enhanced Incentives}
 
@@ -490,47 +433,18 @@ Proposed ($f = 0.35$) & \$2.45 & \$2.00 & 0.449 \\
 \caption{Overage/underage cost comparison}
 \end{table}
 
-\textbf{Alignment benefits:}
-\begin{itemize}
-    \item \textbf{Reduced overordering:} Lower critical ratio (0.449 vs 0.500) shifts optimal quantity downward by approximately 15 units
-    \item \textbf{Shared risk:} SparkFire bears more overage risk, incentivizing better demand forecasting
-    \item \textbf{Maintained motivation:} Enhanced discounts/prizes preserve upside potential
-    \item \textbf{Cost savings:} Leisure Limited reduces refund costs by \$0.45 per returned unit
-\end{itemize}
-
-\subsubsection{Alternative: Demand Enhancement Contract}
-
-\textbf{Structure:}
-\begin{itemize}
-    \item Leisure Limited invests in regional advertising to increase demand
-    \item Shift demand distribution: $D \sim U[150, 450]$ instead of $U[120, 420]$
-    \item Increase expedited cost to $c_1 = \$4.00$ (from \$3.60) to fund advertising
-    \item Improve signal quality: $P(D = \text{High} \mid S = \text{High}) = 0.9$ (from 0.8)
-\end{itemize}
-
-\textbf{Rationale:} Higher demand probability and better signal accuracy justify the \$0.40 expedited premium increase. From Task 8 sensitivity analysis, improving $P(D = \text{High} \mid S = \text{High})$ from 0.8 to 0.9 increases VOSRC by approximately \$25, offsetting the cost increase.
+\textbf{Alignment Impact:} Lower critical ratio (0.449 vs 0.500) reduces optimal ordering by ~15 units, sharing risk between parties while enhanced discounts/prizes maintain SparkFire's upside potential. Leisure Limited saves \$0.45 per returned unit, incentivizing better demand forecasting.
 
 \subsubsection{Data Requirements}
 
-To set contract parameters optimally:
-\begin{enumerate}
-    \item \textbf{Leisure's costs:} Actual cost to refurbish/resell returned inventory (currently unknown)
-    \item \textbf{Market data:} Competitor refund policies and their impact on stand participation rates
-    \item \textbf{Historical returns:} Distribution of actual return quantities across all stands
-    \item \textbf{Advertising ROI:} Cost per unit demand increase and campaign effectiveness
-    \item \textbf{Prize impact:} Elasticity of order quantity with respect to prize value
-\end{enumerate}
+Optimal parameter setting requires: (1) Leisure's actual refurbishing costs, (2) historical return quantity distributions across all stands, and (3) prize/discount elasticity impacts on order behavior.
 
 %------------------------------------------------------------------------------
 \subsection{OE4: Negotiation Playbook}
 %------------------------------------------------------------------------------
 
-\subsubsection{Sensitivity Analysis Framework}
-
-We evaluate which single contract term---refund fraction $f$, shipping cost $s$, or expedited cost $c_1$---provides the largest improvement in VOSRC per unit change. Using the Task 8 two-stage ordering model, we test $\pm10\%$ variations from baseline values ($f = 0.5$, $s = \$0.50$, $c_1 = \$3.60$).
-
+We evaluate which contract term, refund fraction $f$, shipping $s$, or expedited cost $c_1$, provides largest VOSRC improvement per unit change, testing $\pm10\%$ variations from baseline
 \subsubsection{Numerical Results}
-
 \begin{table}[H]
 \centering
 \small
@@ -548,47 +462,30 @@ Expedited $c_1$ & \$3.60 & \$3.24 & \$59.28 & \$3.96 & \$1.52 & \$80.22 \\
 \label{tab:oe4_sensitivity}
 \end{table}
 
-\textbf{Key findings:}
 \begin{itemize}
     \item \textbf{Refund fraction $f$:} Dominant leverage with \$327.15 improvement per 0.01 increase
     \item \textbf{Expedited cost $c_1$:} Moderate leverage with \$80.22 improvement per \$0.01 decrease
     \item \textbf{Shipping cost $s$:} Weak leverage with \$67.80 improvement per \$0.01 decrease
 \end{itemize}
 
-\subsubsection{Explanation: Why Refund Fraction Dominates}
+\subsubsection{Why Refund Fraction Dominates}
 
-The refund fraction $f$ affects both stages of the two-stage model:
+Refund fraction $f$ uniquely affects both ordering stages: higher $f$ reduces overage cost $C_o = c_0(1-f) + s$ for pre-season inventory while simultaneously making expedited orders more attractive. This creates multiplicative benefits---unlike $s$ (symmetric impact) or $c_1$ (Stage 2 only). At $f = 0.55$, VOSRC reaches \$41.57 as both stages become less risky; conversely, $f = 0.45$ collapses VOSRC to \$8.86 by making overage penalties prohibitive (\$2.45 vs \$2.00), nearly eliminating signal value.
 
-\textbf{Stage 1 impact:} Higher $f$ reduces overage cost $C_o = c_0(1-f) + s$, shifting optimal $Q_0$ upward. This increases pre-season inventory, creating more flexibility for reactive adjustments.
+\subsubsection{Negotiation Strategy}
 
-\textbf{Stage 2 impact:} Higher $f$ also reduces overage cost for expedited inventory, making it more attractive to order additional units when Signal High occurs.
+\textbf{Primary target:} Increase refund fraction $f$ from 0.50 to 0.55 (+\$10.17 VOSRC improvement). Leverage better pre-season planning reducing expedited rush orders; fallback to $f = 0.525$ (+\$5). \textbf{Secondary:} If unsuccessful, negotiate expedited cost $c_1$ reduction to \$3.24 (+\$27.88 improvement) via volume commitment, though this requires binding guarantees. \textbf{Avoid:} Shipping cost $s$ negotiation yields minimal return (\$67.80 per \$0.01) and risks antagonizing supplier over operational costs.
 
-\textbf{Compound effect:} Unlike $s$ (which affects both stages symmetrically) or $c_1$ (which only affects Stage 2), the refund fraction creates a multiplicative benefit. At $f = 0.55$, VOSRC reaches \$41.57 because:
-\begin{itemize}
-    \item Pre-season ordering becomes less risky (lower $C_o$)
-    \item Expedited ordering becomes more attractive (lower marginal cost of flexibility)
-    \item Both baseline profit AND two-stage profit increase, but two-stage increases more
-\end{itemize}
-
-Conversely, at $f = 0.45$, VOSRC collapses to \$8.86 because overage penalties (\$2.45 vs \$2.00) make both pre-season and expedited ordering unattractive, nearly eliminating the signal's value.
-
-\subsubsection{Negotiation Recommendation}
-
-\textbf{Primary target:} Negotiate higher refund fraction $f$ from 0.50 to 0.55 (+10\%)
-\begin{itemize}
-    \item Expected VOSRC improvement: +\$10.17 (from \$31.40 to \$41.57)
-    \item Leverage argument: Share cost savings from reduced expedited orders (better pre-season planning reduces rush orders)
-    \item Fallback: Request increase to $f = 0.525$ (+5\%) for \$5 improvement
-\end{itemize}
-
-\textbf{Secondary target:} If refund negotiation fails, reduce expedited cost $c_1$ from \$3.60 to \$3.24 (-10\%)
-\begin{itemize}
-    \item Expected VOSRC improvement: +\$27.88 (from \$31.40 to \$59.28)
-    \item Leverage argument: Volume commitment---guarantee minimum expedited order quantity in exchange for lower rate
-    \item Risk: Requires binding commitment that may backfire if Signal Low occurs
-\end{itemize}
-
-\textbf{Avoid:} Shipping cost $s$ negotiation offers minimal return (\$67.80 per \$0.01) and may antagonize Leisure Limited over a small operational cost they cannot easily reduce.
+%==============================================================================
+\section{Conclusion}
+%==============================================================================
+\begin{enumerate}
+    \item SparkFire's optimal ordering decisions are highly sensitive to contract terms, with refund fraction $f$ providing the strongest negotiation leverage (\$327 per 0.01 increase in value).
+    
+    \item Behavioral incentives like the Corvette prize dramatically alter rational decision-making, driving orders 93\% above baseline despite sacrificing base profitability.
+    
+    \item Two-stage ordering with demand signals creates substantial value (\$45.60) when signal quality is high, demonstrating the economic benefit of operational flexibility and market intelligence.
+\end{enumerate}
 
 %==============================================================================
 % Future sections placeholder

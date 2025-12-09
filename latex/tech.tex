@@ -6,15 +6,7 @@
 \section{Technical Appendix}
 %==============================================================================
 
-\subsection*{Computational Methodology}
-
-All analyses employ the newsvendor model framework with demand $D \sim \text{Uniform}(120, 420)$. Calculations are performed using:
-\begin{itemize}
-    \item \textbf{Python 3.11:} Analytical solutions, Monte Carlo simulations, and visualization (NumPy, Matplotlib)
-    \item \textbf{Microsoft Excel:} Formula-based verification and sensitivity analysis
-\end{itemize}
-
-Results presented below are primarily from Python analytical solutions. Complete Excel workbook with detailed formula documentation is included in submission materials. Full CSV datasets available in \texttt{output/csv/} directory.
+Results presented are from Excel and Python analytical solutions. Complete Excel workbook and Python files with detailed formula documentation is included in the submission. 
 
 %==============================================================================
 \subsection{Task 1: Conceptual Analysis of Order Quantity}
@@ -52,9 +44,9 @@ The overage cost $C_o$ represents the \textit{net loss} per unsold unit. While w
 
 \textbf{Reasoning:}
 \begin{itemize}
-    \item $C_u = C_o = \$2.00$ creates perfectly balanced costs—understocking and overstocking are equally penalized
-    \item This symmetric cost structure requires equal weighting of stockout and overage probabilities
-    \item For uniform distribution, this balance occurs at the median, which equals the mean (270 units)
+    \item $C_u = C_o = \$2.00$ creates perfectly balanced costs, understocking and overstocking are equally penalized
+    \item This symmetric cost structure needs equal weighting of stockout and overage probability
+    \item For uniform distribution, this balance occurs at the median, which equals the mean (270)
     \item Mathematically: we seek $P(D \geq Q) = P(D \leq Q) = 0.5$
 \end{itemize}
 
@@ -121,9 +113,7 @@ Q^* = a + (b-a) \times \text{CR} = 120 + (420-120) \times 0.5 = \boxed{270 \text
 \end{figure}
 
 \subsubsection{Distribution Sensitivity Analysis}
-
 The optimal solution depends on the assumed demand distribution. Below we compare $Q^*$ and expected profit across alternative distributions with similar central tendency:
-
 \begin{table}[H]
 \centering
 \small
@@ -140,16 +130,13 @@ Triangular & $[120, 270, 420]$ & 255 & \$372 \\
 \caption{Impact of distribution choice on optimal policy (same cost parameters)}
 \label{tab:dist_sensitivity}
 \end{table}
-Normal distribution yields higher profit due to concentrated probability around the mean. Lognormal (right-skewed) shifts $Q^*$ upward to hedge against high-demand tail risk. Triangular (mode-centered) reduces optimal order slightly. Distribution choice materially affects both policy and performance.
-
+\vspace{-1em}
+Normal distribution yields higher profit due to concentrated probability around the mean. Lognormal (right-skewed) shifts $Q^*$ upward to hedge against high-demand tail risk. Triangular (mode-centered) reduces optimal order slightly. Refer Technical Appendix.
 %==============================================================================
 \subsection{Task 3: Refund Sensitivity Analysis}
 %==============================================================================
 
 We evaluate how refund generosity affects optimal ordering decisions across the full spectrum from no refunds to full refunds: $f \in \{0.00, 0.25, 0.50, 0.75, 1.00\}$.
-
-\subsubsection{Sensitivity Results}
-
 \begin{table}[H]
 \centering
 \small
@@ -169,24 +156,22 @@ We evaluate how refund generosity affects optimal ordering decisions across the 
 \caption{Refund sensitivity analysis across full spectrum}
 \label{tab:q3_sensitivity}
 \end{table}
-
-\textbf{Observations:}
+\vspace{-1em}
 \begin{itemize}
     \item Higher refund rates systematically reduce overage cost $C_o$, increasing critical ratio and $Q^*$
     \item Boundary cases show full range: $Q^*$ from 229 units (no refund) to 360 units (full refund)
-    \item Expected profit increases monotonically from \$329 ($f=0$) to \$460 ($f=1$)—a \$131 gain
-    \item Full refund ($f=1.00$) essentially eliminates overage risk ($C_o = \$0.50$ shipping only), encouraging aggressive ordering
+    \item Expected profit increases monotonically from \$329 ($f=0$) to \$460 ($f=1$), a \$131 gain
 \end{itemize}
-
+\vspace{-1em}
 \begin{figure}[H]
 \centering
-\begin{minipage}{0.48\textwidth}
+\begin{minipage}{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth]{../output/plots/q3_Qstar_vs_refund.png}
     \caption*{(a) Optimal $Q^*$ vs refund rate}
 \end{minipage}
 \hfill
-\begin{minipage}{0.48\textwidth}
+\begin{minipage}{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth]{../output/plots/q3_profit_vs_refund.png}
     \caption*{(b) Expected profit vs refund rate}
@@ -282,7 +267,7 @@ C: High elasticity & Uniform(72, 252) & 162 & 180 & \$286 & \textcolor{accentred
 %==============================================================================
 \subsubsection{Ambiguity Resolution - Continuous vs Discrete Demand}
 
-For simulation realism, we use discrete uniform demand $D \in \{120, 121, \ldots, 420\}$ with equal probability (1/301 each). Analytical tasks (1--4, 6--8) use continuous approximation.
+For simulation realism, we use discrete uniform demand $D \in \{120, 121, \ldots, 420\}$ with equal probability (1/301 each). Analytical tasks (1 to 4, 6 to 8) use continuous approximation.
 
 \subsubsection{Simulation Setup and Random Number Generation}
 
@@ -337,7 +322,7 @@ We verify the simulation's robustness by running with three different seeds:
 
 \subsubsection{Excel Implementation: Single-Iteration Transparency}
 
-While Python provides aggregate statistics across 500 trials, the Excel workbook offers iteration-level visibility for pedagogical transparency and formula verification.
+Python provides aggregate statistics across 500 trials, and the Excel workbook offers iteration-level visibility.
 
 \begin{figure}[H]
 \centering
@@ -370,7 +355,7 @@ While Python provides aggregate statistics across 500 trials, the Excel workbook
 \label{fig:q5_excel}
 \end{figure}
 
-Excel results confirm Python findings: mean profit \$370--\$380 range, 6--7\% loss probability, substantial profit variance (\$190+ std dev).
+Excel results confirm Python findings: mean profit \$370 to \$380 range, 6 to 7\% loss probability, substantial profit variance (\$190+ std dev).
 
 \subsubsection{Break-Even Analysis and Conservative Ordering Strategy}
 
@@ -643,9 +628,7 @@ c(Q) = \begin{cases}
 \]
 
 \subsubsection{Tier-by-Tier Analysis}
-
 For each cost tier, we compute the unconstrained newsvendor optimal $Q^*$, then evaluate feasibility within tier bounds.
-
 \begin{table}[H]
 \centering
 \small
@@ -655,22 +638,19 @@ For each cost tier, we compute the unconstrained newsvendor optimal $Q^*$, then 
 \textbf{Tier} & \textbf{Unit} & \textbf{$C_o$} & \textbf{$C_u$} & \textbf{Critical} & \textbf{Unconstrained} & \textbf{In} & \textbf{Candidate} \\
 \textbf{Range} & \textbf{Cost} & & & \textbf{Ratio} & \textbf{$Q^*$} & \textbf{Range?} & \textbf{$Q$} \\
 \midrule
-1--199 & \$3.00 & \$2.00 & \$2.00 & 0.5000 & 270.0 & No & 199 \\
-200--399 & \$2.85 & \$1.93 & \$2.15 & 0.5276 & 278.3 & Yes & 278 \\
+1 to 199 & \$3.00 & \$2.00 & \$2.00 & 0.5000 & 270.0 & No & 199 \\
+200 to 399 & \$2.85 & \$1.93 & \$2.15 & 0.5276 & 278.3 & Yes & 278 \\
 400+ & \$2.70 & \$1.85 & \$2.30 & 0.5542 & 286.3 & No & 400 \\
 \bottomrule
 \end{tabular}
 \caption{Discount tier feasibility analysis (Q7)}
 \label{tab:q7_tiers}
 \end{table}
-
 \begin{itemize}
-    \item \textbf{Tier 1 (\$3.00):} Unconstrained $Q^* = 270$ exceeds tier maximum (199), so evaluate boundary $Q = 199$
-    \item \textbf{Tier 2 (\$2.85):} Unconstrained $Q^* = 278$ falls within [200, 399], this is a feasible interior solution
-    \item \textbf{Tier 3 (\$2.70):} Unconstrained $Q^* = 286$ below tier minimum (400), so evaluate boundary $Q = 400$
+    \item \textbf{Tier 1 (\$3.00):} $Q^* = 270$ exceeds tier maximum (199), so evaluate boundary $Q = 199$
+    \item \textbf{Tier 2 (\$2.85):} $Q^* = 278$ falls within [200, 399], this is a feasible interior solution
+    \item \textbf{Tier 3 (\$2.70):} $Q^* = 286$ below tier minimum (400), so evaluate boundary $Q = 400$
 \end{itemize}
-
-\subsubsection{Candidate Profit Comparison}
 \begin{table}[H]
 \centering
 \small
@@ -687,11 +667,10 @@ For each cost tier, we compute the unconstrained newsvendor optimal $Q^*$, then 
 \caption{Candidate order quantities and expected profits (Q7, Excel-based)}
 \label{tab:q7_candidates}
 \end{table}
-
 \textbf{Optimal Decision:} $Q^*_d = 278$ units at \$2.85/unit
 \begin{itemize}
     \item Middle tier (\$2.85) dominates despite not having the lowest unit cost
-    \item Ordering 400 units to access \$2.70 pricing forces excessive overage (131 units expected leftover)
+    \item Ordering 400 units to access \$2.70 pricing forces overage (131 units expected leftover)
     \item Overage cost penalty outweighs \$0.15/unit savings: total cost increases by \$50.41
 \end{itemize}
 

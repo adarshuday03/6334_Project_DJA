@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.11.4)  9 DEC 2025 13:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.11.4)  9 DEC 2025 17:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -514,7 +514,7 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 121
 (C:\Users\Adarsh\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<images/gt.png, id=326, 284.06125pt x 178.6675pt>
+<images/gt.png, id=310, 284.06125pt x 178.6675pt>
 File: images/gt.png Graphic file (type png)
 <use images/gt.png>
 Package pdftex.def Info: images/gt.png  used on input line 121.
@@ -523,204 +523,194 @@ Package pdftex.def Info: images/gt.png  used on input line 121.
 [1
 
 {C:/Users/Adarsh/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./images/gt
-.png (PNG copy)>] (report.toc [2] [3])
+.png (PNG copy)>] (report.toc [2])
 \tf@toc=\write4
 \openout4 = `report.toc'.
 
- [4] [5]
-Overfull \hbox (0.74382pt too wide) in paragraph at lines 246--247
+ [3] [4] [5]
+Overfull \hbox (0.74382pt too wide) in paragraph at lines 240--241
 \OT1/cmr/m/n/12 Python im-ple-men-ta-tion, seed=6334 - re-sults align with the-
 o-ret-i-cal ex-pec-ta-tion (\TS1/cmr/m/n/12 $\OT1/cmr/m/n/12 370). Multi-
  []
 
-[6] [7]
-Overfull \hbox (108.44453pt too wide) detected at line 372
-\OML/cmm/m/it/12 ^^Y\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 Q[]; Q[]\OT1/cmr/m/n/12 (
-\OML/cmm/m/it/12 S\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 ; D\OT1/cmr/m/n/12 ) = \OML
-/cmm/m/it/12 p \OMS/cmsy/m/n/12 ^^A []\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 Q[] \OT
-1/cmr/m/n/12 + \OML/cmm/m/it/12 Q[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 S\OT1/cmr/
-m/n/12 )\OML/cmm/m/it/12 ; D\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/i
-t/12 c[] \OMS/cmsy/m/n/12 ^^A \OML/cmm/m/it/12 Q[] \OMS/cmsy/m/n/12 ^^@ \OML/cm
-m/m/it/12 c[] \OMS/cmsy/m/n/12 ^^A \OML/cmm/m/it/12 Q[]\OT1/cmr/m/n/12 (\OML/cm
-m/m/it/12 S\OT1/cmr/m/n/12 ) + \OML/cmm/m/it/12 f \OMS/cmsy/m/n/12 ^^A \OML/cmm
-/m/it/12 c[] \OMS/cmsy/m/n/12 ^^A []\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 Q[] \OT1/
-cmr/m/n/12 + \OML/cmm/m/it/12 Q[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 S\OT1/cmr/m/
-n/12 ) \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 D; \OT1/cmr/m/n/12 0) \OMS/cmsy/m/
-n/12 ^^@ \OML/cmm/m/it/12 s \OMS/cmsy/m/n/12 ^^A []\OT1/cmr/m/n/12 (\OML/cmm/m/
-it/12 Q[] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 Q[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/
-12 S\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 D; \OT1/cmr/m/n/12 
-0)
- []
-
-[8] (tech.tex [9] [10]
+[6] [7] [8] (tech.tex [9]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 89.
+(hyperref)                removing `math shift' on input line 81.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 89.
+(hyperref)                removing `superscript' on input line 81.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 89.
+(hyperref)                removing `math shift' on input line 81.
 
 
-Overfull \hbox (20.49986pt too wide) in paragraph at lines 97--113
+Overfull \hbox (20.49986pt too wide) in paragraph at lines 89--105
  [][] 
  []
 
-<../output/plots/q1_q2_profit_curve.png, id=472, 722.7pt x 433.62pt>
+<../output/plots/q1_q2_profit_curve.png, id=442, 722.7pt x 433.62pt>
 File: ../output/plots/q1_q2_profit_curve.png Graphic file (type png)
 <use ../output/plots/q1_q2_profit_curve.png>
 Package pdftex.def Info: ../output/plots/q1_q2_profit_curve.png  used on input 
-line 118.
+line 110.
 (pdftex.def)             Requested size: 211.38832pt x 126.83168pt.
-[11 <../output/plots/q1_q2_profit_curve.png>]
-<../output/plots/q3_Qstar_vs_refund.png, id=481, 578.16pt x 361.35pt>
+[10 <../output/plots/q1_q2_profit_curve.png>]
+<../output/plots/q3_Qstar_vs_refund.png, id=451, 578.16pt x 361.35pt>
 File: ../output/plots/q3_Qstar_vs_refund.png Graphic file (type png)
 <use ../output/plots/q3_Qstar_vs_refund.png>
 Package pdftex.def Info: ../output/plots/q3_Qstar_vs_refund.png  used on input 
-line 185.
-(pdftex.def)             Requested size: 225.4804pt x 140.92041pt.
-<../output/plots/q3_profit_vs_refund.png, id=482, 578.16pt x 361.35pt>
+line 170.
+(pdftex.def)             Requested size: 211.38832pt x 132.11496pt.
+<../output/plots/q3_profit_vs_refund.png, id=452, 578.16pt x 361.35pt>
 File: ../output/plots/q3_profit_vs_refund.png Graphic file (type png)
 <use ../output/plots/q3_profit_vs_refund.png>
 Package pdftex.def Info: ../output/plots/q3_profit_vs_refund.png  used on input
- line 191.
-(pdftex.def)             Requested size: 225.4804pt x 140.92041pt.
- [12]
+ line 176.
+(pdftex.def)             Requested size: 211.38832pt x 132.11496pt.
+ [11 <../output/plots/q3_Qstar_vs_refund.png> <../output/plots/q3_profit_vs_ref
+und.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 204.
+(hyperref)                removing `math shift' on input line 189.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 204.
+(hyperref)                removing `math shift' on input line 189.
 
-[13 <../output/plots/q3_Qstar_vs_refund.png> <../output/plots/q3_profit_vs_refu
-nd.png>] [14]
-<../output/plots/q5_multiseed_comparison.png, id=511, 1084.05pt x 289.08pt>
+[12] [13]
+<../output/plots/q5_multiseed_comparison.png, id=483, 1084.05pt x 289.08pt>
 File: ../output/plots/q5_multiseed_comparison.png Graphic file (type png)
 <use ../output/plots/q5_multiseed_comparison.png>
 Package pdftex.def Info: ../output/plots/q5_multiseed_comparison.png  used on i
-nput line 333.
+nput line 318.
 (pdftex.def)             Requested size: 422.77664pt x 112.74074pt.
-<images/q5_excel_first5iter.png, id=512, 1141.26375pt x 145.54375pt>
+
+Overfull \hbox (1.99843pt too wide) in paragraph at lines 325--326
+\OT1/cmr/m/n/12 Python pro-vides ag-gre-gate statis-tics across 500 tri-als, an
+d the Ex-cel work-book of-fers iteration-
+ []
+
+<images/q5_excel_first5iter.png, id=484, 1141.26375pt x 145.54375pt>
 File: images/q5_excel_first5iter.png Graphic file (type png)
 <use images/q5_excel_first5iter.png>
-Package pdftex.def Info: images/q5_excel_first5iter.png  used on input line 346
+Package pdftex.def Info: images/q5_excel_first5iter.png  used on input line 331
 .
 (pdftex.def)             Requested size: 225.4804pt x 28.75511pt.
-<images/q5_excel_sim_results.png, id=513, 317.185pt x 121.45375pt>
+<images/q5_excel_sim_results.png, id=485, 317.185pt x 121.45375pt>
 File: images/q5_excel_sim_results.png Graphic file (type png)
 <use images/q5_excel_sim_results.png>
-Package pdftex.def Info: images/q5_excel_sim_results.png  used on input line 35
-2.
+Package pdftex.def Info: images/q5_excel_sim_results.png  used on input line 33
+7.
 (pdftex.def)             Requested size: 225.4804pt x 86.34209pt.
-<images/q5_expvsactualprofit.png, id=514, 412.54124pt x 167.12437pt>
+<images/q5_expvsactualprofit.png, id=486, 412.54124pt x 167.12437pt>
 File: images/q5_expvsactualprofit.png Graphic file (type png)
 <use images/q5_expvsactualprofit.png>
-Package pdftex.def Info: images/q5_expvsactualprofit.png  used on input line 36
-0.
+Package pdftex.def Info: images/q5_expvsactualprofit.png  used on input line 34
+5.
 (pdftex.def)             Requested size: 225.4804pt x 91.3449pt.
-<images/q5_netprofit_500sims_excel.png, id=515, 420.06938pt x 164.86594pt>
+<images/q5_netprofit_500sims_excel.png, id=487, 420.06938pt x 164.86594pt>
 File: images/q5_netprofit_500sims_excel.png Graphic file (type png)
 <use images/q5_netprofit_500sims_excel.png>
 Package pdftex.def Info: images/q5_netprofit_500sims_excel.png  used on input l
-ine 366.
+ine 351.
 (pdftex.def)             Requested size: 225.4804pt x 88.49545pt.
- [15 <../output/plots/q5_multiseed_comparison.png>] [16 <./images/q5_excel_firs
-t5iter.png (PNG copy)> <./images/q5_excel_sim_results.png (PNG copy)> <./images
-/q5_expvsactualprofit.png> <./images/q5_netprofit_500sims_excel.png>] [17] [18]
- [19] [20]
-Overfull \hbox (51.20946pt too wide) in paragraph at lines 705--715
+[14 <../output/plots/q5_multiseed_comparison.png> <./images/q5_excel_first5iter
+.png (PNG copy)> <./images/q5_excel_sim_results.png (PNG copy)> <./images/q5_ex
+pvsactualprofit.png> <./images/q5_netprofit_500sims_excel.png>] [15] [16]
+[17] [18]
+Overfull \hbox (51.20946pt too wide) in paragraph at lines 684--694
  [][] 
  []
 
-<../output/plots/q7_profit_by_tier.png, id=560, 722.7pt x 433.62pt>
+<../output/plots/q7_profit_by_tier.png, id=525, 722.7pt x 433.62pt>
 File: ../output/plots/q7_profit_by_tier.png Graphic file (type png)
 <use ../output/plots/q7_profit_by_tier.png>
 Package pdftex.def Info: ../output/plots/q7_profit_by_tier.png  used on input l
-ine 721.
+ine 700.
 (pdftex.def)             Requested size: 201.99121pt x 121.19443pt.
-[21 <../output/plots/q7_profit_by_tier.png>] [22] [23]
-<images/q8_signalhigh_table.png, id=576, 1360.08125pt x 211.79124pt>
+[19 <../output/plots/q7_profit_by_tier.png>] [20] [21]
+<images/q8_signalhigh_table.png, id=543, 1360.08125pt x 211.79124pt>
 File: images/q8_signalhigh_table.png Graphic file (type png)
 <use images/q8_signalhigh_table.png>
-Package pdftex.def Info: images/q8_signalhigh_table.png  used on input line 849
+Package pdftex.def Info: images/q8_signalhigh_table.png  used on input line 828
 .
 (pdftex.def)             Requested size: 399.29463pt x 62.17732pt.
-<images/q8_signalhigh_q0=330.png, id=577, 528.5346pt x 278.9622pt>
+<images/q8_signalhigh_q0=330.png, id=544, 528.5346pt x 278.9622pt>
 File: images/q8_signalhigh_q0=330.png Graphic file (type png)
 <use images/q8_signalhigh_q0=330.png>
-Package pdftex.def Info: images/q8_signalhigh_q0=330.png  used on input line 86
-7.
+Package pdftex.def Info: images/q8_signalhigh_q0=330.png  used on input line 84
+6.
 (pdftex.def)             Requested size: 225.4804pt x 119.00644pt.
-<images/q8_signalhigh_q0=320.png, id=578, 237.5274pt x 122.859pt>
+<images/q8_signalhigh_q0=320.png, id=545, 237.5274pt x 122.859pt>
 File: images/q8_signalhigh_q0=320.png Graphic file (type png)
 <use images/q8_signalhigh_q0=320.png>
-Package pdftex.def Info: images/q8_signalhigh_q0=320.png  used on input line 87
-3.
+Package pdftex.def Info: images/q8_signalhigh_q0=320.png  used on input line 85
+2.
 (pdftex.def)             Requested size: 225.4804pt x 116.63287pt.
- [24 <./images/q8_signalhigh_table.png (PNG copy)> <./images/q8_signalhigh_q0=3
+ [22 <./images/q8_signalhigh_table.png (PNG copy)> <./images/q8_signalhigh_q0=3
 30.png> <./images/q8_signalhigh_q0=320.png>]
-<images/q8_signallow_table.png, id=587, 469.755pt x 101.178pt>
+<images/q8_signallow_table.png, id=554, 469.755pt x 101.178pt>
 File: images/q8_signallow_table.png Graphic file (type png)
 <use images/q8_signallow_table.png>
-Package pdftex.def Info: images/q8_signallow_table.png  used on input line 886.
+Package pdftex.def Info: images/q8_signallow_table.png  used on input line 865.
 
 (pdftex.def)             Requested size: 399.29463pt x 86.00168pt.
-<images/q8_signallow_q0=190.png, id=588, 528.0528pt x 264.0264pt>
+<images/q8_signallow_q0=190.png, id=555, 528.0528pt x 264.0264pt>
 File: images/q8_signallow_q0=190.png Graphic file (type png)
 <use images/q8_signallow_q0=190.png>
-Package pdftex.def Info: images/q8_signallow_q0=190.png  used on input line 904
+Package pdftex.def Info: images/q8_signallow_q0=190.png  used on input line 883
 .
 (pdftex.def)             Requested size: 225.4804pt x 112.7395pt.
-<images/q8_signallow_q0=170.png, id=589, 528.0528pt x 264.0264pt>
+<images/q8_signallow_q0=170.png, id=556, 528.0528pt x 264.0264pt>
 File: images/q8_signallow_q0=170.png Graphic file (type png)
 <use images/q8_signallow_q0=170.png>
-Package pdftex.def Info: images/q8_signallow_q0=170.png  used on input line 910
+Package pdftex.def Info: images/q8_signallow_q0=170.png  used on input line 889
 .
 (pdftex.def)             Requested size: 225.4804pt x 112.7395pt.
 
-Overfull \hbox (6.97928pt too wide) in paragraph at lines 921--929
+Overfull \hbox (6.97928pt too wide) in paragraph at lines 900--908
  [][] 
  []
 
-[25 <./images/q8_signallow_table.png> <./images/q8_signallow_q0=190.png> <./ima
-ges/q8_signallow_q0=170.png>] [26]
-<images/q8_decisiontree1.png, id=606, 1018.80624pt x 422.57875pt>
+[23 <./images/q8_signallow_table.png> <./images/q8_signallow_q0=190.png> <./ima
+ges/q8_signallow_q0=170.png>] [24]
+<images/q8_decisiontree1.png, id=572, 1018.80624pt x 422.57875pt>
 File: images/q8_decisiontree1.png Graphic file (type png)
 <use images/q8_decisiontree1.png>
-Package pdftex.def Info: images/q8_decisiontree1.png  used on input line 1014.
+Package pdftex.def Info: images/q8_decisiontree1.png  used on input line 993.
 (pdftex.def)             Requested size: 225.4804pt x 93.52214pt.
-<images/q8_decisiontree2.png, id=607, 1018.80624pt x 338.26375pt>
+<images/q8_decisiontree2.png, id=573, 1018.80624pt x 338.26375pt>
 File: images/q8_decisiontree2.png Graphic file (type png)
 <use images/q8_decisiontree2.png>
-Package pdftex.def Info: images/q8_decisiontree2.png  used on input line 1021.
+Package pdftex.def Info: images/q8_decisiontree2.png  used on input line 1000.
 (pdftex.def)             Requested size: 225.4804pt x 74.86214pt.
- [27 <./images/q8_decisiontree1.png (PNG copy)> <./images/q8_decisiontree2.png 
-(PNG copy)>] [28]) [29] [30] [31] (report.aux)
+ [25 <./images/q8_decisiontree1.png (PNG copy)> <./images/q8_decisiontree2.png 
+(PNG copy)>] [26]) [27] [28] (report.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+Package rerunfilecheck Warning: File `report.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
 
-Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 5181ED0ECEE43E297B63F06BBF89572D;18913.
+Package rerunfilecheck Info: Checksums for `report.out':
+(rerunfilecheck)             Before: EA4A25A19BA42937BBCB9A6CBD748555;17945
+(rerunfilecheck)             After:  E1E97D20977332D713452D04D7FACFC1;17877.
  ) 
 Here is how much of TeX's memory you used:
- 13308 strings out of 474486
- 213736 string characters out of 5743283
+ 13290 strings out of 474486
+ 213496 string characters out of 5743283
  1946542 words of memory out of 5000000
- 35257 multiletter control sequences out of 15000+600000
+ 35253 multiletter control sequences out of 15000+600000
  573176 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,15n,79p,1030b,577s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,15n,79p,1030b,557s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Adarsh\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tct
 i1095.pk> <C:\Users\Adarsh\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi
 600\tcbx1095.pk> <C:\Users\Adarsh\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen
@@ -745,9 +735,9 @@ b><C:/Users/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
 /cmti12.pfb><C:/Users/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
 msfonts/cm/cmtt12.pfb><C:/Users/Adarsh/AppData/Local/Programs/MiKTeX/fonts/type
 1/public/amsfonts/symbols/msbm10.pfb>
-Output written on report.pdf (31 pages, 951647 bytes).
+Output written on report.pdf (28 pages, 940400 bytes).
 PDF statistics:
- 761 PDF objects out of 1000 (max. 8388607)
- 162 named destinations out of 1000 (max. 500000)
- 731 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 719 PDF objects out of 1000 (max. 8388607)
+ 148 named destinations out of 1000 (max. 500000)
+ 699 words of extra memory for PDF output out of 10000 (max. 10000000)
 
